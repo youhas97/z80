@@ -22,3 +22,10 @@
   * har åtminstone 256 st, men många liknade (1 byte ger 2^8=256 + de andra)
 
 ## ti84
+  * upplösning: 96x64 3:2 ratio (~800 bytes videominne om en bit per pixel)
+  * 1 MB flash ROM, 480 user accessible (krävs för program)
+  * 6 eller 15 MHz
+
+## VGA-skärm
+  * upplösning: 640x480 @ 60Hz 4:3 ratio.
+    behöver 25Mhz pixelklocka (går det ändra upplösning?)

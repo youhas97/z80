@@ -1,9 +1,67 @@
 \documentclass[12pt]{article}
 
 \input{format.tex}
-\usepackage[utf8]{inputenc}
-\usepackage[swedish]{babel}
+
+\date{\today}
 
 \begin{document}
-hej hej oeueou 323cccc\"o
+\begin{center}
+\vspace*{2cm}
+{\Huge Kravspecifikation: FPGA Z80}\\
+\vspace{2cm}
+{\large 16 februari 2018}\\
+\vspace{2cm}
+Noah Hellman: noahe116 \\
+Dennis Dericichei: dende301 \\
+Yousef Hashem: youha847 \\
+Jakob Arvidsson: jakar180 \\
+\end{center}
+
+\newpage
+
+\section{Bakgrund}
+Z80 är en processor tillverkad av Zilog 1976 för inbyggda system. Den används
+bland annat för TI84-miniröknare än idag. Processorn kom i början av pipelines
+utveckling och har en fetch-exec cykel, med andra ord överlappar exekveringen
+med hämtningen av nästa instruktion.
+
+\section{Skiss}
+\subsection{Arkitektur}
+Z80 har en fetch-exec cycle. Vi behöver  hämta en instruktion på  1 cp samt
+exekvera en instruktion på 1 cp. Vi behöver en instruktionsdekodare som
+exekverar varje instruktion. Den kanske får en lång kritisk väg men det är okej
+eftersom vi har en så pass låg frekvens. 
+
+\subsection{TI84 kompatibilitet}
+För att kunna köra TI84:s OS måste vi implementera varenda instruktion som
+det använder korrekt. Vi måste dessutom  se till alla externa saker som
+portar, tangentbord, skärm fungerar eller inte orsakar någon krasch.
+
+Vi har tänkt att skala upp TI84:s 96x64 skärm till VGA-skärmens 640x480
+upplösning. Skärmen är gråskala så vi kan lagra varje pixel som en bit (ca 800
+bytes) i ett videominne. Tangentbordet kommer behöva mappas till TI84:s
+knappar.
+
+\section{Kravlista}
+\subsection{Krav}
+\begin{itemize}
+    \item Fetch-exec cycle.
+    \item Använda z80:s instruktioner.
+    \item Skriva till VGA och visa på skärm.
+    \item Ladda z80 asm-program via USB, vissa som andra har skrivit ska
+        fungera.
+\end{itemize}
+
+\subsection{Bör}
+\begin{itemize}
+    \item Köra  TI84:s operativsystem.
+    \item Göra  TI84 kompatibelt med VGA-skärm.
+    \item Göra  TI84 kompatibelt med PC-tangentbord.
+\end{itemize}
+
+\section{Referenser}
+\begin{itemize}
+    \item Allmän information om Z80: \url{http://www.z80.info/}
+    \item Information om Z80 och TI84: \url{http://z80-heaven.wikidot.com/}
+\end{itemize}
 \end{document}

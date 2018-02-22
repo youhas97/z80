@@ -12,16 +12,18 @@
 {\large 16 februari 2018}\\
 \vspace{2cm}
 Noah Hellman: noahe116 \\
-Dennis Dericichei: dende301 \\
+Dennis Derecichei: dende301 \\
 Yousef Hashem: youha847 \\
 Jakob Arvidsson: jakar180 \\
 \end{center}
 
+\vspace{2cm}
+\tableofcontents
 \newpage
 
 \section{Bakgrund}
 Z80 är en processor tillverkad av Zilog 1976 för inbyggda system. Den används
-bland annat för TI84-miniröknare än idag. Processorn kom i början av pipelines
+bland annat för TI84-miniräknare än idag. Processorn kom i början av pipelines
 utveckling och har en fetch-exec cykel, med andra ord överlappar exekveringen
 med hämtningen av nästa instruktion.
 
@@ -35,29 +37,26 @@ eftersom vi har en så pass låg frekvens.
 \subsection{TI84 kompatibilitet}
 För att kunna köra TI84:s OS måste vi implementera varenda instruktion som
 det använder korrekt. Vi måste dessutom  se till alla externa saker som
-portar, tangentbord, skärm fungerar eller inte orsakar någon krasch.
+portar, tangentbord, skärm antingen fungerar eller inte orsakar någon krasch.
 
 Vi har tänkt att skala upp TI84:s 96x64 skärm till VGA-skärmens 640x480
 upplösning. Skärmen är gråskala så vi kan lagra varje pixel som en bit (ca 800
-bytes) i ett videominne. Tangentbordet kommer behöva mappas till TI84:s
-knappar.
+bytes) i ett videominne. Vi kan åtminstone inte enbart använda tiles eftersom
+räknaren kan rita godtyckliga grafer. Tangentbordet kommer behöva mappas till
+TI84:s knappar.
 
 \section{Kravlista}
-\subsection{Krav}
-\begin{itemize}
-    \item Fetch-exec cycle.
-    \item Använda z80:s instruktioner.
-    \item Skriva till VGA och visa på skärm.
-    \item Ladda z80 asm-program via USB, vissa som andra har skrivit ska
-        fungera.
-\end{itemize}
+\subsection{Skallkrav}
+    Man ska kunna exekvera maskinkod kompilerad för en z80 med vår processor.
+    Programmets resultat ska kunna visas på skärmen - antingen att registrernas
+    värden visas eller att programmet själv skickar resultatet till skärmen.
 
-\subsection{Bör}
-\begin{itemize}
-    \item Köra  TI84:s operativsystem.
-    \item Göra  TI84 kompatibelt med VGA-skärm.
-    \item Göra  TI84 kompatibelt med PC-tangentbord.
-\end{itemize}
+\subsection{Börkrav}
+    Vi hoppas kunna exekvera kod skriven för TI84 så att vi kan köra dessa
+    program med vår VGA-skärm som display och vårt USB-tangentbord som
+    miniräknartangentbord. Vi vill därmed kunna köra hela operativsystemet för
+    TI84 och kunna använda det till fullo (köra TI-basic program, rita grafer,
+    göra uträkningar, ploter etc).
 
 \section{Referenser}
 \begin{itemize}

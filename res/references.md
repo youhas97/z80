@@ -37,6 +37,9 @@ https://www.csh.rit.edu/~jerry/arcade/pacman/
 * https://www.tablix.org/~avian/blog/articles/z80dasm/
     z80 binary disassembler, C
 
+### ti84 hårdvaruspec och dylikt
+http://wikiti.brandonw.net/index.php?title=Calculator_Documentation#TI-83_Plus_Family
+
 ### annat
 * https://github.com/KnightOS
     OS för z80 miniräknare under utveckling, har massa olika program

@@ -23,6 +23,8 @@
 
 ## ti84
   * upplösning: 96x64 3:2 ratio (~800 bytes videominne om en bit per pixel)
+  * 16*8 i text mode
+  * 128KB eller 48KB RAM
   * 1 MB flash ROM, 480KB user accessible (krävs för program)
   * 6 eller 15 MHz
 

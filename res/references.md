@@ -7,10 +7,15 @@
     sida om z80 processorn; z80 arch, data sheets, instr set mm.
 * http://z80-heaven.wikidot.com/
     sida för ti84 asm-programmering; z80/ti asm info
+* http://jgmalcolm.com/z80/
+    spelprogrammering för z80/ti84
 
 ### arkitektur
 * http://rabieramadan.org/Microprocessor/lectures/Lecture%203/Chapter%203%20Z80.pdf
     om register, struktur, fetch cycle
+
+### instruktioner, odokumenterade
+https://www.csh.rit.edu/~jerry/arcade/pacman/
 
 ### alu
 * http://www.righto.com/2013/09/the-z-80-has-4-bit-alu-heres-how-it.html

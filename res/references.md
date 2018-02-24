@@ -21,6 +21,10 @@ https://www.csh.rit.edu/~jerry/arcade/pacman/
 * http://www.righto.com/2013/09/the-z-80-has-4-bit-alu-heres-how-it.html
     hur z80:ns alu fungerar
 
+### ti84
+* https://www.cemetech.net/projects/item.php?id=42#s2
+    overview över hur en emulator byggt moduler kring z80
+
 ## källkod/program att granska/använda
 
 ### emulatorer

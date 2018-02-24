@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+
+\input{format.tex}
+
+\date{\today}
+
+\begin{document}
+\begin{center}
+\vspace*{2cm}
+{\Huge Kravspecifikation: FPGA Z80}\\
+\vspace{2cm}
+{\large 16 februari 2018}\\
+\vspace{2cm}
+Noah Hellman: noahe116 \\
+Dennis Derecichei: dende301 \\
+Yousef Hashem: youha847 \\
+Jakob Arvidsson: jakar180 \\
+\end{center}
+
+\vspace{2cm}
+\tableofcontents
+\newpage
+
+\section{Bakgrund}
+Z80 är en processor tillverkad av Zilog 1976 för inbyggda system. Den används
+bland annat för TI84-miniräknare än idag. Processorn kom i början av pipelines
+utveckling och har en fetch-exec cykel, med andra ord överlappar exekveringen
+med hämtningen av nästa instruktion.
+
+\section{Skiss}
+\subsection{Arkitektur}
+Z80 har en fetch-exec cycle. Vi behöver  hämta en instruktion på  1 cp samt
+exekvera en instruktion på 1 cp. Vi behöver en instruktionsdekodare som
+exekverar varje instruktion. Den kanske får en lång kritisk väg men det är okej
+eftersom vi har en så pass låg frekvens. 
+
+\subsection{TI84 kompatibilitet}
+För att kunna köra TI84:s OS måste vi implementera varenda instruktion som
+det använder korrekt. Vi måste dessutom  se till alla externa saker som
+portar, tangentbord, skärm antingen fungerar eller inte orsakar någon krasch.
+
+Vi har tänkt att skala upp TI84:s 96x64 skärm till VGA-skärmens 640x480
+upplösning. Skärmen är gråskala så vi kan lagra varje pixel som en bit (ca 800
+bytes) i ett videominne. Vi kan åtminstone inte enbart använda tiles eftersom
+räknaren kan rita godtyckliga grafer. Tangentbordet kommer behöva mappas till
+TI84:s knappar.
+
+\section{Kravlista}
+\subsection{Börkrav}
+    Vi hoppas kunna exekvera all maskinkod skriven för TI84 så att vi kan köra
+    dessa program med vår VGA-skärm som display och vårt USB-tangentbord som
+    miniräknartangentbord. Vi vill därmed också kunna köra hela
+    operativsystemet för TI84 och kunna använda det till fullo (köra TI-basic
+    program, rita grafer, göra uträkningar, plotter etc).
+
+\subsection{Skallkrav}
+    Man ska kunna exekvera maskinkod kompilerad för en z80 med vår processor.
+    Vi kanske inser att implementera varenda instruktion samt att få det
+    kompatibelt med TI84-program blir för mycket arbete. Vi kan då se till att
+    de mest nödvändiga instruktionerna fungerarar och skriva ett
+    spel med hjälp av dem, exempelvis Pacman eller Space Invaders.
+
+\section{Referenser}
+\begin{itemize}
+    \item Allmän information om Z80: \url{http://www.z80.info/}
+    \item Information om Z80 och TI84: \url{http://z80-heaven.wikidot.com/}
+\end{itemize}
+\end{document}

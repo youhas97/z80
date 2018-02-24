@@ -23,6 +23,8 @@
     emulator för KnightOS dev - för ti84, C
 * https://github.com/begoon/yaze
     yet another z80 emulator, C
+* http://lpg.ticalc.org/prj_tilem/develop.html
+    ti84 emulator, C
 
 ### assemblers
 * https://github.com/KnightOS/scas

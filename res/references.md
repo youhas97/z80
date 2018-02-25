@@ -29,11 +29,15 @@ https://www.csh.rit.edu/~jerry/arcade/pacman/
 
 ### emulatorer
 * https://github.com/KnightOS/z80e
-    emulator för KnightOS dev - för ti84, C
+    emulator för KnightOS dev - för ti84, C. 
+    * libz80e/src/ti/asic.c innehåller kod för TI-specifik kontroller (portarna
+      och det).
 * https://github.com/begoon/yaze
     yet another z80 emulator, C
 * http://lpg.ticalc.org/prj_tilem/develop.html
-    ti84 emulator, C
+    ti84 emulator, C. 
+    * **emu/z80cmds.h innehåller C-macros för varenda z80 instruktion
+      (tilldelning av register och flaggor)**
 
 ### assemblers
 * https://github.com/KnightOS/scas

@@ -5,11 +5,11 @@
 \begin{document}
 
 \begin{center}
-\vspace*{2cm}
+\vspace*{15mm}
 {\Huge Designspecifikation: FPGA Z80}\\
-\vspace{2cm}
+\vspace{15mm}
 {\large 26 februari 2018}\\
-\vspace{2cm}
+\vspace{15mm}
 Noah Hellman: noahe116 \\
 Dennis Derecichei: dende301 \\
 Yousef Hashem: youha847 \\
@@ -20,16 +20,14 @@ Jakob Arvidsson: jakar180 \\
 \tableofcontents
 \newpage
 
-\section{Inledning}
-\section{Blockschema}
-\subsection{Z80}
-\subsection{TI84}
 \section{Analys}
 \subsection{CPU}
-Vi ska bygga en halvt pipelinad z80 där fetch och exec överlappar. Progamminnet
-och dataminnet är delat och ligger utanför processorn. Det finns en databuss
-som är 8 bitar och en addressbuss som är 16 bitar. Instruktionerna är mellan 8
-och 32 långa. Det finns olika adresseringsmoder såsom
+Vi ska bygga en halvt pipelinad z80 där hämt- och exekveringsfaserna
+överlappar. Progamminnet och dataminnet är delat och ligger utanför processorn.
+Det finns en databuss som är 8 bitar och en addressbuss som är 16 bitar. Det
+finns även en kontrollbuss på 16 bitar som innehåller styrsignaler utifrån såsom
+INT och MEMRQ. Instruktionerna är mellan 8 och 32 bitar långa. Det finns olika
+adresseringsmoder såsom
 \begin{itemize}
     \item \texttt{ld a,55} - omedelbar, a laddas med 55,
     \item \texttt{jr 5} - relativ, PC adderas med 5,
@@ -38,27 +36,32 @@ och 32 långa. Det finns olika adresseringsmoder såsom
     \item \texttt{ld a,(IX+5)} - indexerad, a laddas med addressen IX pekar på
         plus 5.
 \end{itemize}
-Vi vill kunna ladda programmen via USB vid start av processorn. CPU:n ska kunna
-köra generella z80-program och utföra alla uppgifter förutom det som
-IO-controllers hanterar.
+Vi vill kunna ladda program via USB vid start av processorn. CPU:n ska kunna
+köra generella Z80-program och utföra alla uppgifter förutom det som
+IO-kontrollerna hanterar.
+
+\subsection{TI ASIC}
+En speciell krets kommer behövas för att koppla samman processorn med
+IO-enheterna som en TI84 förväntas ha. Z80:n använder sig av ett portsystem som
+denna kretsen ska implementera. Varje port är kopplad till en viss enhet och
+har ett visst syfte.  Den här kretsen kommer dessutom agera som kontroller för
+tangentbord och VGA-skärm.
 
 \subsection{IO}
-\subsubsection{Åtkomst till IO från CPU}
-IO kopplas till processorn med addressbussen, databussen samt kontrollsignaler.
-CPU:n meddelar att den vill komma åt IO via IO request-signalen (IORQ) och
-lägger addressen till porten på addressbussen. En mux kopplar därefter
-databussen till rätt IO-enhet. 
+IO kopplas till processorn med addressbussen, databussen samt styrsignaler.
+CPU:n meddelar att den vill komma åt IO via IORQ-signalen och lägger addressen
+till porten på addressbussen. En mux kopplar därefter databussen till rätt
+IO-enhet. 
 
-\subsubsection{Interrupts från IO}
 IO-enheterna kan göra interrupts med INT- och NMI-signalerna. Beroende på
 vilket mode som är inställt interagerar IO-enheten på olika sätt. Med till
 exempel mode 0 kan IO-enheten efter INT-signalen placera en instruktion på
 databussen som CPU:n kommer exekvera nästa klockpuls. I mode 2 kan IO-enheten
-lägga en index på databussen till en interruptrutin som är lagrad i en tabell i
-minnet.  Processorn kommer då hoppa till den rutinen efter den nuvarande
-instruktionen.  Det mode som ska användas kan väljas med IM (interrupt mode)
-instruktionen.  Dessa interrupts kan också stängas av och sättas på med DI och
-EI instruktionerna.
+lägga en index på databussen till en avbrottsrutin som är lagrad i en tabell i
+minnet. Processorn kommer då hoppa till den rutinen efter den nuvarande
+instruktionen. Den moden som ska användas kan väljas med IM (interrupt mode)
+instruktionen. Dessa avbrott kan också stängas av och sättas på med DI och EI
+instruktionerna.
 
 \subsection{GPU}
 Vi kommer inte behöva någon enhet för att göra grafiska beräkningar, de kommer
@@ -67,10 +70,24 @@ skriva till och en VGA-motor som skriver videominnet till skärmen.
 
 \subsection{Programmering}
 Z80:n programmeras med Z80:ns instruktionsset. Z80 är en populär processor med
-många verktyg tillgängliga. Vi kommer programmera och använda tillgängliga
-assemblers för att skapa maskinkod.
+många verktyg tillgängliga. Vi kommer programmera och använda oss av
+tillgängliga assemblers för att skapa maskinkod.
 
 \section{Milstolpe}
-Vi har tänkt att göra klart z80:ns instruktioner (inte interrupts) samt koppla
-den till en VGA-motor som kan skriva registernas värden till VGA-skärmen.
+Vi har tänkt att göra klart z80:ns instruktioner (ej avbrott) samt koppla den
+till en VGA-motor som kan skriva registernas värden till VGA-skärmen.
+
+\section{Blockschema}
+\subsection{TI84}
+\begin{figure}[H]
+    \centering
+    \def\svgwidth{0.9\columnwidth}
+    \input{ti84.pdf_tex}
+\end{figure}
+\subsection{Z80}
+\begin{figure}[H]
+    \centering
+    \def\svgwidth{0.87\columnwidth}
+    \input{z80.pdf_tex}
+\end{figure}
 \end{document}

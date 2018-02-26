@@ -22,6 +22,31 @@ Jakob Arvidsson: jakar180 \\
 
 \section{Inledning}
 \section{Analys}
+\subsection{CPU}
+Vi ska bygga en halvt pipelinad z80 där fetch och exec överlappar. Progamminnet
+och dataminnet är delat och ligger utanför processorn. Det finns en databuss
+som är 8 bitar och en addressbuss som är 16 bitar. Instruktionerna är mellan 8
+och 32 långa. Det finns olika adresseringsmoder såsom
+\begin{itemize}
+    \item \texttt{ld a,55} - omedelbar, a laddas med 55,
+    \item \texttt{ld a,b} - direkt, a laddas värdet i b,
+    \item \texttt{ld a,(b)} - indirekt, a laddas värdet som b pekar på,
+    \item \texttt{ld a,(55)} - indirekt, a laddas värdet på address 55,
+    \item \texttt{ld a,(IX+5)} - indexerad, a laddas med addressen IX pekar på
+        plus 5.
+\end{itemize}
+Vi vill kunna ladda programmen via USB vid start av processorn. CPU:n ska kunna
+köra generella z80-program och utföra alla uppgifter förutom det som
+IO-controllers hanterar.
+
+\subsection{GPU/IO}
+IO kopplas till processorn med addressbuss och en IO request-signal (IORQ).
+CPU:n meddelar att den vill komma åt IO via IORQ och lägger addressen till
+porten på addressbussen. En mux kopplar därefter databussen till rätt IO-enhet.
+IO-enheterna kan skicka bus request-signal (BUSRQ) så att processorn sätter
+bussen till high impedance så att IO-enheten kan överföra data mellan IO och
+minnet.
+
 \section{Blockschema}
 \section{Milstolpe}
 

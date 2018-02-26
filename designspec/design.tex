@@ -21,6 +21,9 @@ Jakob Arvidsson: jakar180 \\
 \newpage
 
 \section{Inledning}
+\section{Blockschema}
+\subsection{Z80}
+\subsection{TI84}
 \section{Analys}
 \subsection{CPU}
 Vi ska bygga en halvt pipelinad z80 där fetch och exec överlappar. Progamminnet
@@ -29,9 +32,9 @@ som är 8 bitar och en addressbuss som är 16 bitar. Instruktionerna är mellan 
 och 32 långa. Det finns olika adresseringsmoder såsom
 \begin{itemize}
     \item \texttt{ld a,55} - omedelbar, a laddas med 55,
-    \item \texttt{ld a,b} - direkt, a laddas värdet i b,
+    \item \texttt{jr 5} - relativ, PC adderas med 5,
+    \item \texttt{jp 4578} - direkt, PC sätts till 4578,
     \item \texttt{ld a,(b)} - indirekt, a laddas värdet som b pekar på,
-    \item \texttt{ld a,(55)} - indirekt, a laddas värdet på address 55,
     \item \texttt{ld a,(IX+5)} - indexerad, a laddas med addressen IX pekar på
         plus 5.
 \end{itemize}
@@ -39,15 +42,35 @@ Vi vill kunna ladda programmen via USB vid start av processorn. CPU:n ska kunna
 köra generella z80-program och utföra alla uppgifter förutom det som
 IO-controllers hanterar.
 
-\subsection{GPU/IO}
-IO kopplas till processorn med addressbuss och en IO request-signal (IORQ).
-CPU:n meddelar att den vill komma åt IO via IORQ och lägger addressen till
-porten på addressbussen. En mux kopplar därefter databussen till rätt IO-enhet.
-IO-enheterna kan skicka bus request-signal (BUSRQ) så att processorn sätter
-bussen till high impedance så att IO-enheten kan överföra data mellan IO och
-minnet.
+\subsection{IO}
+\subsubsection{Åtkomst till IO från CPU}
+IO kopplas till processorn med addressbussen, databussen samt kontrollsignaler.
+CPU:n meddelar att den vill komma åt IO via IO request-signalen (IORQ) och
+lägger addressen till porten på addressbussen. En mux kopplar därefter
+databussen till rätt IO-enhet. 
 
-\section{Blockschema}
+\subsubsection{Interrupts från IO}
+IO-enheterna kan göra interrupts med INT- och NMI-signalerna. Beroende på
+vilket mode som är inställt interagerar IO-enheten på olika sätt. Med till
+exempel mode 0 kan IO-enheten efter INT-signalen placera en instruktion på
+databussen som CPU:n kommer exekvera nästa klockpuls. I mode 2 kan IO-enheten
+lägga en index på databussen till en interruptrutin som är lagrad i en tabell i
+minnet.  Processorn kommer då hoppa till den rutinen efter den nuvarande
+instruktionen.  Det mode som ska användas kan väljas med IM (interrupt mode)
+instruktionen.  Dessa interrupts kan också stängas av och sättas på med DI och
+EI instruktionerna.
+
+\subsection{GPU}
+Vi kommer inte behöva någon enhet för att göra grafiska beräkningar, de kommer
+utföras av processorn. Vi behöver endast ett videominne som processorn kan
+skriva till och en VGA-motor som skriver videominnet till skärmen.
+
+\subsection{Programmering}
+Z80:n programmeras med Z80:ns instruktionsset. Z80 är en populär processor med
+många verktyg tillgängliga. Vi kommer programmera och använda tillgängliga
+assemblers för att skapa maskinkod.
+
 \section{Milstolpe}
-
+Vi har tänkt att göra klart z80:ns instruktioner (inte interrupts) samt koppla
+den till en VGA-motor som kan skriva registernas värden till VGA-skärmen.
 \end{document}

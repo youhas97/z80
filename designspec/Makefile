@@ -2,10 +2,9 @@ TEXNAME=design
 TEXFILE=$(TEXNAME).tex
 
 all:
-	#make svg
+	make svg
 	make pdf
 	make pdf
-	make clean
 
 svg:
 	inkscape -D -z --file=ti84.svg --export-pdf=ti84.pdf --export-latex

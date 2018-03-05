@@ -23,11 +23,11 @@ Jakob Arvidsson: jakar180 \\
 \section{Analys}
 \subsection{CPU}
 Vi ska bygga en halvt pipelinad z80 där hämt- och exekveringsfaserna
-överlappar. Progamminnet och dataminnet är delat och ligger utanför processorn.
-Det finns en databuss som är 8 bitar och en addressbuss som är 16 bitar. Det
-finns även en kontrollbuss på 16 bitar som innehåller styrsignaler utifrån såsom
-INT och MEMRQ. Instruktionerna är mellan 8 och 32 bitar långa. Det finns olika
-adresseringsmoder såsom
+överlappar. Programminnet och dataminnet är delat och ligger utanför
+processorn. Det finns en databuss som är 8 bitar och en addressbuss som är 16
+bitar. Det finns även en kontrollbuss på 16 bitar som innehåller styrsignaler
+utifrån såsom INT och MEMRQ. Instruktionerna är mellan 8 och 32 bitar långa.
+Det finns olika adresseringsmoder såsom
 \begin{itemize}
     \item \texttt{ld a,55} - omedelbar, a laddas med 55,
     \item \texttt{jr 5} - relativ, PC adderas med 5,
@@ -52,13 +52,21 @@ till rätt port så processorn kan kommunicera med den specifika IO-enheten.
 \subsection{Flashmodul}
 Vi vill kunna skicka program som ska köras till processorn via USB. Vi ska då
 använda en flashmodul som läser datan från USB och skriver det till minnet,
-eventuellt avbryter processorns nuvarande program.
+eventuellt avbryter processorns nuvarande program. Eventuellt kan flashmodulen
+använda BUSRQ-signalen för att kunna skriva till minnet direkt (DMA).
 
 \subsection{IO}
 IO kopplas till processorn med addressbussen, databussen samt styrsignaler.
 CPU:n meddelar att den vill komma åt IO via IORQ-signalen och lägger addressen
 till porten på addressbussen. En mux kopplar därefter databussen till rätt
 IO-enhet. 
+
+IO-enheterna kommer (precis som TI84:n gör) använda sig av följande portar:
+\begin{itemize}
+    \item Port 0: Tangentbord
+    \item Port 10: LCD kommandon/status
+    \item Port 11: LCD data
+\end{itemize}
 
 IO-enheterna kan göra interrupts med INT- och NMI-signalerna. Beroende på
 vilket mode som är inställt interagerar IO-enheten på olika sätt. Med till

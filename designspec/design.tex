@@ -43,9 +43,16 @@ IO-kontrollerna hanterar.
 \subsection{TI ASIC}
 En speciell krets kommer behövas för att koppla samman processorn med
 IO-enheterna som en TI84 förväntas ha. Z80:n använder sig av ett portsystem som
-denna kretsen ska implementera. Varje port är kopplad till en viss enhet och
-har ett visst syfte.  Den här kretsen kommer dessutom agera som kontroller för
-tangentbord och VGA-skärm.
+denna krets ska implementera. Varje port är kopplad till en viss enhet och har
+ett visst syfte. Till exempel port 10 används för att skicka kommandon till
+displayen medan port 11 används för att skicka bilddata till displayen. ASIC:en
+förmedlar avbrott mellan CPU:n och IO-kontrollerna, samt dirigerar databussen
+till rätt port så processorn kan kommunicera med den specifika IO-enheten.
+
+\subsection{Flashmodul}
+Vi vill kunna skicka program som ska köras till processorn via USB. Vi ska då
+använda en flashmodul som läser datan från USB och skriver det till minnet,
+eventuellt avbryter processorns nuvarande program.
 
 \subsection{IO}
 IO kopplas till processorn med addressbussen, databussen samt styrsignaler.
@@ -89,5 +96,11 @@ till en VGA-motor som kan skriva registernas värden till VGA-skärmen.
     \centering
     \def\svgwidth{0.87\columnwidth}
     \input{z80.pdf_tex}
+\end{figure}
+\subsection{TI ASIC}
+\begin{figure}[H]
+    \centering
+    \def\svgwidth{1.2\columnwidth}
+    \input{asic.pdf_tex}
 \end{figure}
 \end{document}

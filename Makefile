@@ -33,8 +33,8 @@ XILINX_INIT = source /sw/xilinx/ise_12.4i/ISE_DS/settings64.sh;
 PART=xc6slx16-3-csg324
 
 
-z80.%: S=alu.vhd reg_file.vhd registers.vhd
-#z80.%: T=lab_tb.vhd
+z80.%: S= src/z80/reg_file.vhd src/z80/alu.vhd src/z80/registers.vhd
+z80.%: T= src/z80/regfile_tb.vhd
 z80.%: U=Nexys3.ucf
 
 

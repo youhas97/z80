@@ -21,6 +21,8 @@
 ### ALU
 * http://www.righto.com/2013/09/the-z-80-has-4-bit-alu-heres-how-it.html
     hur z80:ns alu fungerar
+* https://stackoverflow.com/questions/8034566/overflow-and-carry-flags-on-z80
+* diskussion om z80 carry overflow
 
 ### TI/TI84
 * https://www.cemetech.net/projects/item.php?id=42#s2

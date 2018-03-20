@@ -33,10 +33,12 @@ XILINX_INIT = source /sw/xilinx/ise_12.4i/ISE_DS/settings64.sh;
 PART=xc6slx16-3-csg324
 
 
-z80.%: S= src/z80/reg_file.vhd src/z80/alu.vhd src/z80/registers.vhd
-z80.%: T= src/z80/regfile_tb.vhd
+z80.%: S=src/z80/reg_file.vhd src/z80/registers.vhd
+z80.%: T=src/z80/regfile_tb.vhd
 z80.%: U=Nexys3.ucf
 
+alu.%: S=src/z80/alu.vhd
+alu.%: T=tests/z80/alu_tb.vhd
 
 # Det här är ett exempel på hur man kan skriva en testbänk som är
 # relevant, även om man kör en simulering i batchläge (make batchlab.simc)

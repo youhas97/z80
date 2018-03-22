@@ -34,7 +34,7 @@ PART=xc6slx16-3-csg324
 
 
 z80.%: S=src/z80/reg_file.vhd src/z80/registers.vhd
-z80.%: T=src/z80/regfile_tb.vhd
+z80.%: T=src/z80/swap_tb.vhd
 z80.%: U=Nexys3.ucf
 
 alu.%: S=src/z80/alu.vhd

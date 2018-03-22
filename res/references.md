@@ -13,6 +13,10 @@
 ### Arkitektur
 * http://rabieramadan.org/Microprocessor/lectures/Lecture%203/Chapter%203%20Z80.pdf
     register, struktur, fetch cycle
+* http://www.z80.info/zaks.html
+    bästa bok om allt
+* http://www.righto.com/2014/10/how-z80s-registers-are-implemented-down.html
+    artikel om register
 
 ### Instruktioner
 * https://www.csh.rit.edu/~jerry/arcade/pacman/

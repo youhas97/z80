@@ -21,6 +21,8 @@
 ### Instruktioner
 * https://www.csh.rit.edu/~jerry/arcade/pacman/
     pacman arcade maskin, info om odokumenterade instruktioner
+    
+* http://www.z80.info/decoding.htm
 
 ### ALU
 * http://www.righto.com/2013/09/the-z-80-has-4-bit-alu-heres-how-it.html

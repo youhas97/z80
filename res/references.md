@@ -30,6 +30,10 @@
 * https://stackoverflow.com/questions/8034566/overflow-and-carry-flags-on-z80
 * diskussion om z80 carry overflow
 
+### Register
+* http://www.righto.com/2014/10/how-z80s-registers-are-implemented-down.html
+    hur z80:s register är implementerade
+
 ### TI/TI84
 * https://www.cemetech.net/projects/item.php?id=42#s2
     overview över hur en emulator byggt moduler kring z80

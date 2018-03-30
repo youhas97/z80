@@ -17,6 +17,8 @@
     bästa bok om allt
 * http://www.righto.com/2014/10/how-z80s-registers-are-implemented-down.html
     artikel om register
+* https://patents.google.com/patent/US4332008
+    patent för z80 struktur
 
 ### Instruktioner
 * https://www.csh.rit.edu/~jerry/arcade/pacman/

@@ -47,8 +47,10 @@
 ### Emulatorer
 * https://github.com/KnightOS/z80e
     emulator för KnightOS dev - för ti84, C. 
-    * libz80e/src/ti/asic.c innehåller kod för TI-specifik kontroller (portarna
+    * src/ti/asic.c innehåller kod för TI-specifik kontroller (portarna
       och det).
+    * src/core/cpu.c innehåller en implementation för hela cpu:n. hela
+      instructionsdekodaren med exekvering finns på rad 930
 * https://github.com/begoon/yaze
     yet another z80 emulator, C
 * http://lpg.ticalc.org/prj_tilem/develop.html

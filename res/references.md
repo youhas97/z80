@@ -9,6 +9,8 @@
     sida för ti84 asm-programmering; z80/ti asm info
 * http://jgmalcolm.com/z80/
     innehåller info från asm-programmeringssidan
+* https://books.google.se/books?id=mVQnFgWzX0AC
+    bok om att bygga en egen z80
 
 ### Arkitektur
 * http://rabieramadan.org/Microprocessor/lectures/Lecture%203/Chapter%203%20Z80.pdf

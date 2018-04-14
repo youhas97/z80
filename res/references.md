@@ -27,6 +27,12 @@
     pacman arcade maskin, info om odokumenterade instruktioner
 * http://www.z80.info/decoding.htm
     decoding tree för ops
+* instr timings
+    * http://www.baltazarstudios.com/files/xx.html
+    * http://www.baltazarstudios.com/files/ed.html
+    * http://www.baltazarstudios.com/files/cb.html
+    * http://www.baltazarstudios.com/files/dd.html
+    * http://www.baltazarstudios.com/files/ddcb.html
 
 ### ALU
 * http://www.righto.com/2013/09/the-z-80-has-4-bit-alu-heres-how-it.html

@@ -37,6 +37,10 @@ z80.%: S=src/comp.vhd src/monitor.vhd src/segment.vhd src/z80/regfile.vhd src/z8
 z80.%: T=tests/comp_tb.vhd
 z80.%: U=Nexys3.ucf
 
+id.%: S=tests/z80/id_fb.vhd src/segment.vhd src/z80/op_decoder.vhd src/z80/instr.vhd src/z80/common.vhd
+id.%: T=tests/z80/id_fb_tb.vhd
+id.%: U=id.ucf
+
 alu.%: S=src/z80/alu.vhd
 alu.%: T=tests/z80/alu_tb.vhd
 

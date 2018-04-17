@@ -33,13 +33,17 @@ XILINX_INIT = source /sw/xilinx/ise_12.4i/ISE_DS/settings64.sh;
 PART=xc6slx16-3-csg324
 
 
-z80.%: S=src/comp.vhd src/asic.vhd src/monitor.vhd src/segment.vhd src/z80/regfile.vhd src/z80/alu.vhd src/z80/z80.vhd src/z80/registers.vhd src/z80 src/z80/state_machine.vhd src/z80/op_decoder.vhd src/mem_rom.vhd src/z80/common.vhd
-z80.%: T=tests/comp_tb.vhd
+z80.%: S=src/comp.vhd src/asic.vhd src/monitor.vhd src/segment.vhd src/z80/regfile.vhd src/z80/alu.vhd src/z80/z80.vhd src/z80/registers.vhd src/z80 src/z80/state_machine.vhd src/z80/op_decoder.vhd src/mem_rom.vhd src/z80/common.vhd src/vga_motor.vhd
+z80.%: T=tests/vga_motor_tb.vhd
 z80.%: U=Nexys3.ucf
 
 id.%: S=tests/z80/id_fb.vhd src/segment.vhd src/z80/state_machine.vhd src/z80/op_decoder.vhd src/z80/common.vhd
 id.%: T=tests/z80/id_fb_tb.vhd
 id.%: U=id.ucf
+
+vga.%: S=tests/vga_fb.vhd src/vga_motor.vhd  
+vga.%: T=tests/vga_fb_tb.vhd
+vga.%: U=vga.ucf
 
 idp.%: S=tests/id/id_fb.vhd tests/id/op_decoder.vhd tests/id/common.vhd src/segment.vhd
 idp.%: T=tests/id/id_fb_tb.vhd

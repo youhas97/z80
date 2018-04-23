@@ -40,6 +40,14 @@
 * https://stackoverflow.com/questions/8034566/overflow-and-carry-flags-on-z80
 * diskussion om z80 carry overflow
 
+### IO
+* http://wikiti.brandonw.net/?title=Category:83Plus:Ports:By_Address
+    beskrivning av alla portar
+* http://z80-heaven.wikidot.com/ports
+    kort info om varje port
+* http://z80-heaven.wikidot.com/direct-input-output
+    info om kbd och lcd portar
+
 ### Register
 * http://www.righto.com/2014/10/how-z80s-registers-are-implemented-down.html
     hur z80:s register är implementerade

@@ -48,6 +48,10 @@
 * http://z80-heaven.wikidot.com/direct-input-output
     info om kbd och lcd portar
 
+### Minne
+* http://wikiti.brandonw.net/index.php?title=83Plus:Memory_Mapping
+    info om pages och modes
+
 ### Register
 * http://www.righto.com/2014/10/how-z80s-registers-are-implemented-down.html
     hur z80:s register är implementerade

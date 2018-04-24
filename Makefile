@@ -42,11 +42,15 @@ z80.%: S=src/comp.vhd \
 	src/z80/state_machine.vhd src/z80/op_decoder.vhd \
 	src/pkg/z80_comm.vhd src/pkg/cmp_comm.vhd src/pkg/util.vhd
 z80.%: T=tests/comp_tb.vhd
-z80.%: U=build/ugf/Nexys3.ucf
+z80.%: U=build/ucf/Nexys3.ucf
 
 vga.%: S=tests/vga_fb.vhd src/io/vga_motor.vhd src/io/pict_mem.vhd 
 vga.%: T=tests/vga_fb_tb.vhd
 vga.%: U=build/ucf/vga.ucf
+
+key.%: S=src/pkg/cmp_comm.vhd tests/key_fb.vhd src/io/keyb_enc.vhd src/dbg/segment.vhd
+#key.%: T= 
+key.%: U=build/ucf/key.ucf
 
 # Det här är ett exempel på hur man kan skriva en testbänk som är
 # relevant, även om man kör en simulering i batchläge (make batchlab.simc)

@@ -48,9 +48,9 @@ vga.%: S=tests/vga_fb.vhd src/io/vga_motor.vhd src/io/pict_mem.vhd
 vga.%: T=tests/vga_fb_tb.vhd
 vga.%: U=build/ucf/vga.ucf
 
-key.%: S=tests/key_fb.vhd src/io/keyb_enc.vhd src/dbg/segment.vhd src/pkg/cmp_comm.vhd
+key.%: S=tests/key_fb.vhd src/io/kbd_enc.vhd src/dbg/segment.vhd src/pkg/cmp_comm.vhd
 #key.%: T= 
-key.%: U=build/ucf/key.ucf
+key.%: U=build/ucf/kbd.ucf
 
 # Det här är ett exempel på hur man kan skriva en testbänk som är
 # relevant, även om man kör en simulering i batchläge (make batchlab.simc)

@@ -35,12 +35,14 @@ PART=xc6slx16-3-csg324
 
 z80.%: S=src/comp.vhd \
 	src/dbg/monitor.vhd src/dbg/segment.vhd \
+	src/prm/counters.vhd \
 	src/io/asic.vhd src/io/lcd_ctrl.vhd src/io/vga_motor.vhd \
-	src/io/pict_mem.vhd \
+	src/io/pict_mem.vhd src/io/kbd_ctrl.vhd src/io/timers.vhd \
+	src/io/hw_timers.vhd src/io/io.vhd \
 	src/mem/bram.vhd src/mem/memory.vhd src/mem/mem_rom.vhd \
 	src/z80/regfile.vhd src/z80/alu.vhd src/z80/z80.vhd src/z80/registers.vhd \
 	src/z80/state_machine.vhd src/z80/op_decoder.vhd \
-	src/pkg/z80_comm.vhd src/pkg/cmp_comm.vhd src/pkg/util.vhd
+	src/pkg/z80_comm.vhd src/pkg/io_comm.vhd src/pkg/util.vhd
 z80.%: T=tests/comp_tb.vhd
 z80.%: U=build/ucf/comp.ucf
 

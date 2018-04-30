@@ -33,6 +33,7 @@ XILINX_INIT = source /sw/xilinx/ise_12.4i/ISE_DS/settings64.sh;
 PART=xc6slx16-3-csg324
 
 ti83p.%: S=src/comp.vhd \
+	tests/mem_rom.vhd \
 	src/dbg/monitor.vhd src/dbg/segment.vhd \
 	src/prm/counters.vhd src/prm/registers.vhd \
 	src/ext/mem_ctrl.vhd src/ext/vga_motor.vhd \

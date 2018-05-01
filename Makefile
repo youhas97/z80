@@ -36,9 +36,9 @@ ti83p.%: S=src/comp.vhd \
 	tests/mem_rom.vhd \
 	src/dbg/monitor.vhd src/dbg/segment.vhd \
 	src/prm/counters.vhd src/prm/registers.vhd \
-	src/ext/mem_ctrl.vhd src/ext/vga_motor.vhd \
+	src/ext/mem_if.vhd src/ext/vga_motor.vhd \
 	src/ti/ti83p/ti.vhd src/ti/ti83p/asic.vhd \
-	src/ti/ti83p/mmapper.vhd \
+	src/ti/ti83p/mem_ctrl.vhd \
 	src/ti/ti83p/status.vhd src/ti/ti83p/hw_timers.vhd \
 	src/ti/pict_mem.vhd src/ti/lcd_ctrl.vhd src/ti/kbd_ctrl.vhd \
 	src/ti/interrupts.vhd \
@@ -49,11 +49,10 @@ ti83p.%: S=src/comp.vhd \
 ti83p.%: T=tests/comp_tb.vhd tests/ext/m45w8mw16.vhd
 ti83p.%: U=build/ucf/ti83p.ucf
 
-mem.%: S=tests/mem_ext_fb.vhd src/dbg/segment.vhd src/ext/mem_ctrl.vhd \
+mem.%: S=tests/mem_ext_fb.vhd src/dbg/segment.vhd src/ext/mem_if.vhd \
 	src/pkg/z80_comm.vhd src/prm/registers.vhd
 mem.%: T=tests/mem_ext_ftb.vhd tests/ext/m45w8mw16.vhd
 mem.%: U=build/ucf/mem.ucf
-
 
 vga.%: S=tests/vga_fb.vhd src/ext/vga_motor.vhd src/ti/pict_mem.vhd 
 vga.%: T=tests/vga_fb_tb.vhd

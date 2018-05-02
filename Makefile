@@ -32,23 +32,34 @@
 XILINX_INIT = source /sw/xilinx/ise_12.4i/ISE_DS/settings64.sh;
 PART=xc6slx16-3-csg324
 
-
-z80.%: S=src/comp.vhd \
+ti83p.%: S=src/comp.vhd \
+	tests/mem_rom.vhd \
 	src/dbg/monitor.vhd src/dbg/segment.vhd \
-	src/io/asic.vhd src/io/lcd_ctrl.vhd src/io/vga_motor.vhd \
-	src/io/pict_mem.vhd \
-	src/mem/bram.vhd src/mem/memory.vhd src/mem/mem_rom.vhd \
-	src/z80/regfile.vhd src/z80/alu.vhd src/z80/z80.vhd src/z80/registers.vhd \
-	src/z80/state_machine.vhd src/z80/op_decoder.vhd \
-	src/pkg/z80_comm.vhd src/pkg/cmp_comm.vhd src/pkg/util.vhd
-z80.%: T=tests/comp_tb.vhd
-z80.%: U=build/ucf/comp.ucf
+	src/prm/counters.vhd src/prm/registers.vhd \
+	src/ext/mem_if.vhd src/ext/vga_motor.vhd \
+	src/ti/ti83p/ti.vhd src/ti/ti83p/asic.vhd \
+	src/ti/ti83p/mem_ctrl.vhd \
+	src/ti/ti83p/status.vhd src/ti/ti83p/hw_timers.vhd \
+	src/ti/pict_mem.vhd src/ti/lcd_ctrl.vhd src/ti/kbd_ctrl.vhd \
+	src/ti/interrupts.vhd \
+	src/z80/z80.vhd src/z80/state_machine.vhd src/z80/op_decoder.vhd \
+	src/z80/alu.vhd src/z80/regfile.vhd \
+	src/prm/bram.vhd src/prm/registers.vhd src/prm/counters.vhd \
+	src/ti/ti83p/ti_comm.vhd src/pkg/z80_comm.vhd src/pkg/util.vhd
+ti83p.%: T=tests/comp_tb.vhd tests/ext/m45w8mw16.vhd
+ti83p.%: U=build/ucf/ti83p.ucf
 
-vga.%: S=tests/vga_fb.vhd src/io/vga_motor.vhd src/io/pict_mem.vhd 
+mem.%: S=tests/mem_ext_fb.vhd src/dbg/segment.vhd src/ext/mem_if.vhd \
+	src/pkg/z80_comm.vhd src/prm/registers.vhd
+mem.%: T=tests/mem_ext_ftb.vhd tests/ext/m45w8mw16.vhd
+mem.%: U=build/ucf/mem.ucf
+
+vga.%: S=tests/vga_fb.vhd src/ext/vga_motor.vhd src/ti/pict_mem.vhd 
 vga.%: T=tests/vga_fb_tb.vhd
 vga.%: U=build/ucf/vga.ucf
 
-key.%: S=tests/key_fb.vhd src/io/kbd_enc.vhd src/dbg/segment.vhd src/pkg/io_comm.vhd
+<<<<<<< HEAD
+key.%: S=tests/key_fb.vhd src/ext/kbd_en.vhd src/dbg/segment.vhd src/pkg/ti_comm.vhd
 #key.%: T= 
 key.%: U=build/ucf/kbd.ucf
 

@@ -58,8 +58,7 @@ vga.%: S=tests/vga_fb.vhd src/ext/vga_motor.vhd src/ti/pict_mem.vhd
 vga.%: T=tests/vga_fb_tb.vhd
 vga.%: U=build/ucf/vga.ucf
 
-<<<<<<< HEAD
-key.%: S=tests/key_fb.vhd src/ext/kbd_en.vhd src/dbg/segment.vhd src/pkg/ti_comm.vhd
+key.%: S=tests/key_fb.vhd src/ext/kbd_enc.vhd src/dbg/segment.vhd src/ti/ti83p/ti_comm.vhd
 #key.%: T= 
 key.%: U=build/ucf/kbd.ucf
 

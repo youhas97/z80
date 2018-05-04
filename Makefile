@@ -45,13 +45,13 @@ ti83p.%: S=src/comp.vhd \
 	src/z80/z80.vhd src/z80/state_machine.vhd src/z80/op_decoder.vhd \
 	src/z80/alu.vhd src/z80/regfile.vhd \
 	src/prm/bram.vhd src/prm/registers.vhd src/prm/counters.vhd \
-	src/ti/ti83p/ti_comm.vhd src/pkg/cmp_comm.vhd src/pkg/z80_comm.vhd \
+	src/pkg/cmp_comm.vhd src/ti/ti83p/ti_comm.vhd src/pkg/z80_comm.vhd \
 	src/pkg/util.vhd
 ti83p.%: T=tests/comp_tb.vhd tests/ext/m45w8mw16.vhd
 ti83p.%: U=build/ucf/ti83p.ucf
 
 mem.%: S=tests/mem_ext_fb.vhd src/dbg/segment.vhd src/ext/mem_if.vhd \
-	src/pkg/z80_comm.vhd src/prm/registers.vhd
+	src/prm/registers.vhd
 mem.%: T=tests/mem_ext_ftb.vhd tests/ext/m45w8mw16.vhd
 mem.%: U=build/ucf/mem.ucf
 

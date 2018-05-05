@@ -50,18 +50,22 @@ ti83p.%: S=src/comp.vhd \
 ti83p.%: T=tests/comp_tb.vhd tests/ext/m45w8mw16.vhd
 ti83p.%: U=build/ucf/ti83p.ucf
 
-mem.%: S=tests/mem_ext_fb.vhd src/dbg/segment.vhd src/ext/mem_if.vhd \
+mem.%: S=tests/fb/mem_ext_fb.vhd src/dbg/segment.vhd src/ext/mem_if.vhd \
 	src/prm/registers.vhd
-mem.%: T=tests/mem_ext_ftb.vhd tests/ext/m45w8mw16.vhd
+mem.%: T=tests/fb/mem_ext_ftb.vhd tests/ext/m45w8mw16.vhd
 mem.%: U=build/ucf/mem.ucf
 
-vga.%: S=tests/vga_fb.vhd src/ext/vga_motor.vhd src/ti/pict_mem.vhd 
-vga.%: T=tests/vga_fb_tb.vhd
+vga.%: S=tests/fb/vga_fb.vhd src/ext/vga_motor.vhd src/ti/pict_mem.vhd 
+vga.%: T=tests/fb/vga_fb_tb.vhd
 vga.%: U=build/ucf/vga.ucf
 
-key.%: S=tests/key_fb.vhd src/ext/kbd_enc.vhd src/dbg/segment.vhd src/ti/ti83p/ti_comm.vhd
+key.%: S=tests/fb/key_fb.vhd src/ext/kbd_enc.vhd src/dbg/segment.vhd src/ti/ti83p/ti_comm.vhd
 #key.%: T= 
 key.%: U=build/ucf/kbd.ucf
+
+boot.%: S=tests/fb/boot_fb.vhd src/dbg/segment.vhd src/ext/bootloader.vhd \
+	src/prm/registers.vhd
+boot.%: U=build/ucf/boot.ucf
 
 # Det här är ett exempel på hur man kan skriva en testbänk som är
 # relevant, även om man kör en simulering i batchläge (make batchlab.simc)
@@ -81,13 +85,8 @@ include build/xilinx-par.mk
 # Setup tools for programming the FPGA
 include build/digilentprog.mk
 
-
-
 # Alternative synthesis methods
 # The following is for ASIC synthesis
 #include design_compiler.mk
 # The following is for synthesis to a Xilinx target using Precision.
 #include precision-xilinx.mk
-
-
-

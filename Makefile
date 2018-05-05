@@ -56,7 +56,7 @@ mem.%: S=tests/fb/mem_ext_fb.vhd src/dbg/segment.vhd src/ext/mem_if.vhd \
 mem.%: T=tests/fb/mem_ext_ftb.vhd tests/ext/m45w8mw16.vhd
 mem.%: U=build/ucf/mem.ucf
 
-vga.%: S=tests/fb/vga_fb.vhd src/ext/vga_motor.vhd src/prm/clkgen.vhd src/prm/counters.vhd
+vga.%: S=tests/fb/vga_fb.vhd src/ext/vga_motor.vhd src/prm/clkgen.vhd src/prm/counters.vhd src/pkg/util.vhd
 vga.%: T=tests/fb/vga_fb_tb.vhd
 vga.%: U=build/ucf/vga.ucf
 

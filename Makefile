@@ -37,7 +37,7 @@ ti83p.%: S=src/comp.vhd \
 	src/prm/counters.vhd src/prm/registers.vhd \
 	src/prm/clkgen.vhd \
 	src/ext/mem_if.vhd src/ext/vga_motor.vhd \
-	src/ext/kbd_enc.vhd \
+	src/ext/kbd_enc.vhd src/ext/bootloader.vhd \
 	src/ti/ti83p/ti.vhd src/ti/ti83p/asic.vhd \
 	src/ti/ti83p/mem_ctrl.vhd src/ti/ti83p/status.vhd \
 	src/ti/ti83p/interrupts.vhd \

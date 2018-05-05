@@ -35,6 +35,7 @@ PART=xc6slx16-3-csg324
 ti83p.%: S=src/comp.vhd \
 	src/dbg/monitor.vhd src/dbg/segment.vhd \
 	src/prm/counters.vhd src/prm/registers.vhd \
+	src/prm/clkgen.vhd \
 	src/ext/mem_if.vhd src/ext/vga_motor.vhd \
 	src/ext/kbd_enc.vhd \
 	src/ti/ti83p/ti.vhd src/ti/ti83p/asic.vhd \
@@ -64,7 +65,7 @@ key.%: S=tests/fb/key_fb.vhd src/ext/kbd_enc.vhd src/dbg/segment.vhd src/ti/ti83
 key.%: U=build/ucf/kbd.ucf
 
 boot.%: S=tests/fb/boot_fb.vhd src/dbg/segment.vhd src/ext/bootloader.vhd \
-	src/prm/registers.vhd
+	src/prm/registers.vhd src/ext/mem_if.vhd
 boot.%: U=build/ucf/boot.ucf
 
 # Det här är ett exempel på hur man kan skriva en testbänk som är

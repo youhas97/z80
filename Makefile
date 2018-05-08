@@ -33,7 +33,7 @@ XILINX_INIT = source /sw/xilinx/ise_12.4i/ISE_DS/settings64.sh;
 PART=xc6slx16-3-csg324
 
 ti83p.%: S=src/comp.vhd \
-	src/dbg/monitor.vhd src/dbg/segment.vhd \
+	src/dbg/monitor.vhd src/dbg/segment.vhd src/dbg/monitor_vga.vhd \
 	src/prm/counters.vhd src/prm/registers.vhd \
 	src/prm/clkgen.vhd \
 	src/ext/mem_if.vhd src/ext/vga_motor.vhd \
@@ -47,7 +47,7 @@ ti83p.%: S=src/comp.vhd \
 	src/z80/alu.vhd src/z80/regfile.vhd \
 	src/prm/bram.vhd src/prm/registers.vhd src/prm/counters.vhd \
 	src/pkg/cmp_comm.vhd src/ti/ti83p/ti_comm.vhd src/pkg/z80_comm.vhd \
-	src/pkg/util.vhd
+	src/pkg/util.vhd src/pkg/chars.vhd
 ti83p.%: T=tests/comp_tb.vhd tests/ext/m45w8mw16.vhd
 ti83p.%: U=build/ucf/ti83p.ucf
 
@@ -65,7 +65,8 @@ key.%: S=tests/fb/key_fb.vhd src/ext/kbd_enc.vhd src/dbg/segment.vhd src/ti/ti83
 key.%: U=build/ucf/kbd.ucf
 
 boot.%: S=tests/fb/boot_fb.vhd src/dbg/segment.vhd src/ext/bootloader.vhd \
-	src/prm/registers.vhd src/ext/mem_if.vhd
+	src/prm/registers.vhd src/ext/mem_if.vhd \
+	src/pkg/cmp_comm.vhd src/pkg/z80_comm.vhd
 boot.%: U=build/ucf/boot.ucf
 
 # Det här är ett exempel på hur man kan skriva en testbänk som är

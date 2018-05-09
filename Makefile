@@ -34,6 +34,7 @@ PART=xc6slx16-3-csg324
 
 ti83p.%: S=src/comp.vhd \
 	src/dbg/monitor.vhd src/dbg/segment.vhd src/dbg/monitor_vga.vhd \
+	src/dbg/chars.vhd \
 	src/prm/counters.vhd src/prm/registers.vhd \
 	src/prm/clkgen.vhd \
 	src/ext/mem_if.vhd src/ext/vga_motor.vhd \
@@ -47,7 +48,7 @@ ti83p.%: S=src/comp.vhd \
 	src/z80/alu.vhd src/z80/regfile.vhd \
 	src/prm/bram.vhd src/prm/registers.vhd src/prm/counters.vhd \
 	src/ti/ti83p/ti_comm.vhd src/pkg/z80_comm.vhd src/pkg/cmp_comm.vhd \
-	src/pkg/util.vhd src/pkg/chars.vhd
+	src/pkg/util.vhd
 ti83p.%: T=tests/comp_tb.vhd tests/ext/m45w8mw16.vhd
 ti83p.%: U=build/ucf/ti83p.ucf
 

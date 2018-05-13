@@ -42,7 +42,7 @@ ti83p.%: S=src/comp.vhd \
 	src/ti/ti.vhd src/ti/asic.vhd \
 	src/ti/mem_ctrl.vhd src/ti/status.vhd \
 	src/ti/interrupts.vhd \
-	src/ti/pict_mem.vhd src/ti/lcd_ctrl.vhd src/ti/kbd_ctrl.vhd \
+	src/ti/pict_mem.vhd src/ti/t6a04.vhd src/ti/kbd_ctrl.vhd \
 	src/ti/hw_timers.vhd \
 	src/z80/z80.vhd src/z80/state_machine.vhd src/z80/op_decoder.vhd \
 	src/z80/alu.vhd src/z80/regfile.vhd \

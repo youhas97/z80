@@ -1,0 +1,4 @@
+8000 3e 00          ld a, 0x00
+8002            loop:
+8002 c6 02          add a, 0x02
+8004 d2 02 80       jp nc, loop

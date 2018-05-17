@@ -25,19 +25,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70024616"
-     inkscape:cx="732.09908"
-     inkscape:cy="399.46221"
+     inkscape:zoom="0.99029762"
+     inkscape:cx="567.54736"
+     inkscape:cy="381.38767"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:pagecheckerboard="false"
      inkscape:snap-others="true"
      inkscape:snap-nodes="false"
-     inkscape:window-width="1900"
-     inkscape:window-height="1028"
-     inkscape:window-x="8"
-     inkscape:window-y="40"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -78,7 +78,7 @@
        id="rect1764" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ad7fa8;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ef2929;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="128.24504"
        y="111.72018"
        id="text75"><tspan
@@ -86,7 +86,7 @@
          id="tspan73"
          x="128.24504"
          y="111.72018"
-         style="fill:#ad7fa8;stroke-width:0.26458332px">TI ASIC</tspan></text>
+         style="fill:#ef2929;stroke-width:0.26458332px;">TI ASIC</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -99,7 +99,7 @@
          y="-60.633396"
          style="stroke-width:0.26458332px" /></text>
     <rect
-       style="opacity:1;fill:#4e9a06;fill-opacity:1;stroke:#000000;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#75507b;fill-opacity:1;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2100"
        width="31.270536"
        height="35.279575"
@@ -117,7 +117,7 @@
          style="font-size:6.70277786px;text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.26458332px;stroke-linejoin:miter"
          id="tspan26">TIMERS</tspan></text>
     <rect
-       style="opacity:1;fill:#ad7fa8;fill-opacity:1;stroke:#000000;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#cc0000;fill-opacity:1;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2221"
        width="34.971619"
        height="27.970238"
@@ -145,9 +145,9 @@
        height="35.279575"
        width="24.856068"
        id="rect2098"
-       style="opacity:1;fill:#4e9a06;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       style="opacity:1;fill:#75507b;fill-opacity:1;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
-       style="opacity:1;fill:#4e9a06;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#75507b;fill-opacity:1;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2096"
        width="37.958267"
        height="35.279575"
@@ -170,7 +170,7 @@
          style="font-size:6.70277786px;text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.26458332px;stroke-linejoin:miter"
          id="tspan46">CTRL</tspan></text>
     <rect
-       style="opacity:1;fill:#4e9a06;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#75507b;fill-opacity:1;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2104"
        width="45.168552"
        height="35.279575"
@@ -193,7 +193,7 @@
          style="font-size:6.70277786px;text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.26458332px;stroke-linejoin:miter"
          id="tspan56">CTRL</tspan></text>
     <path
-       style="opacity:1;fill:#ad7fa8;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#cc0000;fill-opacity:1;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 53.801374,254.11895 43.688957,230.00077 H 262.71401 l -10.11242,24.11818 z"
        id="rect68"
        inkscape:connector-curvature="0"
@@ -214,7 +214,7 @@
        height="35.279575"
        width="26.994225"
        id="rect2102"
-       style="opacity:1;fill:#4e9a06;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       style="opacity:1;fill:#75507b;fill-opacity:1;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.76111126px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -311,7 +311,7 @@
          id="tspan2305">MOTOR</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.58385563px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#73d216;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       style="font-style:normal;font-weight:normal;font-size:9.58385563px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ad7fa8;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="99.301704"
        y="160.52698"
        id="text2326"><tspan
@@ -319,7 +319,7 @@
          id="tspan2324"
          x="99.301704"
          y="160.52698"
-         style="fill:#73d216;stroke:none;stroke-width:0.26458332px;">PORTS</tspan></text>
+         style="fill:#ad7fa8;stroke:none;stroke-width:0.26458332px;">PORTS</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.76111126px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -342,7 +342,7 @@
        id="rect2368"
        transform="matrix(0.26458333,0,0,0.26458333,0,87)" />
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#ad7fa8;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8.00000015, 8.00000015;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ef2929;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8.00000015, 8.00000014999999998;stroke-dashoffset:0;stroke-opacity:1"
        id="rect71"
        width="247.98729"
        height="157.10376"
@@ -365,7 +365,7 @@
        transform="matrix(0.26458333,0,0,0.26458333,0,87)"
        id="path2277" />
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#73d216;stroke-width:0.99999988;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.0000001, 8.00000018000000068;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ad7fa8;stroke-width:0.99999988;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.0000001, 8.00000018000000068;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2322"
        width="230.3734"
        height="52.184715"

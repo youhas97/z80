@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[swedish]{babel}
+
+\title{\Huge Zilog Z80 i Nexys3}
+\author{\LARGE Yousef Hashem\\
+        \LARGE Noah Hellman\\
+        \LARGE Dennis Derecichei\\ 
+        \LARGE Jakob Arvidsson}
+\date{\Large May 2018}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+\maketitle
+
+\clearpage
+\section{Introduktion}
+Följande är en introduktoin till rapporten om konstruktionen av en z80-processor. Rapporten kommer huvudsakligen bestå av fyra delar; en beskrivning av apparaten, en kort teorilektion, en djupare beskrivning av hårdvaran samt allmäna slutsatser angående projektet.
+\subsection{Bakgrund}
+Eftersom gruppen bestod av fyra personer som ville göra projektet tillsammans så fanns det fler möjligheter när det gällde storleken på apparaten som skulle byggas. Till slut bestämdes det att skapandet av en allmän Zilog Z80 processor skulle ske. Tanken var att användaren sedan skulle kunna ladda in spel och andra program på FPGA-kortet och köra dem.
+\subsection{Syfte}
+Syftet med konstruktionen var, först och främst, inlärning av kunskap om hur en processor egentligen fungerar och få en inblick i hur uppbyggnaden av en processor ser ut. Målet var att göra en allmän processor som kunde användas som Z80 originalprocessorn användes, d.v.s. som processor för bl.a. TI-83 och diverse arkadspel.
+\subsection{Källor}
+De mest använda källorna är z80 Heaven [insert källa] och Home of the Z80 CPU [insert källa] när det gäller att hitta inforamtion om processorns uppbyggnad. För instruktionernas beteende samt mer specifika områden användes ClrHome [insert källa] samt Z80s användarmanual [insert källa].
+
+\clearpage
+\section{Apparaten}
+Det här avsnittet är en överblick av hur apparaten och de diverse komponenterna hänger samman och hur styrningen av apparaten går till.
+\subsection{Uppsättning}
+[visa bild på setup] FPGA kortet kopplas till en dator med programmet Adept [källa/länk] som används för att hantera minnet hos FPGA-kortet. Programmet fanns inte på MUXens datorer så en extern bärbar dator användes för att överföra datan. Tangenbordet är kopplat till FPGA-kortets USB port för att kunna skicka indata till FPGA-kortet. VGA-kabeln går till en 640x480 VGA-skärm.
+
+\subsection{Användarhandledning}
+För att kunna köra ett av de program som laddas in måste de hamna på rätt adresser i minnet. Adresserna väljs i Adept, en för TI83-romet och en för användarens program. CPU:ns programräknare startar alltid på adress 8000 så ett hopp laddas även in för att komma till användarminnet där programmet ligger. Programmet som laddas in måste vara en binär fil för att FPGA:n ska kunna tolka filen. Därför måste programmet först konverteras från assembly-kod till en sådan fil. Konverteringen sker via z80asm som är en assembler för z80 instruktioner.
+%--TODO
+%-vad gör spakarna
+%-vad menas med LED
+
+\clearpage
+\section{Teori}
+Z80 processorn var en revoltionerande processor på 70-talet då den var kapabel att göra allt Intels 8080 kunde samt hade många fler instruktioner, fler funktioner och register samt förenklade hårdvarukopplingar. Tanken med det här projektet är att efterlikna en TI-83p miniräknare, som använder en Z80 processor.
+\subsection{TI-83p}
+Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64 monokrom LCD-skärm och 4 AAA batterier. Då projektets uppsättning består av ett FPGA-kort och en 640x480 skärm så har varje pixel skalats upp med faktorn 6. I det här bygget har användaren möjlighet att öka frekvensen till 15MHz, som är frekvensen TI-84 använder, via en switch.
+\subsection{8-bitars register}
+\begin{itemize}
+    \item A, även kallat ''ackumulator'', är det primära registret för aritmetiska operationer och för att nå minnet. Registret är direkt kopplat till ALU:n och kan på så sätt användas som indata för alla matematiska operationer.
+    \item B - Ofta använt som en 8-bitars räknare.
+    \item C - Används när användaren vill läsa/skicka in/ut signaler. Registret används som ett gränssnitt för hårdvaruportar.
+    \item D - Används i praktiken oftast konjunkt med register E och sällan som 8-bitars register.
+    \item E - Används, precis som D, sällan i 8-bitarsform och paras istället ihop med D.
+    \item F - Registret som innehåller flaggorna. Användaren har ingen extern kontroll över F och registret kan inte manipuleras med hjälp av LD-instruktioner och dylikt. ALU-instruktioner sätter flaggorna genom att ändra värdet i F
+    \item H - Precis som D så används sällan i 8-bitarsform och används istället parvis med L.
+    \item L - Används oftast parvis med H.
+    \item I - I används i samband med avbrottshantering. Lagrar den översta byten i int
+    errupe 2t mod\item W - Ett internt register som används för lagring.
+    \item Z - Ännu ett intert register som används för lagring.
+\end{itemize}
+\subsection{16-bitars register}
+\begin{itemize}
+    \item AF - Används sällan då F lagrar värdet på flaggorna.
+    \item BC - Används av vissa instruktioner som en byte-räknare för att uppnå upprepningar i vissa instruktioner. Kan också användas som en 16-bitars räknare.
+    \item DE - Lagrar adressen av en minnesplats, oftast en destination.
+    \item HL - Ett generellt 16-bitars register. Om ett 16-bitars register ska användas så brukar HL vara förstahandsvalet. De vanligaste användningsområdena är lagring av 16-bitars aritmetik och adresser till saker så som strängar, bilder, etiketter etc.\\
+    Anmärkning: HL lagrar ofta originaladressen, till skillnad från DE som oftast lagrar destinationen.
+    \item PC - ''Program Counter'' som lagrar minnesplatsen som processorn tar instruktioner från. Inga funktioner kan förändra PC, förutom genom att faktiskt hoppa till en annan adress i minnet.
+    \item SP - Stackpekaren, pekar på den nuvarande adressen till toppen av stacken.
+    \item WZ - En konjunktion av W och Z. WZ används också för lagring.
+\end{itemize}
+
+källan är http://z80-heaven.wikidot.com/the-registers-and-memory
+\clearpage
+\section{Hårdvaran}
+\subsection{}
+
+\end{document}

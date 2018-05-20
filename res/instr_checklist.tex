@@ -1,0 +1,208 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={17cm, 26cm}]{geometry}
+\usepackage{graphicx}
+
+\newcommand\checkbox{p{2mm}}
+\newcommand{\tblopts}{
+    | p{3cm}
+    | \checkbox | \checkbox | \checkbox | \checkbox
+    | \checkbox | \checkbox | \checkbox
+    | p{2cm} | \checkbox | \checkbox |}
+\newcommand{\header}{
+    \hline instruktion & S & Z & X & H & P & N & C & & & \\ \hline
+}
+\newcommand{\instrtable}[2]{
+    \section{#1}
+    \scalebox{1.5}{\begin{tabular}{\tblopts} \header
+    #2
+    \end{tabular}}
+}
+
+\pagenumbering{gobble}
+
+\begin{document}
+
+\instrtable{8-Bit Load Group}{
+    LD r, r'  &&&&&&&&&& \\ \hline
+    LD r,n    &&&&&&&&&& \\ \hline
+    LD r, (HL) &&&&&&&&&& \\ \hline
+    LD r, (IX+d) &&&&&&&&&& \\ \hline
+    LD r, (IY+d) &&&&&&&&&& \\ \hline
+    LD (HL), r &&&&&&&&&& \\ \hline
+    LD (IX+d), r &&&&&&&&&& \\ \hline
+    LD (IY+d), r &&&&&&&&&& \\ \hline
+    LD (HL), n &&&&&&&&&& \\ \hline
+    LD (IX+d), n &&&&&&&&&& \\ \hline
+    LD (IY+d), n &&&&&&&&&& \\ \hline
+    LD A, (BC) &&&&&&&&&& \\ \hline
+    LD A, (DE) &&&&&&&&&& \\ \hline
+    LD A, (nn) &&&&&&&&&& \\ \hline
+    LD (BC), A &&&&&&&&&& \\ \hline
+    LD (DE), A &&&&&&&&&& \\ \hline
+    LD (nn), A &&&&&&&&&& \\ \hline
+    LD A, I &&&&&&&&&& \\ \hline
+    LD A, R &&&&&&&&&& \\ \hline
+    LD I,A &&&&&&&&&& \\ \hline
+    LD R, A &&&&&&&&&& \\ \hline
+}
+
+\instrtable{16-Bit Load Group}{
+    LD dd, nn &&&&&&&&&& \\ \hline
+    LD IX, nn &&&&&&&&&& \\ \hline
+    LD IY, nn &&&&&&&&&& \\ \hline
+    LD HL, (nn) &&&&&&&&&& \\ \hline
+    LD dd, (nn) &&&&&&&&&& \\ \hline
+    LD IX, (nn) &&&&&&&&&& \\ \hline
+    LD IY, (nn) &&&&&&&&&& \\ \hline
+    LD (nn), HL &&&&&&&&&& \\ \hline
+    LD (nn), dd &&&&&&&&&& \\ \hline
+    LD (nn), IX &&&&&&&&&& \\ \hline
+    LD (nn), IY &&&&&&&&&& \\ \hline
+    LD SP, HL &&&&&&&&&& \\ \hline
+    LD SP, IX &&&&&&&&&& \\ \hline
+    LD SP, IY &&&&&&&&&& \\ \hline
+    PUSH qq &&&&&&&&&& \\ \hline
+    PUSH IX &&&&&&&&&& \\ \hline
+    PUSH IY &&&&&&&&&& \\ \hline
+    POP qq &&&&&&&&&& \\ \hline
+    POP IX &&&&&&&&&& \\ \hline
+    POP IY &&&&&&&&&& \\ \hline
+}
+
+\instrtable{Exchange, Block Transfer, and Search Group}{
+    EX DE, HL &&&&&&&&&& \\ \hline
+    EX AF, AF′ &&&&&&&&&& \\ \hline
+    EXX &&&&&&&&&& \\ \hline
+    EX (SP), HL &&&&&&&&&& \\ \hline
+    EX (SP), IX &&&&&&&&&& \\ \hline
+    EX (SP), IY &&&&&&&&&& \\ \hline
+    LDI &&&&&&&&&& \\ \hline
+    LDIR &&&&&&&&&& \\ \hline
+    LDD &&&&&&&&&& \\ \hline
+    LDDR &&&&&&&&&& \\ \hline
+    CPI &&&&&&&&&& \\ \hline
+    CPIR &&&&&&&&&& \\ \hline
+    CPD &&&&&&&&&& \\ \hline
+    CPDR &&&&&&&&&& \\ \hline
+}
+
+\instrtable{8-Bit Arithmetic Group}{
+    ADD A, r &&&&&&&&&& \\ \hline
+    ADD A, n &&&&&&&&&& \\ \hline
+    ADD A, (HL) &&&&&&&&&& \\ \hline
+    ADD A, (IX + d) &&&&&&&&&& \\ \hline
+    ADD A, (IY + d) &&&&&&&&&& \\ \hline
+    ADC A, s &&&&&&&&&& \\ \hline
+    SUB s &&&&&&&&&& \\ \hline
+    SBC A, s &&&&&&&&&& \\ \hline
+    AND s &&&&&&&&&& \\ \hline
+    OR s &&&&&&&&&& \\ \hline
+    XOR s &&&&&&&&&& \\ \hline
+    CP s &&&&&&&&&& \\ \hline
+    INC r &&&&&&&&&& \\ \hline
+    INC (HL) &&&&&&&&&& \\ \hline
+    INC (IX+d) &&&&&&&&&& \\ \hline
+    INC (IY+d) &&&&&&&&&& \\ \hline
+    DEC m &&&&&&&&&& \\ \hline
+}
+\instrtable{General-Purpose Arithmetic and CPU Control Groups}{
+    DAA &&&&&&&&&& \\ \hline
+    CPL &&&&&&&&&& \\ \hline
+    NEG &&&&&&&&&& \\ \hline
+    CCF &&&&&&&&&& \\ \hline
+    SCF &&&&&&&&&& \\ \hline
+    NOP &&&&&&&&&& \\ \hline
+    HALT &&&&&&&&&& \\ \hline
+    DI &&&&&&&&&& \\ \hline
+    EI &&&&&&&&&& \\ \hline
+    IM 0 &&&&&&&&&& \\ \hline
+    IM 1 &&&&&&&&&& \\ \hline
+    IM 2 &&&&&&&&&& \\ \hline
+}
+
+\instrtable{16-Bit Arithmetic Group}{
+    ADD HL, ss &&&&&&&&&& \\ \hline
+    ADC HL, ss &&&&&&&&&& \\ \hline
+    SBC HL, ss &&&&&&&&&& \\ \hline
+    ADD IX, pp &&&&&&&&&& \\ \hline
+    ADD IY, rr &&&&&&&&&& \\ \hline
+    INC ss &&&&&&&&&& \\ \hline
+    INC IX &&&&&&&&&& \\ \hline
+    INC IY &&&&&&&&&& \\ \hline
+    DEC ss &&&&&&&&&& \\ \hline
+    DEC IX &&&&&&&&&& \\ \hline
+    DEC IY &&&&&&&&&& \\ \hline
+}
+
+\instrtable{Rotate and Shift Group}{
+    RLCA &&&&&&&&&& \\ \hline
+    RLA &&&&&&&&&& \\ \hline
+    RRCA &&&&&&&&&& \\ \hline
+    RRA &&&&&&&&&& \\ \hline
+    RLC r &&&&&&&&&& \\ \hline
+    RLC (HL) &&&&&&&&&& \\ \hline
+    RLC (IX+d) &&&&&&&&&& \\ \hline
+    RLC (IY+d) &&&&&&&&&& \\ \hline
+    RL m &&&&&&&&&& \\ \hline
+    RRC m &&&&&&&&&& \\ \hline
+    RR m &&&&&&&&&& \\ \hline
+    SLA m &&&&&&&&&& \\ \hline
+    SRA m &&&&&&&&&& \\ \hline
+    SRL m &&&&&&&&&& \\ \hline
+    RLD &&&&&&&&&& \\ \hline
+    RRD &&&&&&&&&& \\ \hline
+}
+
+\instrtable{Bit Set, Reset, and Test Group}{
+    BIT b, r &&&&&&&&&& \\ \hline
+    BIT b, (HL) &&&&&&&&&& \\ \hline
+    BIT b, (IX+d) &&&&&&&&&& \\ \hline
+    BIT b, (IY+d) &&&&&&&&&& \\ \hline
+    SET b, r &&&&&&&&&& \\ \hline
+    SET b, (HL) &&&&&&&&&& \\ \hline
+    SET b, (IX+d) &&&&&&&&&& \\ \hline
+    SET b, (IY+d) &&&&&&&&&& \\ \hline
+    RES b, m &&&&&&&&&& \\ \hline
+}
+
+\instrtable{Jump Group}{
+    JP nn &&&&&&&&&& \\ \hline
+    JP cc, nn &&&&&&&&&& \\ \hline
+    JR e &&&&&&&&&& \\ \hline
+    JR C, e &&&&&&&&&& \\ \hline
+    JR NC, e &&&&&&&&&& \\ \hline
+    JR Z, e &&&&&&&&&& \\ \hline
+    JR NZ, e &&&&&&&&&& \\ \hline
+    JP (HL) &&&&&&&&&& \\ \hline
+    JP (IX) &&&&&&&&&& \\ \hline
+    JP (IY) &&&&&&&&&& \\ \hline
+    DJNZ, e &&&&&&&&&& \\ \hline
+}
+
+\instrtable{Call and Return Group}{
+    CALL nn &&&&&&&&&& \\ \hline
+    CALL cc, nn &&&&&&&&&& \\ \hline
+    RET &&&&&&&&&& \\ \hline
+    RET cc &&&&&&&&&& \\ \hline
+    RETI &&&&&&&&&& \\ \hline
+    RETN &&&&&&&&&& \\ \hline
+    RST p &&&&&&&&&& \\ \hline
+}
+
+\instrtable{Input and Output Group}{
+    IN A, (n) &&&&&&&&&& \\ \hline
+    IN r (C) &&&&&&&&&& \\ \hline
+    INI &&&&&&&&&& \\ \hline
+    INIR &&&&&&&&&& \\ \hline
+    IND &&&&&&&&&& \\ \hline
+    INDR &&&&&&&&&& \\ \hline
+    OUT (n), A &&&&&&&&&& \\ \hline
+    OUT (C), r &&&&&&&&&& \\ \hline
+    OUTI &&&&&&&&&& \\ \hline
+    OTIR &&&&&&&&&& \\ \hline
+    OUTD &&&&&&&&&& \\ \hline
+    OTDR &&&&&&&&&& \\ \hline
+}
+
+\end{document}

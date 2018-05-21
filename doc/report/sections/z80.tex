@@ -114,4 +114,23 @@ Kontrollsignalerna för tillståndsmaskinen avgör processorns nästa tillstånd
 
 \subsubsection{Faser}
 
+\subsection{Register}
+Registerna är strukturerade som ett blokram sammankopplat med en multiplexer.
+Multiplexerns roll i symbiosen är att hantera vilket register som skall skrivas
+till respektive läsas från. Varje register har en speciell kod som används för
+att muxen ska hålla koll på vilket register som pekas på. Muxen väntar sedan på
+en läs- eller skrivsignal för att avgöra vad som ska göras med registret som
+pekas på. Kodningen som använts för registerna är baserad på Zilogs
+originalkodning som beskrivs i användarmanualen \cite{userman}. Det som skiljer
+kodningen som används från originalkodningen är att en extra siffra har lagts
+till. Siffran lades till eftersom det var fler register som skulle hållas koll
+på än siffrorna räckte för.
+
+Kodningen är binär och består av fyra siffror. Den mest signifikanta biten
+används för att skilja på Zilogs originalkodning och de registerna som
+egentligen inte var en del av kodningen som ändå skulle hållas koll på.
+
+Som beskrivet i teori-delen så finns det både 8-bitars- och 16-bitarsregister i
+strukturen.
+
 \end{document}

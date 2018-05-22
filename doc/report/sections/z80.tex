@@ -122,15 +122,51 @@ att muxen ska hålla koll på vilket register som pekas på. Muxen väntar sedan
 en läs- eller skrivsignal för att avgöra vad som ska göras med registret som
 pekas på. Kodningen som använts för registerna är baserad på Zilogs
 originalkodning som beskrivs i användarmanualen \cite{userman}. Det som skiljer
-kodningen som används från originalkodningen är att en extra siffra har lagts
-till. Siffran lades till eftersom det var fler register som skulle hållas koll
-på än siffrorna räckte för.
+kodningen som används från originalkodningen är att två extra siffror har lagts
+till. Siffrorna längst fram lades till eftersom det var fler register som
+skulle hållas koll på än originalsiffrorna räckte för.
 
-Kodningen är binär och består av fyra siffror. Den mest signifikanta biten
+Kodningen är binär och består av fem siffror. De två mest signifikanta bitarna
 används för att skilja på Zilogs originalkodning och de registerna som
 egentligen inte var en del av kodningen som ändå skulle hållas koll på.
 
 Som beskrivet i teori-delen så finns det både 8-bitars- och 16-bitarsregister i
-strukturen.
+strukturen. Strukturen ser ut som följande:
+
+\begin{center}
+    \begin{tabular}{ r|c|c|r }
+        \multicolumn{1}{r}{addr}
+        &  \multicolumn{1}{c}{high}
+        & \multicolumn{1}{c}{low} 
+        & \multicolumn{1}{l}{addr} \\
+        \cline{2-3}
+        00 00000 & \mono{B} & \mono{C} & 00001 01  \\
+        \cline{2-3}
+        02 00010 & \mono{B} & \mono{C} & 00011 03  \\
+        \cline{2-3}
+        04 00100 & \mono{D} & \mono{E} & 00101 05  \\
+        \cline{2-3}
+        06 00110 & \mono{D} & \mono{E} & 00111 07  \\
+        \cline{2-3}
+        08 01000 & \mono{H} & \mono{L} & 01001 09  \\
+        \cline{2-3}
+        10 01010 & \mono{H} & \mono{L} & 01011 11  \\
+        \cline{2-3}
+        12 01100 & \mono{A} & \mono{F} & 01101 13  \\
+        \cline{2-3}
+        14 01110 & \mono{A} & \mono{F} & 01111 15  \\
+        \cline{2-3}
+        16 10000 & \mono{W} & \mono{Z} & 10001 17  \\
+        \cline{2-3}
+    \end{tabular}\\
+    \begin{tabular}{ r|p{0.2cm} c p{0.2cm}|l }
+        18 10010 && \mono{SP} && 10011 19 \\
+        \cline{2-4}
+        20 10100 && \mono{IX} && 10011 21 \\
+        \cline{2-4}
+        22 10110 && \mono{IY} && 10111 23 \\
+        \cline{2-4}
+    \end{tabular}
+\end{center}
 
 \end{document}

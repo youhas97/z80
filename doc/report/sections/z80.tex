@@ -123,8 +123,9 @@ en läs- eller skrivsignal för att avgöra vad som ska göras med registret som
 pekas på. Kodningen som använts för registerna är baserad på Zilogs
 originalkodning som beskrivs i användarmanualen \cite{userman}. Det som skiljer
 kodningen som används från originalkodningen är att två extra siffror har lagts
-till. Siffrorna längst fram lades till eftersom det var fler register som
-skulle hållas koll på än originalsiffrorna räckte för.
+till och att kodningen på vissa av registrerna har förändrats. Siffrorna längst
+fram lades till eftersom det var fler register som skulle hållas koll på än
+originalsiffrorna räckte för.
 
 Kodningen är binär och består av fem siffror. De två mest signifikanta bitarna
 används för att skilja på Zilogs originalkodning och de registerna som
@@ -168,5 +169,22 @@ strukturen. Strukturen ser ut som följande:
         \cline{2-4}
     \end{tabular}
 \end{center}
+ 
+Figuren visar att det även finns en dublett av varje register. Det är för att
+en swap-funktion ska hanteras. Det swap-funktionen gör är att byta innehållet i
+ett register med innehåller på dess ''prim''-variant, som är ett
+likadant,internt register. Om man skapar två identiska register kan båda
+dubletterna agera som både ''prim''-variant och original. Vilket som är vilket
+urskiljs med hjälp av en pekare.
+
+Varje register - förutom SP, IX och IY som är 16-bitarsregister - är
+8-bitarsregister och har olika användningsområden. Register A är indirekt
+kopplat till ALU:n och register F håller koll på flaggorna. Register W och Z är
+endast interna register och kan användas för att lagra värden som ska användas
+senare. I register C lagrar man värdena för vilken port som ska användas i IN
+och OUT funktioner. Utöver dessa undantag kan alla register användas
+likgiltigt. 8-bitarsregisterna kan även användas som 16-bitarsregister ifall de
+paras ihop med sin andra halva. Vilka register som hör ihop med varandra kan
+man se i figuren ovan.
 
 \end{document}

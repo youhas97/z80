@@ -177,14 +177,28 @@ likadant,internt register. Om man skapar två identiska register kan båda
 dubletterna agera som både ''prim''-variant och original. Vilket som är vilket
 urskiljs med hjälp av en pekare.
 
-Varje register - förutom SP, IX och IY som är 16-bitarsregister - är
-8-bitarsregister och har olika användningsområden. Register A är indirekt
-kopplat till ALU:n och register F håller koll på flaggorna. Register W och Z är
-endast interna register och kan användas för att lagra värden som ska användas
-senare. I register C lagrar man värdena för vilken port som ska användas i IN
-och OUT funktioner. Utöver dessa undantag kan alla register användas
+Varje register - förutom \mono{SP}, \mono{IX} och \mono{IY} som är
+16-bitarsregister - är 8-bitarsregister och har olika användningsområden.
+Register \mono{A} är indirekt kopplat till ALU:n och register \mono{F} håller
+koll på flaggorna. Register \mono{W} och \mono{Z} är endast interna register
+och kan användas för att lagra värden som ska användas senare. I register
+\mono{C} lagrar man värdena för vilken port som ska användas i \mono{IN} och
+\mono{OUT} funktioner. Utöver dessa undantag kan alla register användas
 likgiltigt. 8-bitarsregisterna kan även användas som 16-bitarsregister ifall de
 paras ihop med sin andra halva. Vilka register som hör ihop med varandra kan
-man se i figuren ovan.
+man se i figuren ovan. Det finns några instruktioner som bestämmer vilka
+register som skall användas, men i de flesta instruktioner har användaren
+valfrihet.
+
+Det finns vissa register som inte är med i tabellen ovan men som ändå finns i
+archiketuren. De registerna som inte är tabellen är sådana som inte behöver
+kodning. Ett exempel på ett sådant register är instruktionsregistret \mono{IR}.
+Eftersom instruktionsregistret inte är ett allmänt register behöver det inte en
+explicit kodning för att nås, och undviker därför att kodas. Ett annat register
+som inte har en kodning är det temporära registret som används i ALUn.  Vissa
+ALU instruktioner så som \mono{CP} (compare), \mono{ADD} (addition) och
+\mono{SUB} (subtraction) kräver två operander. Det är då det temporära
+registret \mono{TMP} kommer in i bilden. \mono{TMP} används som den andra
+indatan till ALUn.
 
 \end{document}

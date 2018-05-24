@@ -10,6 +10,7 @@ hänger samman och hur styrningen av apparaten går till.
 fanns inte på MUXens datorer så en extern bärbar dator användes för att
 överföra datan. Tangenbordet är kopplat till FPGA-kortets USB port för att
 kunna skicka indata till FPGA-kortet. VGA-kabeln går till en 640x480 VGA-skärm.
+Då miniräknaren har en 96x64 skärm har varje pixel skalats upp med faktorn 6.
 
 \subsection{Användarhandledning}
 För att kunna köra ett av de program som laddas in måste de hamna på rätt
@@ -20,6 +21,11 @@ Programmet som laddas in måste vara en binär fil för att FPGA:n ska kunna tol
 filen. Därför måste programmet först konverteras från assembly-kod till en
 sådan fil. Konverteringen sker via z80asm som är en assembler för z80
 instruktioner.
+
+I det här bygget har användaren möjlighet att öka frekvensen till 15MHz, som är
+frekvensen TI-84 använder, via en switch.
+
+
 %--TODO
 %-vad gör spakarna
 %-vad menas med LED

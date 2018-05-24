@@ -3,65 +3,82 @@
 \begin{document}
 \section{Teori}
 \subsection{Z80}
-Z80 processorn var en revoltionerande processor på 70-talet då den var kapabel
-att göra allt Intels 8080 kunde samt hade många fler instruktioner, fler
-funktioner och register samt förenklade hårdvarukopplingar. Tanken med det här
-projektet är att efterlikna en TI-83p miniräknare, som använder en Z80
-processor.
-\subsubsection{8-bitars register}
+Z80 är en processor från 1976 tillverkad av Zilog. Den är fullt kompatibel med
+Intel 8080 men har även extra instruktioner och register. Nedan följer en kort
+beskrivning till vissa aspekt av processorn. Mer detaljerad information om
+processorn kan hittas i Zilog:s användarmanual.
+\cite{z80um}
+
+\subsubsection{Register och flaggor}
 \begin{itemize}
     \item A, även kallat ''ackumulator'', är det primära registret för
-    aritmetiska operationer och för att nå minnet. Registret är direkt kopplat
-    till ALU:n och kan på så sätt användas som indata för alla matematiska
-    operationer.
+        aritmetiska operationer och för att nå minnet. Registret är direkt
+        kopplat till ALU:n och kan på så sätt användas som indata för alla
+        matematiska operationer.
     \item B - Ofta använt som en 8-bitars räknare.
-    \item C - Används när användaren vill läsa/skicka in/ut signaler. Registret
-    används som ett gränssnitt för hårdvaruportar.
-    \item D - Används i praktiken oftast konjunkt med register E och sällan som
-    8-bitars register.
-    \item E - Används, precis som D, sällan i 8-bitarsform och paras istället
-    ihop med D.
+    \item C - Används bland annat för att lagra lagra portnumret vid en in-
+        eller utinstruktion.
+    \item D, E - Används generellt parvis för att lagra minnesadresser.
     \item F - Registret som innehåller flaggorna. Användaren har ingen extern
-    kontroll över F och registret kan inte manipuleras med hjälp av
-    LD-instruktioner och dylikt. ALU-instruktioner sätter flaggorna genom att
-    ändra värdet i F
-    \item H - Precis som D så används sällan i 8-bitarsform och används
-    istället parvis med L.
-    \item L - Används oftast parvis med H.
+        kontroll över F och registret kan inte manipuleras med hjälp av
+        LD-instruktioner och dylikt. ALU-instruktioner sätter flaggorna genom
+        att ändra värdet i F
+    \item H,L - Register som ofta lagrar en minnesadress för kompatibibilitet
+        med 8080. Många instruktioner använder HL för att referera till en
+        plats i minnet.
     \item I - I används i samband med avbrottshantering. Lagrar den översta
-    byten i interrupt mode 2.
-    \item W - Ett internt register som används för lagring.
-    \item Z - Ännu ett intert register som används för lagring.
+        byten i interrupt mode 2.
+    \item W, Z - Två interna register som används för lagring under
+        instruktioner.
+    \item PC - Lagrar minnesplatsen som processorn tar
+        instruktioner från. Inga funktioner kan förändra PC, förutom genom att
+        faktiskt hoppa till en annan adress i minnet.
+    \item SP - Stackpekaren, pekar på den nuvarande adressen till toppen av
+        stacken.
 \end{itemize}
-\subsubsection{16-bitars register}
-\begin{itemize}
-    \item AF - Används sällan då F lagrar värdet på flaggorna.
-    \item BC - Används av vissa instruktioner som en byte-räknare för att uppnå
-    upprepningar i vissa instruktioner. Kan också användas som en 16-bitars
-    räknare.
-    \item DE - Lagrar adressen av en minnesplats, oftast en destination.
-    \item HL - Ett generellt 16-bitars register. Om ett 16-bitars register ska
-    användas så brukar HL vara förstahandsvalet. De vanligaste
-    användningsområdena är lagring av 16-bitars aritmetik och adresser till
-    saker så som strängar, bilder, etiketter etc.\\
-    Anmärkning: HL lagrar ofta originaladressen, till skillnad från DE som
-    oftast lagrar destinationen.
-    \item PC - ''Program Counter'' som lagrar minnesplatsen som processorn tar
-    instruktioner från. Inga funktioner kan förändra PC, förutom genom att
-    faktiskt hoppa till en annan adress i minnet.
-    \item SP - Stackpekaren, pekar på den nuvarande adressen till toppen av stacken.
-    \item WZ - En konjunktion av W och Z. WZ används också för lagring.
-\end{itemize}
+% TODO kort om flaggor
 
-Information om de olika registerna hittades i artikeln  \emph{The Registers And Memory}. \cite{regsandmem}
+\subsubsection{Externa bussar}
+Z80:n har en 8-bitars databuss och en 16-bitars adressbuss. Processorn både
+skriver och läser till och från databussen men skriver endast till
+adressbussen. Det finns också en så kallad kontrollbuss som består av flera in-
+och utsignaler. Insignalerna består av \mono{INT}, \mono{NMI}, \mono{IORQ},  Utsignalerna består av \mono{HALT}, \mono{M1},
+\mono{IORQ}, \mono{MREQ}, \mono{RD}, \mono{WR}, \mono{RFSH}, \mono{BUSACK}.
+% TODO
+
+\subsubsection{IO}
+Z80-processorn har ett system av portar för att hantera in- och utdata till
+andra enheter utöver minne. När ett program vill skicka data till en enhet
+används en av \mono{OUT}-instruktionerna. Då placeras portnumret på
+adressbussens lägre åtta bitar och utdatan läggs på databussen av processorn så
+att IO-enheten som korresponderar till den porten tar emot den. Under en
+\mono{IN}-instruktion placerar processorn porten på adressbussen men
+korresponderande IO-enhet placerar sin data på databussen. För att det här
+systemet ska fungera måste en dedikerad enhet utanför processorn hantera
+muxning av data till och från rätt enhet utifrån porten på adressbussen.
+
+\subsubsection{Avbrott}
+
 
 \subsection{TI-83p}
 Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas
 Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64
-monokrom LCD-skärm och 4 AAA batterier. Då projektets uppsättning består av ett
-FPGA-kort och en 640x480 skärm så har varje pixel skalats upp med faktorn 6. I
-det här bygget har användaren möjlighet att öka frekvensen till 15MHz, som är
-frekvensen TI-84 använder, via en switch.
-\clearpage
+monokrom LCD-skärm. TI-miniräknarna har en inbyggd {\it application specific
+integrated circuit} (ASIC) som bland annat muxar data mellan processorn och
+portarna. TI83p:an använder sig av en T6A04A LCD kontroller. Detaljerad
+information om dess funktinalitet finns i dess datablad. Andra delar av
+TI83p:ans ASIC är odokumenterade men den innehåller bland annat hårdvarutimers,
+avbrottkontroller, tangentbordskontroller, minnesmappning och minnesskydd.
 
+TI83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
+{\it non-maskable interrupts} eftersom ASIC:en aldrig skickar en
+\mono{NMI}-signal. {\it Bus request} används heller aldrig eftersom
+\mono{BUSRQ} aldrig går aktiv. Vid avbrott lägger ASIC:en ingen data på
+databussen så \mono{IM 0} går inte att använda eftersom då exekveras
+instruktionen på databussen. \mono{IM 2} går att använda men eftersom
+databussen bestämmer de 8 sista bitarna på adressen till hoppadressen måste
+ett helt block av 256 bytes fyllas med hoppadressen. Miniräknarens
+operativsystem använder endast \mono{IM 0}.
+
+\clearpage
 \end{document}

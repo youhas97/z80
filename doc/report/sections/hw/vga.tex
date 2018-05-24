@@ -1,0 +1,17 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\subsection{VGA-motorn}
+
+För att visa upp en bild på skärmen måste data skickas till varje pixel om vilken färg den ska ha. VGA-motorns ansvar är att räkna igenom alla pixlar på skärmen och tilldela dem data i form av en 8-bit RGB färg. I TI83:an kan pixlar endast vara av och på. Därför, för att representera dessa, används bara två färger i projektet. Svart som ritas för pixlar som är på och en blågrön nyans, som påminner om origanlskärmens färg, som ritas för pixlar som är av.
+
+Bildskärmens upplösning är 640x480 medan TI83:ans skärm är 96x64. För att smidigt kunna köra program och TI83 OS:et utan att behöva ändra kod så måste upplösningen vara den samma som för TI83:an. Dock skulle den uppritade skärmen vara väldigt liten om den inte förstorades. Skärmen förstorades därför 6 gånger vilket är det största som får plats på VGA-skärmen. Alltså är alla pixlar sex gånger större än de ska vara. 
+
+VGA-motorn jobbar hand i hand med bildminnet
+
+
+
+Bildminnet som VGA-motorn använder sig av är dock 96x64 pixlar stort
+-6x6 pixlar
+
+\end{document}

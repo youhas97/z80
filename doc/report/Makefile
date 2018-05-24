@@ -6,6 +6,8 @@ TEXOPTS=--shell-escape
 all:
 	make report
 	make bib
+	make report
+	make bib
 	make pdf
 	make pdf
 	make clean

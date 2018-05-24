@@ -1,0 +1,11 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Z80-processorn}
+Z80:n kan delas upp i tre sektioner; kontroll, register och ALU. De är anslutna
+med varandra via databussen, addressbussen och en del tunnlar.
+Kontrollsektionen har även kontrollsignaler till alla delar av processorn.
+
+\subfile{sections/hw/ctrl}
+\subfile{sections/hw/rf}
+\end{document}

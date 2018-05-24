@@ -1,0 +1,28 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Apparaten}
+Det här avsnittet är en överblick av hur apparaten och de diverse komponenterna
+hänger samman och hur styrningen av apparaten går till.
+\subsection{Uppsättning}
+[visa bild på setup] FPGA kortet kopplas till en dator med programmet Adept
+[källa/länk] som används för att hantera minnet hos FPGA-kortet. Programmet
+fanns inte på MUXens datorer så en extern bärbar dator användes för att
+överföra datan. Tangenbordet är kopplat till FPGA-kortets USB port för att
+kunna skicka indata till FPGA-kortet. VGA-kabeln går till en 640x480 VGA-skärm.
+
+\subsection{Användarhandledning}
+För att kunna köra ett av de program som laddas in måste de hamna på rätt
+adresser i minnet. Adresserna väljs i Adept, en för TI83-romet och en för
+användarens program. CPU:ns programräknare startar alltid på adress 8000 så ett
+hopp laddas även in för att komma till användarminnet där programmet ligger.
+Programmet som laddas in måste vara en binär fil för att FPGA:n ska kunna tolka
+filen. Därför måste programmet först konverteras från assembly-kod till en
+sådan fil. Konverteringen sker via z80asm som är en assembler för z80
+instruktioner.
+%--TODO
+%-vad gör spakarna
+%-vad menas med LED
+
+\clearpage
+\end{document}

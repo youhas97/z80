@@ -2,19 +2,13 @@
 
 \begin{document}
 \section{Teori}
+\subsection{Z80}
 Z80 processorn var en revoltionerande processor på 70-talet då den var kapabel
 att göra allt Intels 8080 kunde samt hade många fler instruktioner, fler
 funktioner och register samt förenklade hårdvarukopplingar. Tanken med det här
 projektet är att efterlikna en TI-83p miniräknare, som använder en Z80
 processor.
-\subsection{TI-83p}
-Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas
-Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64
-monokrom LCD-skärm och 4 AAA batterier. Då projektets uppsättning består av ett
-FPGA-kort och en 640x480 skärm så har varje pixel skalats upp med faktorn 6. I
-det här bygget har användaren möjlighet att öka frekvensen till 15MHz, som är
-frekvensen TI-84 använder, via en switch.
-\subsection{8-bitars register}
+\subsubsection{8-bitars register}
 \begin{itemize}
     \item A, även kallat ''ackumulator'', är det primära registret för
     aritmetiska operationer och för att nå minnet. Registret är direkt kopplat
@@ -39,7 +33,7 @@ frekvensen TI-84 använder, via en switch.
     \item W - Ett internt register som används för lagring.
     \item Z - Ännu ett intert register som används för lagring.
 \end{itemize}
-\subsection{16-bitars register}
+\subsubsection{16-bitars register}
 \begin{itemize}
     \item AF - Används sällan då F lagrar värdet på flaggorna.
     \item BC - Används av vissa instruktioner som en byte-räknare för att uppnå
@@ -61,6 +55,13 @@ frekvensen TI-84 använder, via en switch.
 
 Information om de olika registerna hittades i artikeln  \emph{The Registers And Memory}. \cite{regsandmem}
 
+\subsection{TI-83p}
+Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas
+Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64
+monokrom LCD-skärm och 4 AAA batterier. Då projektets uppsättning består av ett
+FPGA-kort och en 640x480 skärm så har varje pixel skalats upp med faktorn 6. I
+det här bygget har användaren möjlighet att öka frekvensen till 15MHz, som är
+frekvensen TI-84 använder, via en switch.
 \clearpage
 
 \end{document}

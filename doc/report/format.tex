@@ -9,13 +9,12 @@
 \usepackage{subfiles}
 \usepackage{array}
 \usepackage{float}
-\usepackage[a4paper, total={16cm, 25cm}]{geometry}
-
-\title{\Huge Zilog Z80 i Nexys3}
-\author{\LARGE Yousef Hashem\\
-        \LARGE Noah Hellman\\
-        \LARGE Dennis Derecichei\\ 
-        \LARGE Jakob Arvidsson}
-\date{\Large May 2018}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage[a4paper, total={16cm, 24cm}]{geometry}
 
 \newcommand\mono[1]{\texttt{#1}}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}

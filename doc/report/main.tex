@@ -1,19 +1,13 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 \input{format.tex}
 
 \begin{document}
-\maketitle
-\clearpage
-\tableofcontents
-\clearpage
-
+\subfile{sections/frontpage}
+\subfile{sections/toc}
 \subfile{sections/intro}
 \subfile{sections/setup}
-\subfile{sections/theory.tex}
-\subfile{sections/hw.tex}
-
-\clearpage
-\printbibliography[heading=bibintoc]
-
+\subfile{sections/theory}
+\subfile{sections/hw}
+\subfile{sections/ref}
 \end{document}

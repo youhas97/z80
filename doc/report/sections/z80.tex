@@ -135,38 +135,22 @@ Som beskrivet i teori-delen så finns det både 8-bitars- och 16-bitarsregister 
 strukturen. Strukturen ser ut som följande:
 
 \begin{center}
-    \begin{tabular}{ r|c|c|r }
-        \multicolumn{1}{r}{addr}
-        &  \multicolumn{1}{c}{high}
-        & \multicolumn{1}{c}{low} 
-        & \multicolumn{1}{l}{addr} \\
-        \cline{2-3}
-        00 00000 & \mono{B} & \mono{C} & 00001 01  \\
-        \cline{2-3}
-        02 00010 & \mono{B} & \mono{C} & 00011 03  \\
-        \cline{2-3}
-        04 00100 & \mono{D} & \mono{E} & 00101 05  \\
-        \cline{2-3}
-        06 00110 & \mono{D} & \mono{E} & 00111 07  \\
-        \cline{2-3}
-        08 01000 & \mono{H} & \mono{L} & 01001 09  \\
-        \cline{2-3}
-        10 01010 & \mono{H} & \mono{L} & 01011 11  \\
-        \cline{2-3}
-        12 01100 & \mono{A} & \mono{F} & 01101 13  \\
-        \cline{2-3}
-        14 01110 & \mono{A} & \mono{F} & 01111 15  \\
-        \cline{2-3}
-        16 10000 & \mono{W} & \mono{Z} & 10001 17  \\
-        \cline{2-3}
-    \end{tabular}\\
-    \begin{tabular}{ r|p{0.2cm} c p{0.2cm}|l }
-        18 10010 && \mono{SP} && 10011 19 \\
-        \cline{2-4}
-        20 10100 && \mono{IX} && 10011 21 \\
-        \cline{2-4}
-        22 10110 && \mono{IY} && 10111 23 \\
-        \cline{2-4}
+    \begin{tabular}{ r|c|c|l }
+        \multicolumn{1}{c}{adress} &
+        \multicolumn{1}{c}{hög} & \multicolumn{1}{c}{låg} &
+        \multicolumn{1}{c}{adress} \\ \cline{2-3}
+        00 00000 & \mono{B} & \mono{C}            & 00001 01 \\ \cline{2-3}
+        02 00010 & \mono{B} & \mono{C}            & 00011 03 \\ \cline{2-3}
+        04 00100 & \mono{D} & \mono{E}            & 00101 05 \\ \cline{2-3}
+        06 00110 & \mono{D} & \mono{E}            & 00111 07 \\ \cline{2-3}
+        08 01000 & \mono{H} & \mono{L}            & 01001 09 \\ \cline{2-3}
+        10 01010 & \mono{H} & \mono{L}            & 01011 11 \\ \cline{2-3}
+        12 01100 & \mono{A} & \mono{F}            & 01101 13 \\ \cline{2-3}
+        14 01110 & \mono{A} & \mono{F}            & 01111 15 \\ \cline{2-3}
+        16 10000 & \mono{W} & \mono{Z}            & 10001 17 \\ \cline{2-3}
+        18 10010 & \multicolumn{2}{c|}{\mono{SP}} & 10011 19 \\ \cline{2-3}
+        20 10100 & \multicolumn{2}{c|}{\mono{IX}} & 10011 21 \\ \cline{2-3}
+        22 10110 & \multicolumn{2}{c|}{\mono{IY}} & 10111 23 \\ \cline{2-3}
     \end{tabular}
 \end{center}
  

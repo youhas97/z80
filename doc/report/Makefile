@@ -6,6 +6,8 @@ TEXOPTS=--shell-escape
 all:
 	make report
 	make bib
+	make report
+	make bib
 	make pdf
 	make pdf
 	make clean
@@ -20,4 +22,4 @@ pdf:
 	pdflatex $(TEXOPTS) $(TEXFILE)
 
 clean:
-	rm -f *.{aux,bbl,blg,dvi,log,out,xml,toc} *blx.bib
+	rm -f *.aux *.bbl *.blg *.dvi *.log *.out *.xml *.toc *blx.bib

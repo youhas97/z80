@@ -36,7 +36,7 @@ processorn kan hittas i Zilog:s användarmanual.
     \item SP - Stackpekaren, pekar på den nuvarande adressen till toppen av
         stacken.
 \end{itemize}
-% TODO kort om flaggor
+% TODO kort om flaggor, även odokumenterade
 
 \subsubsection{Externa bussar}
 Z80:n har en 8-bitars databuss och en 16-bitars adressbuss. Processorn både
@@ -72,12 +72,13 @@ avbrottkontroller, tangentbordskontroller, minnesmappning och minnesskydd.
 
 TI83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 {\it non-maskable interrupts} eftersom ASIC:en aldrig skickar en
-\mono{NMI}-signal. {\it Bus request} används heller aldrig eftersom
-\mono{BUSRQ} aldrig går aktiv. Vid avbrott lägger ASIC:en ingen data på
-databussen så \mono{IM 0} går inte att använda eftersom då exekveras
-instruktionen på databussen. \mono{IM 2} går att använda men eftersom
-databussen bestämmer de 8 sista bitarna på adressen till hoppadressen måste
-ett helt block av 256 bytes fyllas med hoppadressen. Miniräknarens
+\mono{NMI}-signal. Detta innebär även att IFF2 aldrig kommer skilja sig från
+IFF1 vilket innebär att endast en d-vippa behövs. {\it Bus request} används
+heller aldrig eftersom \mono{BUSRQ} aldrig går aktiv. Vid avbrott lägger
+ASIC:en ingen data på databussen så \mono{IM 0} går inte att använda eftersom
+då exekveras instruktionen på databussen. \mono{IM 2} går att använda men
+eftersom databussen bestämmer de 8 sista bitarna på adressen till hoppadressen
+måste ett helt block av 256 bytes fyllas med hoppadressen. Miniräknarens
 operativsystem använder endast \mono{IM 0}.
 
 \clearpage

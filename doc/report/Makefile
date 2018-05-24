@@ -22,4 +22,4 @@ pdf:
 	pdflatex $(TEXOPTS) $(TEXFILE)
 
 clean:
-	rm -f *.{aux,bbl,blg,dvi,log,out,xml,toc} *blx.bib
+	rm -f *.aux *.bbl *.blg *.dvi *.log *.out *.xml *.toc *blx.bib

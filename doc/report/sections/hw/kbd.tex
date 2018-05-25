@@ -2,4 +2,23 @@
 
 \begin{document}
 \subsubsection{Tangentbordskodare}
+Tangentbordskodaren översätter kodningen på tangentbordets knapptryckningar
+till en annan kodning som operativsystemet för TI-83 använder sig av. En
+multiplexer används för att bestämma värdet på utdatan från tangentbordskodaren
+utifrån ett femtiotal möjliga värden på indata. När en tangent på tangentbordet
+trycks ner returneras en bit från tangentbordet. Den här biten används för att
+bestämma vilken grupp av tangenter som använts på tangentbordet med hjälp av en
+tabell \cite{kbdenc}. Efter att ha bestämt vilken grupp av tangenter som
+använts är det lättare att se vilken tangent som tryckts när då det nu finns
+färre tangenter att kolla. För att hålla kontruktionen så enkel som möjligt
+angående upplägget så har nummerkontrollerna på tangentbordet använts som
+siffror. Utöver det har knappar som varit lättast att implementera använts.
+
+I tangentbordkontrollen har en matris skapats. Den här matrisen används för att
+kunna hantera flera knapptryckningar på samma gång. Matrisen innehåller alla
+tangenter i form av ettor, som sedan ändras till nollor då knappen trycks ner.
+Genom att gå igenom matrisen kan man se vilka tangenter som tryckts ner och
+flera aktioner kan på så sätt göras simultant. Endast de utmaskade gruppernas
+tangenter behöver dock kollas i matrisen då man redan uteslutit vilka tangenter
+som används/inte används. Matrisen hanteras av tangentbordskontrollern.
 \end{document}

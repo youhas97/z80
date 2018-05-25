@@ -1,11 +1,13 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
+
 \section{Introduktion}
 Följande är en introduktin till rapporten om konstruktionen av en
 TI83p-miniräknare med en Z80-processor. Rapporten kommer huvudsakligen bestå av
 fyra delar; en beskrivning av apparaten, en kort teorilektion, en djupare
 beskrivning av hårdvaran samt allmäna slutsatser angående projektet.
+
 \subsection{Bakgrund}
 Eftersom gruppen bestod av fyra personer som ville göra projektet tillsammans
 så fanns det fler möjligheter när det gällde storleken på apparaten som skulle
@@ -14,12 +16,14 @@ skulle ske. Tanken var att den skulle användas för att bygga en TI84p så att
 dess operativsystem samt andra program anpassade för miniräknaren skulle kunna
 köras. Under projektet visade det sig att TI83p var väldigt lik men var enklare
 att implementera, så den byggdes och dess operativsystem laddades istället.
+
 \subsection{Syfte}
 Syftet med konstruktionen var, först och främst, inlärning av kunskap om hur en
 processor egentligen fungerar och få en inblick i hur uppbyggnaden av en
 processor ser ut. Målet var att göra en allmän processor som kunde användas som
 Z80 originalprocessorn användes, d.v.s. som processor för bl.a. TI-miniräknare
 och diverse arkadspel.
+
 \subsection{Referenser och resurser}
 För att förstå hur Z80:n är uppbyggd och hur den fungerar har boken {\it
 Programming the Z80} \cite{zaks-z80prog} av Rodnay Zaks varit till väldigt stor
@@ -28,7 +32,7 @@ Shirriff såsom {\it How the Z80's registers are implemented}
 \cite{shirriff-reg} har också varit till stor hjälp. Zilogs användarmanual
 \cite{z80um} har använts väl som referens för hur instruktioner, avbrott och
 flaggor ska fungera. Tidsdiagrammen har även använts som bas för vår
-implementation. En tabell från ClrHome \cite{clrhome} har används mycket som
+implementation. En tabell från ClrHome \cite{clrhome} har använts mycket som
 snabb referens för alla instruktioners objektkoder.
 
 För att förstå hur TI-miniräknarna fungerar har sidor som {\it Z80 Heaven}
@@ -36,13 +40,22 @@ För att förstå hur TI-miniräknarna fungerar har sidor som {\it Z80 Heaven}
 miniräknarens portar på WikiTI har varit väldigt användbara för att få reda på
 hur TI-ASIC:en ska fungera. Källkoden för emulatorer har också varit väldigt
 användbara för detta syfte. Specifikt har koden till {\it z80e} \cite{z80e} och
-{\it Tilem2} \cite{tilem2} granskats väl. Dessa emulatorer har även använts för
-att jämföra resultatet med vår implementation. Tilem2 har en väldigt användbar
-debugger som gjorde att vi kunde köra en fungerande version parallellt med vår
-version instruktion för instruktion. Detta var oerhört hjälpsamt i slutet av
-projektet för att hitta de sista felen och slutligen få operativsystemet att
-fungera.
+{\it Tilem2} \cite{tilem2} granskats väl.
+
+Emulatorerna har även använts för att jämföra resultatet med vår
+implementation. Tilem2 har en väldigt användbar debugger som gjorde att vi
+kunde köra en fungerande version parallellt med vår version instruktion för
+instruktion. Detta var oerhört hjälpsamt i slutet av projektet för att hitta
+de sista felen och slutligen få operativsystemet att fungera.
+
+För att assembla kod till objektkod har {\it z80asm}\cite{z80asm} använts.
+{\it GHDL}\cite{ghdl} tillsammans med {\it GTKWave}\cite{gtkwave} har använts
+för att simulera VHDL-kod och visa vågdiagram.
+
+{\it Digilent Adept} har använts för att skicka TI83p-ROM:en och andra program
+direkt till minnet på Nexys 3 kortet. TI83p-ROM:en togs från en
+TI83p-miniräknare med hjälp av {\it TiLP}\cite{tilp}. Program och spel för
+miniräknaren har tankats ner från ticalc.org:s filarkiv\cite{ticalc}.
 
 \clearpage
-
 \end{document}

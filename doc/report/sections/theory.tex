@@ -42,9 +42,22 @@ processorn kan hittas i Zilog:s användarmanual.
 Z80:n har en 8-bitars databuss och en 16-bitars adressbuss. Processorn både
 skriver och läser till och från databussen men skriver endast till
 adressbussen. Det finns också en så kallad kontrollbuss som består av flera in-
-och utsignaler. Insignalerna består av \mono{INT}, \mono{NMI}, \mono{IORQ},  Utsignalerna består av \mono{HALT}, \mono{M1},
-\mono{IORQ}, \mono{MREQ}, \mono{RD}, \mono{WR}, \mono{RFSH}, \mono{BUSACK}.
-% TODO
+och utsignaler. Insignalerna består av \mono{INT}, \mono{NMI}, \mono{RESET},
+\mono{BUSREQ} och \mono{WAIT}. \mono{INT} används för att signalera ett
+avbrott, \mono{NMI} för ett {\it nonmaskable interrupt}. \mono{WAIT} används
+vid minnes- eller IO-operationer för att indikera att indatan ännu inte är
+redo. \mono{BUSREQ} signalerar till processorn att en enhet vill använda så att
+processorn sätter databussen och adressbussen till högimpedans. Utsignalerna
+består av \mono{HALT}, \mono{M1}, \mono{IORQ}, \mono{MREQ}, \mono{RD},
+\mono{WR}, \mono{RFSH}, \mono{BUSACK}. \mono{HALT} är aktiv när processorn är i
+halt-läge. \mono{M1} är aktiv när processorn är i maskincykel ett. Om
+processorn hämtar från minnet när \mono{M1} är aktiv innebär det att processorn
+hämtar en instruktion. Med hjälp av \mono{RD} och \mono{WR} signalerar
+processorn att den ska läsa eller skriva. Samtidigt signalerar processorn om
+den vill läsa/skriva till minnet eller till en IO-enhet med hjälp av
+\mono{IORQ} och \mono{MREQ}-signalerna. \mono{RFSH} används för att skicka
+refresh-signaler till ett dynamiskt minne. \mono{BUSACK} går aktiv när
+processorn har lagt hög impedans på bussarna efter en \mono{BUSREQ}-signal.
 
 \subsubsection{IO}
 Z80-processorn har ett system av portar för att hantera in- och utdata till

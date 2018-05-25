@@ -1,0 +1,22 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\subsection{Operationdekodare}
+Operationdekodaren var svår att implementera på ett fint och lättläst sätt,
+och har därför implementerats som en enda jättestor case-when som samspelar med
+en liten case-when. Poängen med den här case-satsen är att kodningen på
+operationerna kan behållas och användas som olika fall i case-satsen. Den lilla
+case-satsen är till för att hålla koll på vilket prefix instruktionen är på för
+tillfället, för att kunna lista ut instruktion som ska köras härnäst. Eftersom
+instruktionerna skiljer från prefix till prefix så var den här implementationen
+det smidigaste sättet att lista ut vilken instruktion som ska köras från en
+sträng av bitar.
+
+Varje fall i case-satsen gör ett funktionsanrop till en funktion som gör det
+instruktionen ska göra. I de flesta funktionerna görs ett internt
+funktionsanrop beroende på vad som ska göras (läsa från minnet, skriva till
+minnet etc). Anledningen det interna funktionsanropet görs är för att samma kod
+inte ska behöva skrivas i alla instruktioner som gör samma sak (läser från minnet,
+skriver till minnet etc).
+
+\end{document}

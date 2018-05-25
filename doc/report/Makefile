@@ -25,4 +25,4 @@ pdf:
 
 clean:
 	rm -f *.aux *.bbl *.blg *.dvi *.log *.out *.xml *.toc *blx.bib
-	rm -f *.pdf_tex cpu.pdf alu.pdf
+	rm -f *.eps *converted-to.pdf

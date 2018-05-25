@@ -17,8 +17,10 @@ report:
 bib:
 	bibtex8 $(TEXNAME)
 
-svg: svg/cpu.svg
+svg:
 	inkscape -z --file=svg/cpu.svg --export-eps=cpu.eps
+	inkscape -z --file=svg/alu.svg --export-eps=alu.eps
+	inkscape -z --file=svg/alu_sbc.svg --export-eps=alusbc.eps
 
 pdf:
 	pdflatex $(TEXOPTS) $(TEXFILE)

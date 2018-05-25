@@ -1,9 +1,23 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
+% set landscape
 \appendix
-\section{Appendix. VHDL-kod}
-
+\section{Bilaga. VHDL-kod}
 \subfile{sections/appendices/opdec}
 
+\newpage
+\KOMAoptions{paper={landscape},pagesize}
+\recalctypearea
+
+\section{Bilaga. Z80 blockschema}
+\begin{figure}[H]
+    \hspace{-25mm}
+    \includegraphics[scale=0.8,origin=c]{cpu.eps}
+\end{figure}
+
+% set portrait
+\newpage
+\KOMAoptions{paper={landscape},pagesize}
+\recalctypearea
 \end{document}

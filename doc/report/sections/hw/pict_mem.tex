@@ -1,0 +1,8 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\subsubsection{Bildminnet}
+
+Bildminnet är den komponent som innehåller all data för den bild som ska ritas ut. Det är 120x64 stort trots att monitorn endast är 96x64 stor. De extra pixlarna används bara i vissa applikationer som utnyttjar ytan som en buffer eller som extra minne. Det finns en funktion inbyggt i OS:et att flytta buffern fram och tillbaka men det används inte aktivt av OS:et självt. Bildminnet lagrar endast en bit per pixel eftersom bilden som ritas bara antingen har påslagna eller avstängde pixlar.
+När VGA-motorn skickar en rad(0-64) på 6 bitar och en kolumn(0-120) på 5 bitar in till bildminnet räknar bildminnet fram till det värdet och skickar rätt data tillbaka till VGA-motorn. Bildminnet är väldigt nära kopplat med LCD-kontrollern. I avsnittet om LCD-kontrollern står det också mer exakt om hur de båda är sammankopplade.
+\end{document}

@@ -1,0 +1,15 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\subsubsection{LCD-kontrollern}
+
+LCD-kontrollern är den komponent som kopplar samman Bildminnet och processorn.
+
+LCD-kontrollern har två olika modes. 6- och 8-bitars mode. Det väljer om porten ska överföra 6 eller 8 bitar åt gången. När kontrollern befinner sig i 6-bit mode kommer bildminnet vara uppdelat i 20 stycken pages innehållande 64 ord vardera. När den är i 8-bit mode kommer de vara 15 pages också då med 64 ord. LCD-kontrollern ser, med hjälp av det bit-modet, till att rätt data skrivs till bildminnet.
+
+I LCD-kontrollern finns ett antal räknare. 
+X som räknar upp/ned till 64 vilket är radnummret i bildminnet. Skrivning till eller läsning från bildminnet gör att X räknaren automatiskt räknar upp/ned.
+Y som räknar upp/ned pages i bildminnet. Den räknar antingen upp/ned till 15 eller 20 beroende på vilket mode som LCD-kontrollern befinner sig i. Skrivning till eller läsning från bildminnet gör att Y räknaren automatiskt räknar upp/ned.
+Z som räknar upp/ned till 64 och räknar fram startadressen på bildminnet. Det värde Z har kommer vara start för bilden som ritas.
+
+\end{document}

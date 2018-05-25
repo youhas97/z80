@@ -4,8 +4,7 @@ BIBFILE=references.bib
 TEXOPTS=--shell-escape
 
 all:
-	make report
-	make bib
+	make svg
 	make report
 	make bib
 	make pdf
@@ -18,8 +17,12 @@ report:
 bib:
 	bibtex8 $(TEXNAME)
 
+svg: svg/cpu.svg
+	inkscape -z --file=svg/cpu.svg --export-eps=cpu.eps
+
 pdf:
 	pdflatex $(TEXOPTS) $(TEXFILE)
 
 clean:
 	rm -f *.aux *.bbl *.blg *.dvi *.log *.out *.xml *.toc *blx.bib
+	rm -f *.pdf_tex cpu.pdf alu.pdf

@@ -99,15 +99,18 @@ programräknaren inte ökas innan den ska sparas till stacken.
 Kontrollsignalerna är uppdelade i tre grupper; extern kontrollbus,
 tillståndskontroll samt interna kontrollsignaler.
 
+% TODO diagram för timing under read/write
 Den externa kontrollbussen har sex utsignaler som instruktionsdekodaren
 aktiverar; \mono{M1}, \mono{MREQ}, \mono{IORQ}, \mono{RD} och \mono{WR}.
 \mono{RD} och \mono{WR} används för att signalera läsning eller skrivning till
 och från antingen minnet eller IO-portar. Processorn signalerar vilket med
 hjälp av \mono{MREQ} och \mono{IORQ}. \mono{M1} används för att signalera om
-CPU:n är i maskincykel 1. Om processorn läser från minnet under maskincykel 1
-vet externa enheter att processorn hämtar en instruktion.
+CPU:n är i maskincykel 1.
 
+% TODO tillståndskontroll
 Kontrollsignalerna för tillståndsmaskinen avgör processorns nästa tillstånd.
+
+% TODO kontrollsignaler
 
 \paragraph{Faser}
 

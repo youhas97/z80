@@ -13,6 +13,7 @@ kunna skicka indata till FPGA-kortet. VGA-kabeln går till en 640x480 VGA-skärm
 Då miniräknaren har en 96x64 skärm har varje pixel skalats upp med faktorn 6.
 
 \subsection{Användarhandledning}
+% TODO beskriva hur man laddar allmänt program samt TI ROM
 För att kunna köra ett av de program som laddas in måste de hamna på rätt
 adresser i minnet. Adresserna väljs i Adept, en för TI83-romet och en för
 användarens program. CPU:ns programräknare startar alltid på adress 8000 så ett
@@ -22,6 +23,7 @@ filen. Därför måste programmet först konverteras från assembly-kod till en
 sådan fil. Konverteringen sker via z80asm som är en assembler för z80
 instruktioner.
 
+% TODO beskriva knappar, kommer inte ändras mer
 Alla knappar, brytare, LED-lampor samt 7-segmentsdislayen på FPGA-kortet
 användes i debuggingsyfte. Vad varje knapp gjorde ändrades ofta eftersom det
 som skulle debuggas ständigt ändrades. Det är möjligt att stega T-cyklar,

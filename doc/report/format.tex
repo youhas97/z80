@@ -1,20 +1,52 @@
+% encoding
 \usepackage[utf8]{inputenc}
 \usepackage[swedish]{babel}
 
+% bibliography
 \usepackage[backend=bibtex8]{biblatex}
 \addbibresource{references.bib}
 \usepackage{csquotes}
 
-\usepackage{graphicx}
+% split files
 \usepackage{subfiles}
+
+% table util, multicolumn etc
 \usepackage{array}
+
+% place figures here (H)
 \usepackage{float}
+
+% titleformat for paragraphs
 \usepackage{titlesec}
+
+% hyperlinks for references, urls
 \usepackage{hyperref}
+
+% page dimensions
 \usepackage[a4paper, total={16cm, 24cm}]{geometry}
+
+% landscape appendices
 \usepackage[paper=portrait,pagesize]{typearea}
 
+% labeling
+\usepackage{scrextend}
+
+% include graphics
+\usepackage{graphicx}
+
+% wrap figures in text
+\usepackage{wrapfig}
+
+% diagrams
+\usepackage{tikz}
+\usepackage{tikz-timing}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{arrows,shapes,automata,petri,positioning,calc}
+
+% monospace font
 \newcommand\mono[1]{\texttt{#1}}
+
+% header for sections under subsubsections
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}

@@ -1,0 +1,19 @@
+\begin{tikztimingtable}
+    \mono{M}       & 4D{1} 4D{2} 3D{3} 4D{1} 3D{2} 13D{1} \\
+    \mono{T}       & D{1}D{2}D{3}D{4} D{1}D{2}D{3}D{4} D{1}D{2}D{3} % add rp
+                     D{1}D{2}D{3}D{4} D{1}D{2}D{3} D{4} % im 1
+                     D{1}D{2}D{3} D{4} % halt fetch
+                     D{1}D{2}D{3}D{4} % halt
+                     D{1}D{2}D{3}D{4} % halt
+                     \\
+    \mono{cycle\_end}   & 3L1H 3L1H 2L1H 3L1H 3L1H 3L1H 3L1H 3L1H \\
+    \mono{set\_m1}      & 4L 4L 3L 4L 2L1H 13L \\
+    \mono{instr\_end}   & 4L 4L 2L1H 4L 3L1H 3L1H 3L1H 3L1H \\
+    \mono{mode\_next}   & 22D{\mono{exec}} 9D{\mono{halt}} \\
+    \mono{mode}    & 23D{\mono{exec}} 8D{\mono{halt}} \\
+    \mono{im\_next}     & 18D{0} 13D{1} \\
+    \mono{im}      & 19D{0} 12D{1} \\
+    \mono{prefix}  & 18D{\mono{main}} 4D{\mono{ed}} 9D{\mono{main}} \\
+    \mono{ir}      & 3D{}  11D{\mono{39}} 4D{\mono{ED}} 4D{\mono{56}}
+                     9D{\mono{76}} \\
+\end{tikztimingtable}

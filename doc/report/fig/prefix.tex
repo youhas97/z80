@@ -1,0 +1,41 @@
+\tikzset{
+    state/.style={
+        circle,
+        thick,
+        draw=black,
+        fill=gray!20,
+        minimum size=10mm,
+    },
+}
+
+\begin{tikzpicture}[node distance=1cm and 1.5cm, font=\scriptsize]
+    \node[state] (main) {\mono{main}};
+    \node[state] (dd) [below right=of main] {\mono{dd}};
+    \node[state] (ddcb) [above right=of dd] {\mono{ddcb}};
+    \node[state] (fd) [below left=of main] {\mono{fd}};
+    \node[state] (fdcb) [above left=of fd] {\mono{fdcb}};
+    \node[state] (ed) [above left=of main] {\mono{ed}};
+    \node[state] (cb) [above right=of main] {\mono{cb}};
+    \node[state] (int) [above=of main] {\mono{int}};
+
+    \path[->, thick] (main) edge[loop below] node{} ();
+
+    \path[->, thick] (main) edge node[above right]{\mono{IR=DD}} (dd);
+    \path[->, thick] (dd) edge[bend left] node{} (main);
+    \path[->, thick] (dd) edge node[below right]{\mono{IR=CB}} (ddcb);
+    \path[->, thick] (ddcb) edge node{} (main);
+
+    \path[->, thick] (main) edge node[above left]{\mono{IR=FD}} (fd);
+    \path[->, thick] (fd) edge[bend right] node{} (main);
+    \path[->, thick] (fd) edge node[below left]{\mono{IR=CB}} (fdcb);
+    \path[->, thick] (fdcb) edge node{} (main);
+
+    \path[->, thick] (main) edge[bend left] node[left]{\mono{IR=ED}} (ed);
+    \path[->, thick] (ed) edge node{} (main);
+
+    \path[->, thick] (main) edge[bend right] node[right]{\mono{IR=CB}} (cb);
+    \path[->, thick] (cb) edge node{} (main);
+
+    \path[->, thick] (main) edge node[above left]{\mono{mode=int}} (int);
+    \path[->, thick] (int) edge[bend left] node{} (main);
+\end{tikzpicture}

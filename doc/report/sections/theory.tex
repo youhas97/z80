@@ -35,7 +35,11 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
     \item \mono{H}, \mono{L} - Register som ofta lagrar en minnesadress. Många instruktioner
         använder HL för att referera till en plats i minnet. Dessa register kan
         även byta plats med \mono{DE} med \mono{ex de, hl}-instruktionen.
-    \item \mono{IX}, \mono{IY} - Dessa används på liknande sätt som \mono{HL}.
+    \item \mono{IX}, \mono{IY} - Dessa används på liknande sätt som \mono{HL}
+        men istället för att använda adressen som registret pekar på används
+        relativ adressering. Ett exempel är instruktionen \mono{and (ix+d)} som
+        utför \mono{and} på värdet som ligger \mono{d} platser efter adressen
+        som \mono{IX} pekar på.
     \item \mono{SP} - Stackpekaren, pekar på den nuvarande adressen till toppen av
         stacken. Speciella instruktioner som \mono{push}, \mono{pop} och
         \mono{call} modifierar \mono{SP} medan programmerarens förmåga att

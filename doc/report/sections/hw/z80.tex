@@ -3,8 +3,12 @@
 \begin{document}
 \subsection{Z80-processorn}
 Z80:n kan delas upp i tre sektioner; kontroll, register och ALU. De är anslutna
-med varandra via databussen, addressbussen och en del tunnlar.
-Kontrollsektionen har även kontrollsignaler till alla delar av processorn.
+med varandra via databussen, addressbussen och en del tunnlar som alla kan ses
+i blockschema \ref{diag:z80}. Kontrollsektionen har även kontrollsignaler till
+alla delar av processorn i form av ett långt kontrollord. Detta är
+\mono{cw}-signalen i blockschemat. Alla signaler i kontrollordet finns med i
+blockschemat förutom muxadresser till adress- och databussen samt alla
+lässignaler för alla register.
 
 \subfile{sections/hw/ctrl}
 \subfile{sections/hw/rf}

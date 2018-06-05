@@ -1,7 +1,7 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\subsubsection{Register}
+\subsubsection{Registersektion}
 Registerna är strukturerade som ett blockram sammankopplat med en multiplexer.
 Multiplexerns roll i symbiosen är att hantera vilket register som skall skrivas
 till respektive läsas från. Varje register har en speciell kod som används för
@@ -38,6 +38,8 @@ strukturen. Strukturen ser ut som följande:
         18 10010 & \multicolumn{2}{c|}{\mono{SP}} & 10011 19 \\ \cline{2-3}
         20 10100 & \multicolumn{2}{c|}{\mono{IX}} & 10011 21 \\ \cline{2-3}
         22 10110 & \multicolumn{2}{c|}{\mono{IY}} & 10111 23 \\ \cline{2-3}
+        24 11000 & \mono{I} & \mono{R}            & 11001 25 \\ \cline{2-3}
+        26 11010 & \multicolumn{2}{c|}{\mono{PC}} & 11011 27 \\ \cline{2-3}
     \end{tabular}
 \end{center}
  

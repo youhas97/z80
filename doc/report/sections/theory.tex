@@ -6,8 +6,7 @@
 Z80 är en processor från 1976 tillverkad av Zilog. Den är fullt kompatibel med
 Intel 8080 men har även extra instruktioner och register. Nedan följer en kort
 beskrivning till vissa aspekt av processorn. Mer detaljerad information om
-processorn kan hittas i Zilog:s användarmanual.
-\cite{z80um}
+processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 
 \subsubsection{Register}
     Processorn har åtta 8-bitars register och och tre 16-bitars register.
@@ -46,9 +45,11 @@ processorn kan hittas i Zilog:s användarmanual.
         2.
     \item \mono{R} - Register för memory refresh. Z80:n har inbyggd
         refresh-hantering för dynamiska minnen.
-    \item \mono{PC} - Lagrar minnesplatsen som processorn tar instruktioner från. Inga
-        funktioner kan ändra PC direkt, förutom genom att faktiskt hoppa till
-        en annan adress i minnet.
+    \item \mono{PC} - Lagrar minnesplatsen som processorn tar instruktioner
+        från. Inga funktioner kan ändra PC direkt, endast indirekt med
+        hoppinstruktioner.
+        % jp **, jp (hl) fungerar precis som ld pc, **, ld pc, hl skulle göra.
+        % så man kan ju typ ändra pc direkt, kanske förtydliga
 \end{itemize}
 
 \subsubsection{Flaggor}
@@ -166,10 +167,11 @@ Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas
 Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64
 monokrom LCD-skärm. TI-miniräknarna har en inbyggd {\it application specific
 integrated circuit} (ASIC) som bland annat muxar data mellan processorn och
-portarna. TI83p:an använder sig av en T6A04A LCD kontroller. Detaljerad
-information om dess funktinalitet finns i dess datablad. Andra delar av
-TI83p:ans ASIC är odokumenterade men den innehåller bland annat hårdvarutimers,
-avbrottkontroller, tangentbordskontroller, minnesmappning och minnesskydd.
+portarna. TI83p:an använder sig av en T6A04 LCD kontroller. Detaljerad
+information om dess funktionalitet finns i dess datablad\cite{t6a04}. Andra
+delar av TI83p:ans ASIC är odokumenterade men den innehåller bland annat
+hårdvarutimers, avbrottshanterare, tangentbordskontroller, minnesmappning och
+minnesskydd.
 
 TI83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 {\it nonmaskable interrupts} eftersom ASIC:en aldrig skickar en
@@ -182,5 +184,10 @@ bestämmer de 8 sista bitarna på adressen till hoppadressen måste ett helt blo
 av 256 bytes fyllas med hoppadressen. Miniräknarens operativsystem använder
 endast \mono{IM 0}.
 
+
+\cite{m45}
+% TODO memory mapping
+% TODO PS2 kbd, vga protocol
+% TODO m45 datasheet
 \clearpage
 \end{document}

@@ -1,7 +1,7 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\subsection{VGA-motorn}
+\subsubsection{VGA-motor}
 
 För att visa upp en bild på skärmen måste data skickas till varje pixel om
 vilken färg den ska ha. VGA-motorns ansvar är att räkna igenom alla pixlar på
@@ -27,6 +27,7 @@ pixlar är sex gånger så stora som vanligt använder VGA-motorn en räknare f�
 varje pixel inom moniterområdet. Räknaren repeterar den nuvarande pixlens värde
 sex gånger för alla bildminnets pixlar och skärmen blir på så vis förstorad.
  
+% TODO flytta nedan till teori 
 VGA-motorn använder sig i övrigt av VGA:s standard för Hsync och Vsync med
 640x480 upplösning. \cite{vgastd} 
 

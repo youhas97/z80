@@ -19,6 +19,7 @@ bib:
 
 svg:
 	inkscape -z --file=svg/comp.svg --export-eps=comp.eps
+	inkscape -z --file=svg/ti.svg --export-eps=ti.eps
 	inkscape -z --file=svg/cpu.svg --export-eps=cpu.eps
 	inkscape -z --file=svg/alu.svg --export-eps=alu.eps
 	inkscape -z --file=svg/alu_sbc.svg --export-eps=alusbc.eps

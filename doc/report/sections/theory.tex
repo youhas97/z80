@@ -52,8 +52,8 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
     \item \mono{PC} - Lagrar minnesplatsen som processorn tar instruktioner
         från. Inga funktioner kan ändra PC direkt, endast indirekt med
         hoppinstruktioner.
-        % jp **, jp (hl) fungerar precis som ld pc, **, ld pc, hl skulle göra.
-        % så man kan ju typ ändra pc direkt, kanske förtydliga
+        % jp **, jp (hl) fungerar precis som ld pc,**; ld pc,hl skulle göra.
+        % så man kan ju typ ändra pc direkt, kanske omformulera/förtydliga
 \end{itemize}
 
 \subsubsection{Flaggor}
@@ -162,10 +162,6 @@ som innan för att förhindra avbrott men \mono{IFF2} antar nu värdet av
 \mono{IFF1}. På så sätt kan föregående värdet av \mono{IFF1} återställas när
 avbrottsrutinen är färdig och exekverar \mono{retn}-instruktionen.
 
-För att allt detta ska fungera måste förstås en yttre enhet skicka
-avbrottssignaler samt lyssna på bekräftelse av processorn och därefter lägga
-rätt data på databussen.
-
 \subsection{TI-83p}
 Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas
 Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64
@@ -180,17 +176,19 @@ minnesskydd.
 TI83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 {\it nonmaskable interrupts} eftersom ASIC:en aldrig skickar en
 \mono{NMI}-signal. Detta innebär även att IFF2 aldrig kommer skilja sig från
-IFF1 vilket innebär att endast en d-vippa behövs. {\it Bus request} används
-heller aldrig eftersom \mono{BUSRQ} aldrig går aktiv. Vid avbrott lägger
-ASIC:en ingen data på databussen så \mono{IM 0} går inte att använda eftersom
-instruktionen är obestämd. \mono{IM 2} går att använda men eftersom databussen
-bestämmer de 8 sista bitarna på adressen till hoppadressen måste ett helt block
-av 256 bytes fyllas med hoppadressen. Miniräknarens operativsystem använder
-endast \mono{IM 0}.
+IFF1 så endast en D-vippa behövs. {\it Bus request} används aldrig då
+\mono{BUSRQ} aldrig går aktiv. Vid avbrott lägger ASIC:en ingen data på
+databussen så \mono{IM 0} går inte att använda eftersom instruktionen är
+obestämd. \mono{IM 2} går att använda men eftersom databussen bestämmer de 8
+sista bitarna på adressen till hoppadressen måste ett helt block av 256 bytes
+fyllas med hoppadressen. Miniräknarens operativsystem använder endast \mono{IM
+0}.
 
+% flytta memory mapping från hw?
 
 \cite{m45}
-% TODO memory mapping
+
+\subsection{Specifikationer}
 % TODO PS2 kbd, vga protocol
 % TODO m45 datasheet
 \clearpage

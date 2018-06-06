@@ -2,17 +2,16 @@
 
 \begin{document}
 \subsection{TI-ASIC}
-TI-ASIC innehåller alla de kontrollkomponenter som är del av TI:s miniräknare
-utanför processorn. In till ASIC:en är 8-bitars data direkt kopplad från
-processorn. Med hjälp av in/out instruktioner och adresser kan datan muxas
+TI-ASIC:en innehåller alla de kontrollkomponenter som är del av TI:s
+miniräknare utanför processorn. In till ASIC:en är databussen direkt kopplad
+från processorn. Med hjälp av in/out instruktioner och adresser kan datan muxas
 till eller från rätt port. De olika portarna leder därefter till en eller flera
-olika komponenter Nedan följer beskrivning av dessa portar i lite mer detalj.
+olika komponenter. Blockschema \ref{diag:ti} ger en överblick av denna struktur
+samt vilka komponenter som hanterar vilken in- och utdata.
 
 \subfile{sections/hw/pio}
 \subfile{sections/hw/memmap}
 \subfile{sections/hw/timers}
 \subfile{sections/hw/interrupt}
-% TODO merga, bildminne ingår i lcd t6a04
-\subfile{sections/hw/pict_mem}
 \subfile{sections/hw/lcd_ctrl}
 \end{document}

@@ -27,7 +27,8 @@ kan ses i blockschema \ref{diag:ti}. Flera komponenter kan ta emot data från en
 port vid en \mono{out}-instruktion men endast en komponent skriver tillbaka
 data vid en \mono{in}-instruktion. Läs och skrivsignalerna skickas även till
 komponenterna eftersom vissa reagerar på läsningar och skrivningar. Vissa
-portar skickar direkt tillbaka datan från buffern vid en läsning.
+portar skickar direkt tillbaka datan från buffern vid en läsning och behöver
+inte ta emot indata från en annan komponent.
 
 I praktiken speglar TI-miniräknaren flera portadresser till en och samma port.
 Detta löses genom att aktivera lässignalen och skrivsignalen till

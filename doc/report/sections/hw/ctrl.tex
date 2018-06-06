@@ -22,7 +22,7 @@ avbrottsläget \mono{im}, instruktionsprefixet \mono{prefix}, maskincykeln
 dem till instruktionskodaren. I blockschema \ref{diag:z80} är alla dessa
 signaler inkluderade i signalen \mono{cpu\_state}.
 
-\begin{figure}[H]
+\begin{figure}[t]
     \center
     \input{fig/tim-states.tex}
     \caption{Tillstånd samt värdet av \mono{IR} under exekveringen av
@@ -45,7 +45,7 @@ exempel instruktionerna \mono{add hl,sp} (39) och \mono{add ix,sp} (DD39) är
 identiska förutom att de har förskjutna maskincyklar och destinationsregistret
 har olika addresser. Deras maskincyklar visas i figur \ref{fig:mcorr}.
 
-\begin{figure}[H]
+\begin{figure}[b]
     \center
     \begin{tabular}{|r|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
         \hline
@@ -66,10 +66,10 @@ Genom att sätta maskincykeln till 1 vid andra hämtningen hamnar maskincyklarna
 i fas och instruktionsdekodaren kan ge identiska kontrollsignaler för båda
 instruktioner utöver addressen till destinationsregistret.
 
-Som ovan exempel visar används prefix-tillståndet tillsammans med \mono{IR} för
-att avgöra vilken instruktion som ska exekveras. Det finns åtta olika prefix;
-\mono{main} för huvudinstruktioner, \mono{ed} för utökade instruktioner,
-\mono{cb} för bitinstruktioner, \mono{dd}/\mono{fd} för IX/IY-instruktioner,
+Prefix-tillståndet tillsammans med \mono{IR} används för att avgöra vilken
+instruktion som ska exekveras. Det finns åtta olika prefix; \mono{main} för
+huvudinstruktioner, \mono{ed} för utökade instruktioner, \mono{cb} för
+bitinstruktioner, \mono{dd}/\mono{fd} för IX/IY-instruktioner,
 \mono{ddcb}/\mono{fdcb} för IX/IY-bitinstruktioner samt \mono{int} som sätts
 vid avbrott. Vid processorns start och efter varje instruktion sätts prefixet
 till \mono{main}. Om \mono{IR} därefter laddas med en prefix-byte kommer
@@ -87,12 +87,14 @@ kommer instruktionsdekodaren inte exekvera någon instruktion utefter vad
 utefter vad \mono{im}-tillståndet är. \mono{im}-tillståndet avgör det
 nuvarande avbrottsläget och kan väljas av programmeraren med \mono{im 0},
 \mono{im 1} och \mono{im 2}-instruktionerna.
-\begin{figure}[H]
+
+\begin{figure}
     \center
     \input{fig/prefix.tex}
     \caption{Tillståndsdiagram för prefixtillståndet.}
     \label{fig:prefix}
 \end{figure}
+
 Prefixet uppdateras med lässignalen till \mono{IR}. Det nästa prefixet beror på
 det föregående värdet i \mono{IR} som kan ses i figur \ref{fig:tim-states} vid
 övergången från \mono{main} till \mono{ed}.

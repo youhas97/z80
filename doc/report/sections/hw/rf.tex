@@ -28,7 +28,8 @@ använder.
         \ttfamily
         \begin{tabular}{r|c|c|l}
             \multicolumn{1}{c}{daddr} &
-            \multicolumn{1}{c}{hög} & \multicolumn{1}{c}{låg} &
+            \multicolumn{1}{c}{\normalfont hög} &
+            \multicolumn{1}{c}{\normalfont låg} &
             \multicolumn{1}{c}{daddr} \\ \cline{2-3}
             00 00000 & B   & C   & 00001 01 \\ \cline{2-3}
             02 00010 & D   & E   & 00011 03 \\ \cline{2-3}
@@ -49,7 +50,7 @@ använder.
         \ttfamily
         \begin{tabular}{r|c|}
             \multicolumn{1}{c}{aaddr} &
-            \multicolumn{1}{c}{register} \\ \cline{2-2}
+            \multicolumn{1}{c}{\normalfont register} \\ \cline{2-2}
             00 0000 & BC \\ \cline{2-2}
             01 0001 & DE \\ \cline{2-2}
             02 0010 & HL \\ \cline{2-2}
@@ -153,9 +154,10 @@ originalregistrets värde temporärt. Implementationen ser därför ut som i fig
     \center
     \ttfamily\arraybackslash
     \begin{tabular}{r|c|c|l}
-        \multicolumn{1}{c}{adress} &
-        \multicolumn{1}{c}{hög} & \multicolumn{1}{c}{låg} &
-        \multicolumn{1}{c}{adress} \\ \cline{2-3}
+        \multicolumn{1}{c}{\normalfont adress} &
+        \multicolumn{1}{c}{\normalfont hög} &
+        \multicolumn{1}{c}{\normalfont låg} &
+        \multicolumn{1}{c}{\normalfont adress} \\ \cline{2-3}
         00 00000 & B   & C   & 00001 01 \\ \cline{2-3}
         02 00010 & B   & C   & 00011 03 \\ \cline{2-3}
         04 00100 & D   & E   & 00101 05 \\ \cline{2-3}
@@ -165,9 +167,10 @@ originalregistrets värde temporärt. Implementationen ser därför ut som i fig
         12 01100 & A   & F   & 01101 13 \\ \cline{2-3}
     \end{tabular}
     \begin{tabular}{r|c|c|l}
-        \multicolumn{1}{c}{adress} &
-        \multicolumn{1}{c}{hög} & \multicolumn{1}{c}{låg} &
-        \multicolumn{1}{c}{adress} \\ \cline{2-3}
+        \multicolumn{1}{c}{\normalfont adress} &
+        \multicolumn{1}{c}{\normalfont hög} &
+        \multicolumn{1}{c}{\normalfont låg} &
+        \multicolumn{1}{c}{\normalfont adress} \\ \cline{2-3}
         14 01110 & A   & F   & 01111 15 \\ \cline{2-3}
         16 10000 & W   & Z   & 10001 17 \\ \cline{2-3}
         18 10010 & SPh & SPl & 10011 19 \\ \cline{2-3}

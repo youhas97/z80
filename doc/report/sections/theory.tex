@@ -8,14 +8,14 @@ Intel 8080 men har även extra instruktioner och register. Nedan följer en kort
 beskrivning till vissa aspekt av processorn. Mer detaljerad information om
 processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 
-\subsubsection{Register}
+\paragraph{Register}
     Processorn har åtta 8-bitars register och och tre 16-bitars register.
     Programmerare kan direkt komma åt och använda de flesta av dessa generellt.
     Vissa register har dock speciella instruktioner och specifika
     användningsområden. Par av 8-bitars register kan även användas som
-    16-bitars register av vissa instruktioner som bland annat \mono{push BC},
-    \mono{add HL, DE}. Register med en bokstav är 8 bitar och register med två
-    bokstäver är 16 bitar.
+    16-bitars register av vissa instruktioner som bland annat \mono{push BC}
+    och \mono{add HL, DE}. Register med en bokstav är 8 bitar och register med
+    två bokstäver är 16 bitar.
 \begin{itemize}
     \item \mono{A}, även kallat ``ackumulator'' är det primära registret för
         aritmetiska operationer och för att nå minnet. Registret är direkt
@@ -27,36 +27,37 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
     \item \mono{D}, \mono{E} - Används bland annat parvis för att lagra
         minnesadresser. Till exempel som destinationsadress för \mono{ldir}
         som flyttar ett block i minnet.
-    \item \mono{F} - Registret som innehåller flaggorna. Under en
-        ALU-instruktion laddas \mono{F} med flaggorna. Har inga flyttnings-
-        eller räkneinstruktioner såsom \mono{ld} eller \mono{sub}. Det går dock
-        att läsa och skriva till \mono{F} via stacken med \mono{push af} och
+    \item \mono{F} - Registret som lagrar flaggorna. Under en ALU-instruktion
+        laddas \mono{F} med flaggorna. Det finns inga flyttnings- eller
+        räkneinstruktioner såsom \mono{ld} eller \mono{sub} som använder
+        \mono{F}. \mono{F} ändras endast indirekt via ALU:n. Det går dock att
+        läsa och skriva till \mono{F} via stacken med \mono{push af} och
         \mono{pop af}.
-    \item \mono{H}, \mono{L} - Register som ofta lagrar en minnesadress. Många instruktioner
-        använder HL för att referera till en plats i minnet. Dessa register kan
-        även byta plats med \mono{DE} med \mono{ex de, hl}-instruktionen.
+    \item \mono{H}, \mono{L} - Register som ofta lagrar en minnesadress. Många
+        instruktioner använder HL för att referera till en plats i minnet.
+        Dessa register kan även byta plats med \mono{DE} med \mono{ex de,
+        hl}-instruktionen.
     \item \mono{IX}, \mono{IY} - Dessa används på liknande sätt som \mono{HL}
         men istället för att använda adressen som registret pekar på används
         relativ adressering. Ett exempel är instruktionen \mono{and (ix+d)} som
         utför \mono{and} på värdet som ligger \mono{d} platser efter adressen
         som \mono{IX} pekar på.
-    \item \mono{SP} - Stackpekaren, pekar på den nuvarande adressen till toppen av
-        stacken. Speciella instruktioner som \mono{push}, \mono{pop} och
+    \item \mono{SP} - Stackpekaren, pekar på den nuvarande adressen till toppen
+        av stacken. Speciella instruktioner som \mono{push}, \mono{pop} och
         \mono{call} modifierar \mono{SP} medan programmerarens förmåga att
         direkt modifiera \mono{SP} är begränsad.
     \item \mono{I} - \mono{I} används i samband med avbrottshantering. Lagrar
-        den översta byten av adressen till en hoppadress för interrupt mode
-        2.
+        den översta byte:n av adressen till en hoppadress för avbrottsläge 2.
     \item \mono{R} - Register för memory refresh. Z80:n har inbyggd
         refresh-hantering för dynamiska minnen.
-    \item \mono{PC} - Lagrar minnesplatsen som processorn tar instruktioner
-        från. Inga funktioner kan ändra PC direkt, endast indirekt med
-        hoppinstruktioner.
+    \item \mono{PC} - Instruktionspekaren, lagrar minnesplatsen som processorn
+        ska hämta nästa instruktion ifrån. Inga funktioner kan ändra PC direkt,
+        endast indirekt med hoppinstruktioner.
         % jp **, jp (hl) fungerar precis som ld pc,**; ld pc,hl skulle göra.
         % så man kan ju typ ändra pc direkt, kanske omformulera/förtydliga
 \end{itemize}
 
-\subsubsection{Flaggor}
+\paragraph{Flaggor}
 \begin{figure}[H]
     \center
     \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
@@ -71,27 +72,27 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
         vid addition och lån vid subtraktion. Vid aritmetisk operation är det
         en kopia av den bit 8. För vissa rotationsinstruktioner lagras en av
         operandens kanter i carry-flaggan.
-        tvåkomplementstal. Det är en kopia av bit 7.
-        kopia av bit 5 från resultatet.
     \item \mono{N} subtract - Indikerar att instruktionen är en subtraktion.
         Används endast av \mono{daa} för att korrigera resultatet till BCD.
-    \item \mono{P} parity/overflow - Visar \mono{P} om en aritmetisk overflow
+    \item \mono{P} parity/overflow - \mono{P} visar om en aritmetisk overflow
         har inträffat för aritmetiska instruktioner. För bitinstruktioner som
-        bland annat \mono{xor} visar flaggan om resultatet har paritet (jämnt
+        bland annat \mono{xor} visar \mono{P} om resultatet har paritet (jämnt
         antal nollor). \mono{P} används även för att indikera om \mono{BC} är
-        noll vid blockinstruktioner. Flaggan sätts även till värdet av
-        \mono{IFF} av instruktionerna \mono{ld a, i} och \mono{ld a, r}.
+        noll vid blockinstruktioner som \mono{ldir}. Flaggan sätts även till
+        värdet av \mono{IFF} vid exekveringen av \mono{ld a, i} och \mono{ld a,
+        r}.
     \item \mono{X} - Odokumenterad, har ingen funktion, kallas även för
         \mono{f3}. Generellt så är det en kopia av bit 3 av resultatet.
     \item \mono{H} half-carry - Indikerar carry för resultatet av de första
         fyra bitarna. Z80:n har en 4-bitars ALU så den här flaggan kommer
-        naturligt.
+        därför naturligt.
     \item \mono{Y} - Odokumenterad, som \mono{X} men kopia av bit 5.
     \item \mono{S} sign - Indikerar om resultatet är negativt om tolkat som ett
+        tvåkomplementstal. Det är en kopia av bit 7 i resultatet.
     \item \mono{Z} zero - Indikerar att resultatet är noll.
 \end{itemize}
 
-\subsubsection{Externa bussar}
+\paragraph{Externa bussar}
 Z80:n har en 8-bitars databuss och en 16-bitars adressbuss. Processorn både
 skriver och läser till och från databussen men skriver endast till
 adressbussen. Det finns också en så kallad kontrollbuss som består av flera in-
@@ -114,7 +115,7 @@ indikera att processorn är redo att läsa från databussen under ett avbrott.
 \mono{BUSACK} går aktiv när processorn har lagt hög impedans på bussarna efter
 en \mono{BUSREQ}-signal.
 
-\subsubsection{IO}
+\paragraph{IO}
 Z80-processorn har ett system av portar för att hantera in- och utdata till
 andra enheter utöver minne. När ett program vill skicka data till en enhet
 används en av \mono{OUT}-instruktionerna. Då placeras portnumret på
@@ -125,7 +126,7 @@ korresponderande IO-enhet placerar sin data på databussen. För att det här
 systemet ska fungera måste en dedikerad enhet utanför processorn hantera
 muxning av data till och från rätt enhet utifrån porten på adressbussen.
 
-\subsubsection{Avbrott}
+\paragraph{Avbrott}
 Vid början av exekveringen av varje instruktion kontrollerar processorn om
 \mono{INT} eller \mono{NMI} är aktiva. Vid en aktiv \mono{INT}-signal reagerar
 processorn på olika sätt beroende på vilket läge som är inställt av
@@ -177,19 +178,25 @@ TI83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 {\it nonmaskable interrupts} eftersom ASIC:en aldrig skickar en
 \mono{NMI}-signal. Detta innebär även att IFF2 aldrig kommer skilja sig från
 IFF1 så endast en D-vippa behövs. {\it Bus request} används aldrig då
-\mono{BUSRQ} aldrig går aktiv. Vid avbrott lägger ASIC:en ingen data på
-databussen så \mono{IM 0} går inte att använda eftersom instruktionen är
-obestämd. \mono{IM 2} går att använda men eftersom databussen bestämmer de 8
-sista bitarna på adressen till hoppadressen måste ett helt block av 256 bytes
-fyllas med hoppadressen. Miniräknarens operativsystem använder endast \mono{IM
-0}.
+\mono{BUSRQ} aldrig går aktiv.
 
-% flytta memory mapping från hw?
+Vid avbrott lägger ASIC:en ingen data på databussen så avbrotssläge 0 går inte
+att använda eftersom instruktionen är obestämd. Avbrottsläge 2 går att använda
+men eftersom databussen bestämmer de 8 sista bitarna på adressen till
+hoppadressen måste ett helt block av 256 bytes fyllas med hoppadressen.
+Miniräknarens operativsystem använder endast avbrottsläge 0. Miniräknaren
+maskar avbrott från olika källor med hjälp av port \mono{03}. Vid ett avbrott
+måste därefter processorn stänga av avbrottet via port \mono{04} för att det
+inte ska fortsätta hålla \mono{int}-signalen hög efter att processorn
+återaktiverar avbrott.
 
-\cite{m45}
+% flytta memory mapping hit från hw/ti/mem_ctrl? en del av ti83:ans funktionalitet och inte
+% specifikt till vår implementation
 
 \subsection{Specifikationer}
 % TODO PS2 kbd, vga protocol
 % TODO m45 datasheet
+\cite{m45}
+
 \clearpage
 \end{document}

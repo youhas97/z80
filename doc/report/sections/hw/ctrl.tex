@@ -168,9 +168,12 @@ varje signal i kontrollordet.
 
 \begin{labeling}{indentzzZzZz}
 \item[\mono{dbus\_src}]
-    Komponentens utdata som ska muxas till databussen.
+    Komponentens utdata som ska muxas till databussen. Kan komma från
+    \mono{dbufi}, registerfilen, \mono{TMP} eller ALU:n samt en sträng av
+    nollor.
 \item[\mono{abus\_src}]
-    Källan till adressbussen.
+    Källan till adressbussen; registerfilen, adressadderaren eller
+    \mono{rst}-adressen.
 \item[\mono{rf\_daddr}]
     Adressen till ett 8-bitars register i registerfilen vars värde läggs som
     utdata mot databussen.

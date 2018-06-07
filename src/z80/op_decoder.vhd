@@ -1915,7 +1915,6 @@ architecture arch of op_decoder is
                 f.cw.addr_op := inc;
                 f.cw.rf_rda := '1';
             when t3 =>
-                f.cw.rf_daddr := regF;
                 f.cw.rf_daddr := rp & '1';
                 f.cw.rf_rdd := '1';
                 f.ct.cycle_end := '1';
@@ -1929,7 +1928,6 @@ architecture arch of op_decoder is
                 f.cw.addr_op := inc;
                 f.cw.rf_rda := '1';
             when t3 =>
-                f.cw.rf_daddr := regA;
                 f.cw.rf_daddr := rp & '0';
                 f.cw.rf_rdd := '1';
                 f.ct.cycle_end := '1';

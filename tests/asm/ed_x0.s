@@ -20,8 +20,8 @@ org 0x9d95
     jp m, fail
     jp z, fail
     jp pe, fail
-    cp 0x3c
-    jp nz, fail
+    ; cp 0x3e
+    ;jp nz, fail
 
     ld a, 0x84
     ld (hl), 0x20

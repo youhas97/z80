@@ -1,13 +1,12 @@
 \documentclass[main.tex]{subfiles}
 
-\begin{document}
 \newpage
-
-\begin{figure}
-    \center
+\begin{document}
+\begin{SCfigure}
+    \centering
     \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/monitor_small.jpg}
     \caption{Konstruktionens display vid körning av spelet zDoom.}
-\end{figure}
+\end{SCfigure}
 
 \section{Konstruktion}
 Konstruktionen har använt ett Nexys3-kort med en Spartan6 FPGA från Digilent
@@ -19,13 +18,13 @@ till FPGA:n på kortet. Datorn används även för att skriva program till RAM.
 Ett PS/2 tangentbord är kopplat till FPGA-kortets USB-port och en VGA-skärm
 till dess VGA-port.  
 
-\begin{figure}
-    \center
+\begin{SCfigure}
+    \centering
     \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/setup_small.jpg}
     \caption{VGA-skärm och tangentbord kopplat till FPGA-kort tillsammans med
     laptop som används för att programmera FPGA:n samt ladda program till
     minnet.}
-\end{figure}
+\end{SCfigure}
 
 \subsection{Ladda program}
 För att ladda program till har programmet ``Digilent Adept'' använts. För att
@@ -51,15 +50,21 @@ Alla miniräknarens tangenter är kartlagda 1:1 till olika tangenter på
 tangentbordet. Se tabell \ref{app:kbd} för vilka knappar som är bundna till
 vilka.
 
-CPU:n kan även kontrolleras dirket med hjälp av instrumenten som befinner sig
+CPU:n kan även kontrolleras direkt med hjälp av instrumenten som befinner sig
 på kortet. Figur \ref{fig:interface} visar vad de olika knapparna på kortet
 används till. De olika brytarna justerar bland annat lägen och frekvenser. När
-alla brytare är nere kör processorn som vanligt på 6MHz. En beskrivning av alla
-knappar följer härmed.
+alla brytare är nere kör processorn som vanligt på 6MHz.
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[width=0.7\textwidth]{board.eps}
+    \caption{Användning av de olika knapparna på Nexys3.}
+    \label{fig:interface}
+\end{figure}
 
 \begin{labeling}{indentzzzzzzzzz}
 \item[\mono{stop}]
-    Flytta upp för att stanna CPU:n och TI-ASIC:en.
+    Aktivera för att stanna CPU:n och TI-ASIC:en.
 \item[\mono{cpu\_freq}]
     Välj processorns frekvens enligt
     \begin{tabular}{rrrr}
@@ -103,8 +108,8 @@ knappar följer härmed.
     Aktiverar spårning av alla hopp som processorn utför. Varje gång ett hopp
     utförs stoppas processorn tillfälligt och dess nuvarande adress och dess
     destinationsadress skrivs till det fysiska minnet på adress \mono{0x88000}.
-    Efter ett program har kommit fel kan processorn stoppas och minnet läsas
-    med hjälp av programmet Adept. Därefter kan datan enkelt tolkas med
+    Efter att ett program har kommit fel kan processorn stoppas och minnet
+    läsas med hjälp av programmet Adept. Därefter kan datan enkelt tolkas med
     hjälp av \mono{hexdump} med kommandot
     \lstinputlisting{lst/trc_command.sh}
     som exempelvis ger utdatan
@@ -117,13 +122,6 @@ knappar följer härmed.
     även pekaren som bestämmer var nästa adress ska skrivas till
     \mono{0x88000}.
 \end{labeling}
-
-\begin{figure}
-    \center
-    \includegraphics[width=0.7\textwidth]{board.eps}
-    \caption{Användning av de olika knapparna på Nexys3.}
-    \label{fig:interface}
-\end{figure}
 
 \clearpage
 \end{document}

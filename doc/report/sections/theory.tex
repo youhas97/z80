@@ -17,57 +17,65 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 
 \paragraph{Register}
     Processorn har åtta 8-bitars register och och tre 16-bitars register.
-    Programmerare kan direkt komma åt och använda de flesta av dessa generellt.
-    Vissa register har dock speciella instruktioner och specifika
-    användningsområden. Par av 8-bitars register kan även användas som
-    16-bitars register av vissa instruktioner som bland annat \mono{push BC}
-    och \mono{add HL, DE}. Register med en bokstav är 8 bitar och register med
-    två bokstäver är 16 bitar. Det finns även ett par av register som
-    programmeraren inte har tillgång till.  Dessa är \mono{W} och \mono{Z} och
+    Register med en bokstav är 8 bitar och register med två bokstäver är 16
+    bitar. Programmerare kan direkt komma åt och använda de flesta av dessa för
+    allmänna behov. Vissa register har dock speciella instruktioner och
+    specifika användningsområden. Par av 8-bitars register kan även användas
+    som 16-bitars register av vissa instruktioner som bland annat \mono{push
+    BC} och \mono{add HL, DE}. Det finns även ett par av register som
+    programmeraren inte har tillgång till. Dessa är \mono{W} och \mono{Z} och
     används endast internt av processorn.
-\begin{itemize}
-    \item \mono{A}, även kallat ``ackumulator'' är det primära registret för
-        aritmetiska operationer och för att nå minnet. Registret är direkt
-        kopplat till ALU:n och kan på så sätt användas som indata för
-        matematiska operationer som till exempel \mono{add a, b}.
-    \item \mono{B} - Vissa instruktioner använder \mono{B} som räknare.
-    \item \mono{C} - Används bland annat för att lagra lagra portnumret vid en
-        \mono{in}- eller \mono{ut}-instruktion. Tillsammans med B kan
-    \item \mono{D}, \mono{E} - Används bland annat parvis för att lagra
-        minnesadresser. Till exempel som destinationsadress för \mono{ldir}
-        som flyttar ett block i minnet.
-    \item \mono{F} - Registret som lagrar flaggorna. Vilken bit som
-        representerar vad kan visas i figur \ref{fig:flags}. Under en
-        ALU-instruktion laddas \mono{F} med flaggorna. Det finns inga
-        flyttnings- eller räkneinstruktioner såsom \mono{ld} eller \mono{sub}
-        som använder \mono{F}. \mono{F} ändras endast indirekt via ALU:n. Det
-        går dock att läsa och skriva till \mono{F} via stacken med \mono{push
-        af} och \mono{pop af}.
-    \item \mono{H}, \mono{L} - Register som ofta lagrar en minnesadress. Många
-        instruktioner använder HL för att referera till en plats i minnet.
-        Dessa register kan även byta plats med \mono{DE} med \mono{ex de,
-        hl}-instruktionen.
-    \item \mono{IX}, \mono{IY} - Dessa används på liknande sätt som \mono{HL}
-        men istället för att använda adressen som registret pekar på används
-        relativ adressering. Ett exempel är instruktionen \mono{and (ix+d)} som
-        utför \mono{and} på värdet som ligger \mono{d} platser efter adressen
-        som \mono{IX} pekar på.
-    \item \mono{SP} - Stackpekaren, pekar på den nuvarande adressen till toppen
-        av stacken. Speciella instruktioner som \mono{push}, \mono{pop} och
-        \mono{call} modifierar \mono{SP} medan programmerarens förmåga att
-        direkt modifiera \mono{SP} är begränsad.
-    \item \mono{I} - \mono{I} används i samband med avbrottshantering. Lagrar
-        den översta byte:n av adressen till en hoppadress för avbrottsläge 2.
-    \item \mono{R} - Register för memory refresh. Z80:n har inbyggd
-        refresh-hantering för dynamiska minnen.
-    \item \mono{PC} - Instruktionspekaren, lagrar minnesplatsen som processorn
-        ska hämta nästa instruktion ifrån. Inga funktioner kan ändra PC direkt,
-        endast indirekt med hoppinstruktioner.
-        % jp **, jp (hl) fungerar precis som ld pc,**; ld pc,hl skulle göra.
-        % så man kan ju typ ändra pc direkt, kanske omformulera/förtydliga
-\end{itemize}
+\begin{labeling}{indent}
+\item[\mono{A}]
+    Kallas även för ``ackumulator'', det är det primära registret för
+    aritmetiska operationer och för att nå minnet. Registret är direkt kopplat
+    till ALU:n och kan användas som indata för matematiska instruktioner som
+    till exempel \mono{add a, b}.
+\item[\mono{B}]
+    Vissa instruktioner använder \mono{B} som räknare.
+\item[\mono{C}]
+    Används bland annat för att lagra lagra portnumret vid en \mono{in}- eller
+    \mono{ut}-instruktion. Tillsammans med B kan
+\item[\mono{D}, \mono{E}]
+    Används bland annat parvis för att lagra minnesadresser. Till exempel som
+    destinationsadress för \mono{ldir} som flyttar ett block i minnet.
+\item[\mono{F}]
+    Registret som lagrar flaggorna. Vilken bit som representerar vad kan visas
+    i figur \ref{fig:flags}. Under en ALU-instruktion laddas \mono{F} med
+    flaggorna. Det finns inga flyttnings- eller räkneinstruktioner såsom
+    \mono{ld} eller \mono{sub} som använder \mono{F}. \mono{F} ändras endast
+    indirekt via ALU:n. Det går dock att läsa och skriva till \mono{F} via
+    stacken med \mono{push af} och \mono{pop af}.
+\item[\mono{H}, \mono{L}]
+    Register som ofta parvis lagrar en minnesadress. Många instruktioner
+    använder HL för att referera till en plats i minnet.  Dessa register kan
+    även byta plats med \mono{DE} med \mono{ex de, hl}-instruktionen.
+\item[\mono{IX}, \mono{IY}]
+    Dessa används på liknande sätt som \mono{HL} men istället för att använda
+    adressen som registret pekar på används relativ adressering. Ett exempel är
+    instruktionen \mono{and (ix+d)} som utför \mono{and} på värdet som ligger
+    \mono{d} platser efter adressen som \mono{IX} pekar på.
+\item[\mono{SP}]
+    Stackpekaren, pekar på den nuvarande adressen till toppen av stacken.
+    Speciella instruktioner som \mono{push}, \mono{pop} och \mono{call}
+    modifierar \mono{SP} medan programmerarens förmåga att direkt modifiera
+    \mono{SP} är begränsad.
+\item[\mono{I}]
+    \mono{I} används i samband med avbrottshantering. Lagrar den översta byte:n
+    av adressen till en hoppadress för avbrottsläge 2.
+\item[\mono{R}]
+    Register för memory refresh. Z80:n har inbyggd refresh-hantering för
+    dynamiska minnen.
+\item[\mono{PC}]
+    Instruktionspekaren, lagrar minnesplatsen som processorn ska hämta nästa
+    instruktion ifrån. Inga funktioner kan ändra PC direkt, endast indirekt med
+    hoppinstruktioner.
+    % jp **, jp (hl) fungerar precis som ld pc,**; ld pc,hl skulle göra.
+    % så man kan ju typ ändra pc direkt, kanske omformulera/förtydliga
+\end{labeling}
 
 \paragraph{Flaggor}
+
 \begin{figure}
     \center
     \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
@@ -78,6 +86,7 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
     \caption{Flaggornas uppsättning i \mono{F}-registret.}
     \label{fig:flags}
 \end{figure}
+
 \begin{itemize}
     \item \mono{C} carry - Används framförallt för att indikera minnessiffra
         vid addition och lån vid subtraktion. Vid aritmetisk operation är det
@@ -150,14 +159,14 @@ instruktionerna \mono{ei} och \mono{di}. \mono{IFF2} används för att lagra
 
 Vid avbrott under läge 0 hämtar processorn en 8-bitars instruktion från
 databussen och exekverar den. Instruktionen kan till exempel vara en \mono{rst
-28h} som direkt hoppar till adress 0x28. Processorn lägger även \mono{PC} på
-stacken så att processorn kan återvända till programmet när avbrottsrutinen är
-färdig och kör \mono{reti}. Under avbrottet återställs även \mono{IFF1} och
-\mono{IFF2} så att ett nytt avbrott inte kan ske under avbrottsrutinen.
-Avbrottsrutinen måste själv sätta igång avbrott igen med \mono{ei}. För att ett
-avbrott inte ska kunna ske mellan \mono{ei} och \mono{reti}-instruktionerna så
-kommer processorn inte acceptera avbrott förrän en instruktion efter att
-\mono{ei} har använts.
+28h} som direkt hoppar till adress \mono{0x0028}. Processorn lägger även
+\mono{PC} på stacken så att processorn kan återvända till programmet när
+avbrottsrutinen är färdig och kör \mono{reti}. Under avbrottet återställs även
+\mono{IFF1} och \mono{IFF2} så att ett nytt avbrott inte kan ske under
+avbrottsrutinen.  Avbrottsrutinen måste själv sätta igång avbrott igen med
+\mono{ei}. För att ett avbrott inte ska kunna ske mellan \mono{ei} och
+\mono{reti}-instruktionerna så kommer processorn inte acceptera avbrott förrän
+en instruktion efter att \mono{ei} har använts.
 
 Vid läge 1 hoppar processorn alltid till adress 0x38. Detta motsvarar en
 \mono{rst 38h}-instruktion.

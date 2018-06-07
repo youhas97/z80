@@ -17,7 +17,8 @@ report:
 bib:
 	bibtex8 $(TEXNAME)
 
-svg:
+svg: svg/rf_baddr.svg
+	inkscape -z --file=svg/Z80_arch.svg --export-eps=z80arch.eps
 	inkscape -z --file=svg/rf_baddr.svg --export-eps=rfbaddr.eps
 	inkscape -z --file=svg/alu_sbc.svg --export-eps=alusbc.eps
 	inkscape -z --file=svg/port.svg --export-eps=port.eps

@@ -1,16 +1,29 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\section{Apparaten}
+\begin{figure}
+    \center
+    \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/monitor_small.jpg}
+    \caption{Konstruktionens display vid körning av spelet zDoom.}
+\end{figure}
+\section{Konstruktion}
 Det här avsnittet är en överblick av hur apparaten och de diverse komponenterna
 hänger samman och hur styrningen av apparaten går till.
 \subsection{Uppsättning}
-[visa bild på setup] FPGA kortet kopplas till en dator med programmet Adept
-[källa/länk] som används för att hantera minnet hos FPGA-kortet. Programmet
-fanns inte på MUXens datorer så en extern bärbar dator användes för att
-överföra datan. Tangenbordet är kopplat till FPGA-kortets USB port för att
-kunna skicka indata till FPGA-kortet. VGA-kabeln går till en 640x480 VGA-skärm.
-Då miniräknaren har en 96x64 skärm har varje pixel skalats upp med faktorn 6.
+\begin{figure}
+    \center
+    \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/setup_small.jpg}
+    \caption{VGA-skärm och tangentbord kopplat till FPGA-kort tillsammans med
+    laptop som används för att programmera FPGA:n samt ladda program till
+    minnet.}
+\end{figure}
+
+FPGA kortet kopplas till en dator med programmet Adept [källa/länk] som används
+för att hantera minnet hos FPGA-kortet. Programmet fanns inte på MUXens datorer
+så en extern bärbar dator användes för att överföra datan. Tangenbordet är
+kopplat till FPGA-kortets USB port för att kunna skicka indata till
+FPGA-kortet. VGA-kabeln går till en 640x480 VGA-skärm.  Då miniräknaren har en
+96x64 skärm har varje pixel skalats upp med faktorn 6.
 
 \subsection{Användarhandledning}
 % TODO beskriva hur man laddar allmänt program samt TI ROM

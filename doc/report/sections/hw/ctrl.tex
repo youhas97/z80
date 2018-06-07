@@ -22,13 +22,13 @@ avbrottsläget \mono{im}, instruktionsprefixet \mono{prefix}, maskincykeln
 dem till instruktionskodaren. I blockschema \ref{diag:z80} är alla dessa
 signaler inkluderade i signalen \mono{cpu\_state}.
 
-\begin{figure}[t]
-    \center
+\begin{SCfigure}
+    \centering
     \input{fig/tim-states.tex}
     \caption{Tillstånd samt värdet av \mono{IR} under exekveringen av
     programmet \mono{add hl,sp; im 1; halt}}
     \label{fig:tim-states}
-\end{figure}
+\end{SCfigure}
 
 \mono{T} är ett heltal mellan 1 och 6 som avgör vilken klockpuls av en
 maskincykel processorn är i. En maskincykel kan bestå av 3 till 6 klockpulser.
@@ -136,13 +136,13 @@ Signalerna är \mono{set\_m1}, \mono{cycle\_end}, \mono{instr\_end},
 \mono{mode\_next} och \mono{im\_next}. I blockschema \ref{diag:z80} är dessa
 samlade under signalen \mono{ctrl}.
 
-\begin{figure}[H]
-    \center
+\begin{SCfigure}
+    \centering
     \input{fig/tim-statectrl.tex}
     \caption{Programmet från figur \ref{fig:tim-states} med kontrollsignalerna
     för tillstånden synliga.}
     \label{fig:tim-statectrl}
-\end{figure}
+\end{SCfigure}
 
 \mono{set\_m1} används för syftet beskrivet ovan; att synkronisera liknande
 instruktioner för att kunna återanvända hårdvara i instruktionsdekodaren till

@@ -8,6 +8,13 @@ Intel 8080 men har även extra instruktioner och register. Nedan följer en kort
 beskrivning till vissa aspekt av processorn. Mer detaljerad information om
 processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 
+\begin{figure}
+    \center
+    \includegraphics[width=0.9\textwidth]{z80arch.eps}
+    \caption{Ett approximativt blockschema av Z80-processorn. Av {\it
+    Appaloosa}, CC BY-SA 3.0.}
+\end{figure}
+
 \paragraph{Register}
     Processorn har åtta 8-bitars register och och tre 16-bitars register.
     Programmerare kan direkt komma åt och använda de flesta av dessa generellt.
@@ -15,7 +22,9 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
     användningsområden. Par av 8-bitars register kan även användas som
     16-bitars register av vissa instruktioner som bland annat \mono{push BC}
     och \mono{add HL, DE}. Register med en bokstav är 8 bitar och register med
-    två bokstäver är 16 bitar.
+    två bokstäver är 16 bitar. Det finns även ett par av register som
+    programmeraren inte har tillgång till.  Dessa är \mono{W} och \mono{Z} och
+    används endast internt av processorn.
 \begin{itemize}
     \item \mono{A}, även kallat ``ackumulator'' är det primära registret för
         aritmetiska operationer och för att nå minnet. Registret är direkt
@@ -27,12 +36,13 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
     \item \mono{D}, \mono{E} - Används bland annat parvis för att lagra
         minnesadresser. Till exempel som destinationsadress för \mono{ldir}
         som flyttar ett block i minnet.
-    \item \mono{F} - Registret som lagrar flaggorna. Under en ALU-instruktion
-        laddas \mono{F} med flaggorna. Det finns inga flyttnings- eller
-        räkneinstruktioner såsom \mono{ld} eller \mono{sub} som använder
-        \mono{F}. \mono{F} ändras endast indirekt via ALU:n. Det går dock att
-        läsa och skriva till \mono{F} via stacken med \mono{push af} och
-        \mono{pop af}.
+    \item \mono{F} - Registret som lagrar flaggorna. Vilken bit som
+        representerar vad kan visas i figur \ref{fig:flags}. Under en
+        ALU-instruktion laddas \mono{F} med flaggorna. Det finns inga
+        flyttnings- eller räkneinstruktioner såsom \mono{ld} eller \mono{sub}
+        som använder \mono{F}. \mono{F} ändras endast indirekt via ALU:n. Det
+        går dock att läsa och skriva till \mono{F} via stacken med \mono{push
+        af} och \mono{pop af}.
     \item \mono{H}, \mono{L} - Register som ofta lagrar en minnesadress. Många
         instruktioner använder HL för att referera till en plats i minnet.
         Dessa register kan även byta plats med \mono{DE} med \mono{ex de,
@@ -58,7 +68,7 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 \end{itemize}
 
 \paragraph{Flaggor}
-\begin{figure}[H]
+\begin{figure}
     \center
     \begin{tabular}{|l|c|c|c|c|c|c|c|c|}
         \hline
@@ -66,6 +76,7 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
         flagga  & S & Z & Y & H & X & P & N & C \\ \hline
     \end{tabular}
     \caption{Flaggornas uppsättning i \mono{F}-registret.}
+    \label{fig:flags}
 \end{figure}
 \begin{itemize}
     \item \mono{C} carry - Används framförallt för att indikera minnessiffra
@@ -163,7 +174,17 @@ som innan för att förhindra avbrott men \mono{IFF2} antar nu värdet av
 \mono{IFF1}. På så sätt kan föregående värdet av \mono{IFF1} återställas när
 avbrottsrutinen är färdig och exekverar \mono{retn}-instruktionen.
 
+\newpage
 \subsection{TI-83p}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.4\textwidth, bb=0 0 284 578]{img/ti83p.jpg}
+    \caption{En TI83p-miniräknare från Texas Instruments. Bild av
+    Westernelectric555, public domain.}
+    \label{fig:ti83p}
+\end{wrapfigure}
+
 Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas
 Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64
 monokrom LCD-skärm. TI-miniräknarna har en inbyggd {\it application specific
@@ -180,7 +201,7 @@ TI83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 IFF1 så endast en D-vippa behövs. {\it Bus request} används aldrig då
 \mono{BUSRQ} aldrig går aktiv.
 
-Vid avbrott lägger ASIC:en ingen data på databussen så avbrotssläge 0 går inte
+Vid avbrott lägger ASIC:en ingen data på databussen så avbrottssläge 0 går inte
 att använda eftersom instruktionen är obestämd. Avbrottsläge 2 går att använda
 men eftersom databussen bestämmer de 8 sista bitarna på adressen till
 hoppadressen måste ett helt block av 256 bytes fyllas med hoppadressen.
@@ -190,12 +211,158 @@ måste därefter processorn stänga av avbrottet via port \mono{04} för att det
 inte ska fortsätta hålla \mono{int}-signalen hög efter att processorn
 återaktiverar avbrott.
 
-% flytta memory mapping hit från hw/ti/mem_ctrl? en del av ti83:ans funktionalitet och inte
-% specifikt till vår implementation
+
+\paragraph{Portar}
+För att ge en överblick över hur TI83p kommunicerar med externa enheter följer
+en lista av miniräknarens alla portar.
+
+\begin{labeling}{indentzzzzzzzzzzzzzzzzzzzz}
+\item[\mono{00}: Länkport]
+    Kontrollerar länkporten för kommunikation mellan två TI-miniräknare.
+\item[\mono{01}: Tangentbord]
+    Skrivning väljer vilka grupper av tangenter som ska registrera knapptryck.
+    Läsning av ger en mask av alla nedtryckta knappar för de nuvarande valda
+    grupperna.
+\item[\mono{02}: Status]
+    Läsning ger bland annat batterinivå och visar om ROM är skrivskyddat.
+\item[\mono{03}: Avbrottsmask]
+    Maska de fyra avbrottskällorna; nedtryckning av ON-knappen, den första
+    hårdvarutimer:n, den andra timer:n och avbrott från länkporten. Läsning
+    visar hur masken ser ut.
+\item[\mono{04}: Minnesläge/avbrott]
+    Vid läsning indikerar de första fyra bitarna vilket typ av avbrott som har
+    skett. Bit 0 visar till exempel att ON-knappen orsakade ett avbrott.
+    Skrivning till porten bestämmer vilket minnesläge som ska användas och
+    frekvensen till miniräknarens hårdvarutimer:s.
+\item[\mono{05}: Exekvering/länkdata]
+    Läsning ger den byte som senast mottogs via länkporten. Skriving väljer ut
+    ROM pages som kan maskas med port \mono{16} för att förbjuda eller tillåta
+    exekvering.
+\item[\mono{06}: Page A]
+    Välj ut page A. Bit 6 väljer om det är en page från \mono{ROM} eller
+    \mono{RAM}. De lägsta bitarna bestämmer dess nummer. Om till exempel
+    \mono{out (06h),a} exekveras då \mono{A} är \mono{41} så sätts page A till
+    \mono{RAM 1}. 
+\item[\mono{07}: Page B]
+    Som \mono{06} fast en andra page som kallas \mono{B}.
+\item[\mono{10}: LCD-kontroll]
+    Kontrollera LCD-kontrollern. Bland annat hur pekarens position och hur den
+    ska uppdateras vid skrivning av data.
+\item[\mono{11}: LCD-data]
+    Skriv eller läs data från pekarens position i LCD:ns bildminne.
+\item[\mono{14}: ROM-skrivskydd]
+    Aktivera eller avaktivera modifiering av ROM.
+\item[\mono{16}: Exekveringsmask]
+    Välj vilka pages från port \mono{05} som ska tillåta exekvering.
+\end{labeling}
+Mer detaljerad information om varje port kan hittas på
+WikiTI\cite{wikiti-ports}.
+
+\paragraph{Tangentbord}
+Tangentbordet har 50 knappar; 10 rader med 5 knappar vardera. Se figur
+\ref{fig:ti83p}. ON-knappen har särskild funktionalitet. Den skickar ett
+avbrott till processorn vid nedtryckning. Den används bland annat för att väcka
+processorn från halt-läge när miniräknaren är avstängd.
+
+\begin{figure}
+    \center
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{r|l|l|l|l|l|l|l|l|}
+        \multicolumn{1}{c}{}
+        & \multicolumn{1}{c}{bit 7} & \multicolumn{1}{c}{bit 6}
+        & \multicolumn{1}{c}{bit 5} & \multicolumn{1}{c}{bit 4}
+        & \multicolumn{1}{c}{bit 3} & \multicolumn{1}{c}{bit 2}
+        & \multicolumn{1}{c}{bit 1} & \multicolumn{1}{c}{bit 0} \\\cline{2-9}
+        Grupp 0 & & & & & UP & RIGHT & LEFT & DOWN
+            \\\cline{2-9}
+        Grupp 1 & & CLEAR & $\wedge$ & $\div$ & $\times$ & $-$ & $+$ & ENTER
+            \\\cline{2-9}
+        Grupp 2 & & VARS & TAN & ( & 9 & 6 & 3 & (-)
+            \\\cline{2-9}
+        Grupp 3 & STAT & PRGM & COS & ) & 8 & 5 & 2 & .
+            \\\cline{2-9}
+        Grupp 4 & X,T,$\Theta$,n & APPS & SIN & , & 7 & 4 & 1 & 0    
+            \\\cline{2-9}
+        Grupp 5 & ALPHA & MATH & $x^{-1}$ & $x^2$ & LOG & LN & STO &
+            \\\cline{2-9}
+        Grupp 6 & DEL & MODE & 2ND & Y= & WINDOW & ZOOM & TRACE & GRAPH
+            \\\cline{2-9}
+    \end{tabular}}
+    \caption{Miniräknarens uppdelning av tangentbordets knappar i grupper.}
+    \label{fig:keygroups}
+\end{figure}
+
+De resterande 49 knapparna har delats upp i 6 olika grupper som visas i figur
+\ref{fig:keygroups}. Varje grupp består av åtta knappar. En grupp kan
+representeras av en byte där varje bit indikerar om en knapp är nedtryckt eller
+inte. En nolla representerar en nedtryckt knapp. Programmeraren kan aktivera
+grupper genom att skicka en byte till port \mono{01}. En nolla på bit 0
+aktiverar grupp 0, en nolla på bit 1 aktiverar grupp 1 och så vidare upp till
+bit 6. Värdet \mono{0001 1111} aktiverar till exempel grupp 5 och 6 och
+deaktiverar de resterande grupperna.
+
+När programmeraren läser från port \mono{01} skickas en byte där alla
+aktiverade grupper har AND:ats. Om till exempel de tidigare grupperna är valda
+och användaren trycker ner tangenterna DOWN, LN och GRAPH kommer
+$\mono{11111011} \cdot \mono{11111110} = \mono{11111010}$ tas emot.
+DOWN-knappen registeras inte eftersom grupp 0 är deaktiverad. Programmeraren
+vet inte om användaren tryckte på LN eller ZOOM eftersom de använder samma bit.
+För att veta exakt vilka knappar som är nedtryckta måste en sökning göras genom
+att gå igenom alla grupper men då endast en grupp är i taget är aktiverad.
+
+\paragraph{Minne}
+Z80-processorn har en databuss på 16 bitar. Den kan därmed peka ut 65536
+platser eller 64 KiB av minne. TI83p har däremot ett 512 KiB ROM och ett 32 KiB
+RAM. För kunna komma åt allt har de 64KiB av det virtuella minnet delats upp i
+fyra 16 KiB pages. Varje page refererar till en lika stor page i det fysiska
+minnet. Dessa pages kan bytas ut för att komma åt en annan del av det fysiska
+minnet.  ROM är uppdelat i 32 pages (\mono{ROM 00}\dots\mono{ROM 1F}) och RAM
+är uppdelat i 2 pages (\mono{RAM 0} och \mono{RAM 1}).
+
+\begin{figure}[b]
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \ttfamily
+        \begin{tabular}{r|m{3.5cm}|l}
+            \multicolumn{1}{c}{\normalfont start} &
+            \multicolumn{1}{c}{\normalfont page} &
+            \multicolumn{1}{c}{\normalfont slut} \\ \cline{2-2}
+            0000 & ROM 00    & 3FFF \\ \cline{2-2}
+            4000 & MEMPAGE A & 7FFF \\ \cline{2-2}
+            8000 & MEMPAGE B & BFFF \\ \cline{2-2}
+            C000 & RAM 0     & FFFF \\ \cline{2-2}
+        \end{tabular}
+        \caption{läge 0}
+    \end{subfigure}
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \ttfamily
+        \begin{tabular}{r|m{3.5cm}|l}
+            \multicolumn{1}{c}{\normalfont start} &
+            \multicolumn{1}{c}{\normalfont page} &
+            \multicolumn{1}{c}{\normalfont slut} \\ \cline{2-2}
+            0000 & ROM 00           & 3FFF \\ \cline{2-2}
+            4000 & MEMPAGE A (jämn) & 7FFF \\ \cline{2-2}
+            8000 & MEMPAGE A        & BFFF \\ \cline{2-2}
+            C000 & MEMPAGE B        & FFFF \\ \cline{2-2}
+        \end{tabular}
+        \caption{läge 1}
+    \end{subfigure}
+    \caption{Layout av virtuellt minne för de två lägena.}
+    \label{fig:virtual}
+\end{figure}
+
+TI83p använder två olika lägen vilkas layouts kan ses i figur
+\ref{fig:virtual}. Läget och page A, B väljs med port \mono{04}, \mono{06}
+respektive \mono{07}. \cite{wikiti-mmap}
 
 \subsection{Specifikationer}
-% TODO PS2 kbd, vga protocol
-% TODO m45 datasheet
+\paragraph{PS/2}
+% TODO
+\paragraph{VGA}
+% TODO
+\paragraph{Externt minne}
+% TODO
 \cite{m45}
 
 \clearpage

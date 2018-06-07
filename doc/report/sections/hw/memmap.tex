@@ -2,70 +2,11 @@
 
 \begin{document}
 \subsubsection{Minneskontroller}
-% kanske flytta nedan till teori
-Z80-processorn har en databuss på 16 bitar. Den kan därmed peka ut 65536
-platser eller 64 KiB av minne. TI83p har däremot ett 512 KiB ROM och ett 32 KiB
-RAM. För kunna komma åt allt har de 64KiB av det virtuella minnet delats upp i
-fyra 16 KiB pages. Varje page refererar till en lika stor page i det fysiska
-minnet. Dessa pages kan bytas ut för att komma åt en annan del av det fysiska
-minnet.  ROM är uppdelat i 32 pages (\mono{ROM 00}\dots\mono{ROM 1F}) och RAM
-är uppdelat i 2 pages (\mono{RAM 0} och \mono{RAM 1}).
-\vspace{-4mm}
-\begin{figure}[H]
-    \begin{subfigure}{0.5\textwidth}
-        \center
-        \ttfamily\arraybackslash
-        \small
-        \begin{tabular}{r|m{3.5cm}|l}
-            \multicolumn{1}{c}{\normalfont start} &
-            \multicolumn{1}{c}{\normalfont page} &
-            \multicolumn{1}{c}{\normalfont slut} \\ \cline{2-2}
-            0000 & ROM 00    & 3FFF \\ \cline{2-2}
-            4000 & MEMPAGE A & 7FFF \\ \cline{2-2}
-            8000 & MEMPAGE B & BFFF \\ \cline{2-2}
-            C000 & RAM 0     & FFFF \\ \cline{2-2}
-        \end{tabular}
-        \caption{läge 0}
-    \end{subfigure}
-    \begin{subfigure}{0.5\textwidth}
-        \center
-        \ttfamily\arraybackslash
-        \begin{tabular}{r|m{3.5cm}|l}
-            \multicolumn{1}{c}{\normalfont start} &
-            \multicolumn{1}{c}{\normalfont page} &
-            \multicolumn{1}{c}{\normalfont slut} \\ \cline{2-2}
-            0000 & ROM 00           & 3FFF \\ \cline{2-2}
-            4000 & MEMPAGE A (jämn) & 7FFF \\ \cline{2-2}
-            8000 & MEMPAGE A        & BFFF \\ \cline{2-2}
-            C000 & MEMPAGE B        & FFFF \\ \cline{2-2}
-        \end{tabular}
-        \caption{läge 1}
-    \end{subfigure}
-    \caption{Layout av virtuellt minne för de två lägena.}
-    \label{fig:virtual}
-\end{figure}
-\vspace{-4mm}
-TI83p använder två olika lägen som kan ses i figur \ref{fig:virtual}. Läget
-bestäms av bit 0 i port \mono{04}. Page A och B kan referera till vilken page
-som helst i minnet. De väljs med port \mono{06} respektive \mono{07}. Bit 6
-väljer om det är en page från \mono{ROM} eller \mono{RAM}. De lägsta bitarna
-bestämmer dess nummer. Om till exempel \mono{out (06h),a} exekveras då \mono{A}
-är \mono{41} så sätts page A till \mono{RAM 1}.
-
 TI83p använder sig av två separata minnen men vår implementation använder
 endast ett stort kontinuerligt minne. ROM har lagts som de första 512 KiB och
 RAM har lagts som de 32 KiB direkt efter ROM. \mono{RAM 1} ligger dock före
 \mono{RAM 0}. Den fysiska placeringen kan ses i figur \ref{fig:physical}.
 
-Minneskontrollerns uppgift är att översätta den virtuella adressen från
-processorn till den fysiska adressen utefter läget samt page A, B och därefter
-skicka den till det fysiska minnet. Implementationen fungerar genom att först
-bestämma A och B utefter port \mono{06} och \mono{07} och därefter muxa de till
-de fyra olika platserna utefter det nuvarande läget. Därefter muxas en av dessa
-fyra pages utefter de högsta bitarna i den virtuella adressen. Sedan läggs
-bitarna i page:n ihop med de låga bitarna från den virtuella adressen för att
-få den exakta fysiska adressen.
-\vspace{-4mm}
 \begin{figure}[H]
     \center
     \small\ttfamily\arraybackslash
@@ -87,4 +28,13 @@ få den exakta fysiska adressen.
     \caption{Placering av pages i det fysiska minnet.}
     \label{fig:physical}
 \end{figure}
+
+Minneskontrollerns uppgift är att översätta den virtuella adressen från
+processorn till den fysiska adressen utefter läget samt page A, B och därefter
+skicka den till det fysiska minnet. Implementationen fungerar genom att först
+bestämma A och B utefter den nuvarande buffern till port \mono{06} och
+\mono{07} och därefter muxa de till de fyra olika platserna utefter det
+nuvarande läget. Därefter muxas en av dessa fyra pages utefter de högsta
+bitarna i den virtuella adressen. Sedan läggs bitarna i page:n ihop med de låga
+bitarna från den virtuella adressen för att få den exakta fysiska adressen.
 \end{document}

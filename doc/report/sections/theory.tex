@@ -2,7 +2,7 @@
 
 \begin{document}
 \section{Teori}
-\subsection{Z80}
+\subsection{Processorn Z80}
 Z80 är en processor från 1976 tillverkad av Zilog. Den är fullt kompatibel med
 Intel 8080 men har även extra instruktioner och register. Nedan följer en kort
 beskrivning till vissa aspekt av processorn. Mer detaljerad information om
@@ -11,11 +11,11 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 \begin{figure}
     \center
     \includegraphics[width=0.9\textwidth]{z80arch.eps}
-    \caption{Ett approximativt blockschema av Z80-processorn. Av {\it
-    Appaloosa}, CC BY-SA 3.0.}
+    \caption{Ett approximativt blockschema av Z80-processorns interna
+    organisation. Av {\it Appaloosa}, CC BY-SA 3.0.}
 \end{figure}
 
-\paragraph{Register}
+\subsubsection{Register}
     Processorn har åtta 8-bitars register och och tre 16-bitars register.
     Register med en bokstav är 8 bitar och register med två bokstäver är 16
     bitar. Programmerare kan direkt komma åt och använda de flesta av dessa för
@@ -29,52 +29,55 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 \item[\mono{A}]
     Kallas även för ``ackumulator'', det är det primära registret för
     aritmetiska operationer och för att nå minnet. Registret är direkt kopplat
-    till ALU:n och kan användas som indata för matematiska instruktioner som
-    till exempel \mono{add a, b}.
+    till ALU:n och används ofta som in- och utdata för matematiska
+    instruktioner, till exempel med instruktionen \mono{add a, b} som
+    adderar \mono{A} med \mono{B} och lagrar resultatet i \mono{A}.
 \item[\mono{B}]
-    Vissa instruktioner använder \mono{B} som räknare.
+    Vissa instruktioner använder \mono{B} som räknare, till exemplet
+    \mono{cpir}.
 \item[\mono{C}]
-    Används bland annat för att lagra lagra portnumret vid en \mono{in}- eller
-    \mono{ut}-instruktion. Tillsammans med B kan
+    Används bland annat för att lagra portnumret vid en \mono{in}- eller
+    \mono{ut}-instruktion. Parvis med B används den även som biträknare för
+    vissa instruktioner.
 \item[\mono{D}, \mono{E}]
     Används bland annat parvis för att lagra minnesadresser. Till exempel som
     destinationsadress för \mono{ldir} som flyttar ett block i minnet.
 \item[\mono{F}]
-    Registret som lagrar flaggorna. Vilken bit som representerar vad kan visas
-    i figur \ref{fig:flags}. Under en ALU-instruktion laddas \mono{F} med
+    Registret som lagrar flaggorna. Vilken bit som representerar vad visas i
+    figur \ref{fig:flags}. Under en ALU-instruktion laddas \mono{F} med
     flaggorna. Det finns inga flyttnings- eller räkneinstruktioner såsom
     \mono{ld} eller \mono{sub} som använder \mono{F}. \mono{F} ändras endast
-    indirekt via ALU:n. Det går dock att läsa och skriva till \mono{F} via
-    stacken med \mono{push af} och \mono{pop af}.
+    indirekt via ALU:n. Det är dock möjligt att läsa och skriva till \mono{F}
+    via stacken om \mono{push af} och \mono{pop af} används tillsammans med
+    andra push och pop-instruktioner.
 \item[\mono{H}, \mono{L}]
     Register som ofta parvis lagrar en minnesadress. Många instruktioner
-    använder HL för att referera till en plats i minnet.  Dessa register kan
-    även byta plats med \mono{DE} med \mono{ex de, hl}-instruktionen.
+    använder HL för att referera till en plats i minnet. Dessa register kan
+    även växla värden med \mono{DE} genom \mono{ex de, hl}-instruktionen.
 \item[\mono{IX}, \mono{IY}]
     Dessa används på liknande sätt som \mono{HL} men istället för att använda
     adressen som registret pekar på används relativ adressering. Ett exempel är
     instruktionen \mono{and (ix+d)} som utför \mono{and} på värdet som ligger
     \mono{d} platser efter adressen som \mono{IX} pekar på.
 \item[\mono{SP}]
-    Stackpekaren, pekar på den nuvarande adressen till toppen av stacken.
-    Speciella instruktioner som \mono{push}, \mono{pop} och \mono{call}
-    modifierar \mono{SP} medan programmerarens förmåga att direkt modifiera
-    \mono{SP} är begränsad.
+    Stackpekaren, lagrar adressen till den nuvarande toppen av stacken.
+    Speciella instruktioner som bland annat \mono{push}, \mono{pop} och
+    \mono{call} modifierar \mono{SP} medan programmerarens förmåga att direkt
+    modifiera \mono{SP} är begränsad.
 \item[\mono{I}]
-    \mono{I} används i samband med avbrottshantering. Lagrar den översta byte:n
-    av adressen till en hoppadress för avbrottsläge 2.
+    \mono{I} används i samband med avbrottshantering. Registret lagrar de
+    översta åtta bitarna av adressen till en hoppadress för avbrottsläge 2.
 \item[\mono{R}]
     Register för memory refresh. Z80:n har inbyggd refresh-hantering för
     dynamiska minnen.
 \item[\mono{PC}]
-    Instruktionspekaren, lagrar minnesplatsen som processorn ska hämta nästa
-    instruktion ifrån. Inga funktioner kan ändra PC direkt, endast indirekt med
-    hoppinstruktioner.
-    % jp **, jp (hl) fungerar precis som ld pc,**; ld pc,hl skulle göra.
-    % så man kan ju typ ändra pc direkt, kanske omformulera/förtydliga
+    Instruktionspekaren, lagrar adressen till minnesplatsen som processorn ska
+    hämta nästa instruktion ifrån. PC ändras med hoppinstruktioner som bland
+    annat \mono{jp}, \mono{call} och \mono{rst}. Ändras även av processorn vid
+    avbrott.
 \end{labeling}
 
-\paragraph{Flaggor}
+\subsubsection{Flaggor}
 \label{sec:theory:flags}
 
 \begin{figure}
@@ -119,7 +122,7 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
         Indikerar att resultatet är noll.
 \end{labeling}
 
-\paragraph{Externa bussar}
+\subsubsection{Externa bussar}
 \begin{wrapfigure}{r}{0.25\textwidth}
     \centering
     \vspace{-5mm}
@@ -149,7 +152,7 @@ indikera att processorn är redo att läsa från databussen under ett avbrott.
 \mono{BUSACK} går aktiv när processorn har lagt hög impedans på bussarna efter
 en \mono{BUSREQ}-signal.
 
-\paragraph{IO}
+\subsubsection{IO}
 Z80-processorn har ett system av portar för att hantera in- och utdata till
 andra enheter utöver minne. När ett program vill skicka data till en enhet
 används en av \mono{OUT}-instruktionerna. Då placeras portnumret på
@@ -160,7 +163,7 @@ korresponderande IO-enhet placerar sin data på databussen. För att det här
 systemet ska fungera måste en dedikerad enhet utanför processorn hantera
 muxning av data till och från rätt enhet utifrån porten på adressbussen.
 
-\paragraph{Avbrott}
+\subsubsection{Avbrott}
 Vid början av exekveringen av varje instruktion kontrollerar processorn om
 \mono{INT} eller \mono{NMI} är aktiva. Vid en aktiv \mono{INT}-signal reagerar
 processorn på olika sätt beroende på vilket läge som är inställt av
@@ -198,7 +201,7 @@ som innan för att förhindra avbrott men \mono{IFF2} antar nu värdet av
 avbrottsrutinen är färdig och exekverar \mono{retn}-instruktionen.
 
 \newpage
-\subsection{TI-83p}
+\subsection{Miniräknaren TI-83 Plus}
 
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
@@ -235,7 +238,7 @@ inte ska fortsätta hålla \mono{int}-signalen hög efter att processorn
 återaktiverar avbrott.
 
 
-\paragraph{Portar}
+\subsubsection{Portar}
 För att ge en överblick över hur TI-83p kommunicerar med externa enheter följer
 en lista av miniräknarens alla portar.
 
@@ -281,7 +284,7 @@ en lista av miniräknarens alla portar.
 Mer detaljerad information om varje port kan hittas på
 WikiTI\cite{wikiti-ports}.
 
-\paragraph{Tangentbord}
+\subsubsection{Tangentbord}
 Tangentbordet har 50 knappar; 10 rader med 5 knappar vardera. Se figur
 \ref{fig:ti83p}. ON-knappen har särskild funktionalitet. Den skickar ett
 avbrott till processorn vid nedtryckning. Den används bland annat för att väcka
@@ -333,7 +336,7 @@ vet inte om användaren tryckte på LN eller ZOOM eftersom de använder samma bi
 För att veta exakt vilka knappar som är nedtryckta måste en sökning göras genom
 att gå igenom alla grupper men då endast en grupp är i taget är aktiverad.
 
-\paragraph{Minne}
+\subsubsection{Minne}
 Z80-processorn har en databuss på 16 bitar. Den kan därmed peka ut 65536
 platser eller 64 KiB av minne. TI-83p har däremot ett 512 KiB ROM och ett 32 KiB
 RAM. För kunna komma åt allt har de 64KiB av det virtuella minnet delats upp i
@@ -381,17 +384,17 @@ respektive \mono{07}. \cite{wikiti-mmap}
 
 \subsection{Specifikationer}
 
-\paragraph{VGA}
+\subsubsection*{VGA}
 För att få ut en bild till VGA-skärmen har data skickats enligt
 VGA-standarden. Information och tidsintervaller finns i manualen för
 FPGA-kortet Nexys3 på sidan 15.\cite{Nexys3}
 
-\paragraph{PS/2}
+\subsubsection*{PS/2}
 För att ta emot knapptryckningar från ett tangentbord har PS/2-standarden
 använts vid kommunikation. Hur standarden fungerar är beskrivet i manualen för
 Nexys3 på sidan 13.\cite{Nexys3}
 
-\paragraph{Externt minne}
+\subsubsection*{Externt minne}
 Ett 16MB RAM, modell Micron M45W8MW16 har använts asynkront som primärminne för
 miniräknaren. Dess funktionalitet och protokoll kan hittas i dess
 manual.\cite{m45}

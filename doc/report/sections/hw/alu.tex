@@ -1,22 +1,22 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\subsection{ALU:n}
- ALU:n tar in två operander som kallas för op1 samt op2. Op1 lagras i en
- temporär ackumulator ACT och op2 lagras i ett temporärt register TMP.
- Instruktionen som ska utföras på operanderna kommer direkt från IR och heter
- op (operation). I ALU:n finns det 4 räknare som bestämmer vilket resultat som
- ska användas utifrån vilken instruktion (op) som tas in.Flaggorna
- S,Z,F5,H,F3,P/V,N och C bestäms utifrån respektive instruktion. När en
- instruktion ska användas muxas därför flaggorna utifrån om flaggan ska sättas
- till 1,0 eller om flaggans tidigare värde ska behållas. Om flaggans värde ska
- behållas i en instruktion kommer flaggans tidigare värde att kopieras till det
- nuvarande.
+\newpage
+\subsubsection{ALU-sektion}
+ALU:n tar in två operander som kallas för op1 samt op2. Op1 lagras i en
+temporär ackumulator ACT och op2 lagras i ett temporärt register TMP.
+Instruktionen som ska utföras på operanderna kommer direkt från IR och heter op
+(operation). I ALU:n finns det 4 räknare som bestämmer vilket resultat som ska
+användas utifrån vilken instruktion (op) som tas in.Flaggorna S,Z,F5,H,F3,P/V,N
+och C bestäms utifrån respektive instruktion. När en instruktion ska användas
+muxas därför flaggorna utifrån om flaggan ska sättas till 1,0 eller om flaggans
+tidigare värde ska behållas. Om flaggans värde ska behållas i en instruktion
+kommer flaggans tidigare värde att kopieras till det nuvarande.
 
-\begin{figure}[H]
-    \center
+\begin{SCfigure}
+    \centering
     \includegraphics[width=0.8\linewidth]{alusbc.eps}
     \caption{Resultat och delresultat som muxas då \mono{sbc}-instruktionen
     utförs och C-flaggan är satt.}
-\end{figure}
+\end{SCfigure}
 \end{document}

@@ -1,87 +1,247 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\subsubsection{Register}
-Registerna är strukturerade som ett blockram sammankopplat med en multiplexer.
-Multiplexerns roll i symbiosen är att hantera vilket register som skall skrivas
-till respektive läsas från. Varje register har en speciell kod som används för
-att muxen ska hålla koll på vilket register som pekas på. Muxen väntar sedan på
-en läs- eller skrivsignal för att avgöra vad som ska göras med registret som
-pekas på. Kodningen som använts för registerna är baserad på Zilogs
-originalkodning som beskrivs i användarmanualen \cite{z80um}. Det som skiljer
-kodningen som används från originalkodningen är att två extra siffror har lagts
-till och att kodningen på vissa av registrerna har förändrats. Siffrorna längst
-fram lades till eftersom det var fler register som skulle hållas koll på än
-originalsiffrorna räckte för.
+\newpage
+\subsubsection{Registersektion}
+Registersektionen består av tre komponenter; en registerfil, en
+adressadderare och en adressinkrementerare. Blockschema \ref{diag:z80} visar
+hur de är sammankopplade.
 
-Kodningen är binär och består av fem siffror. De två mest signifikanta bitarna
-används för att skilja på Zilogs originalkodning och de registerna som
-egentligen inte var en del av kodningen som ändå skulle hållas koll på.
+\paragraph{Registerfil}
+Nästan alla register i processorn har implementerats med hjälp av ett litet
+RAM. Flera register behöver sällan läsas eller skrivas till samtidigt så en
+lässignal och en väg till databussen för varje register är onödigt. Som nämnt
+tidigare kan ett par av två 8-bitars register användas som ett 16-bitars
+register. Vid läsning och skriving till registerfilens RAM kan antingen 8-
+eller 16-bitars kliv användas. För att referera till ett 8-bitars register
+används ingången \mono{daddr} som är en adress på fem bitar. För att referera
+till ett 16-bitars register används \mono{aaddr} som är en adress på fyra
+bitar. \mono{aaddr} är identisk till \mono{daddr} förutom att den saknar bit 0
+som avgör om det är den höga eller låga byte:n. Figur \ref{fig:rfext} visar
+alla registers externa adresser, de adresser som instruktionsdekodaren
+använder.
 
-Som beskrivet i teori-delen så finns det både 8-bitars- och 16-bitarsregister i
-strukturen. Strukturen ser ut som följande:
+\begin{figure}[b!]
+    \centering
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \ttfamily
+        \begin{tabular}{r|c|c|l}
+            \multicolumn{1}{c}{daddr} &
+            \multicolumn{1}{c}{\normalfont hög} &
+            \multicolumn{1}{c}{\normalfont låg} &
+            \multicolumn{1}{c}{daddr} \\ \cline{2-3}
+            00 00000 & B   & C   & 00001 01 \\ \cline{2-3}
+            02 00010 & D   & E   & 00011 03 \\ \cline{2-3}
+            04 00100 & H   & L   & 00101 05 \\ \cline{2-3}
+            06 00110 & A   & F   & 00111 07 \\ \cline{2-3}
+            08 01000 & W   & Z   & 01001 09 \\ \cline{2-3}
+            10 01010 & SPh & SPl & 01011 11 \\ \cline{2-3}
+            12 01100 & IXh & IXl & 01101 13 \\ \cline{2-3}
+            14 01110 & IYh & IYl & 01111 15 \\ \cline{2-3}
+            16 10000 & I   & R   & 10001 17 \\ \cline{2-3}
+            18 10010 & PCh & PCl & 10011 19 \\ \cline{2-3}
+        \end{tabular}
+        \caption{8-bitars kliv.}
+        \label{fig:rfext8}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \center
+        \ttfamily
+        \begin{tabular}{r|c|}
+            \multicolumn{1}{c}{aaddr} &
+            \multicolumn{1}{c}{\normalfont register} \\ \cline{2-2}
+            00 0000 & BC \\ \cline{2-2}
+            01 0001 & DE \\ \cline{2-2}
+            02 0010 & HL \\ \cline{2-2}
+            03 0011 & AF \\ \cline{2-2}
+            04 0100 & WZ \\ \cline{2-2}
+            05 0101 & SP \\ \cline{2-2}
+            06 0110 & IX \\ \cline{2-2}
+            07 0111 & IY \\ \cline{2-2}
+            08 1000 & IR \\ \cline{2-2}
+            09 1001 & PC \\ \cline{2-2}
+        \end{tabular}
+        \caption{16-bitars kliv.}
+    \end{subfigure}
+    \caption{Registrernas externa adresser för registerfilen med 8- eller
+    16-bitars {\it stride} eller kliv.}
+    \label{fig:rfext}
+\end{figure}
 
-\begin{center}
-    \begin{tabular}{ r|c|c|l }
-        \multicolumn{1}{c}{adress} &
-        \multicolumn{1}{c}{hög} & \multicolumn{1}{c}{låg} &
-        \multicolumn{1}{c}{adress} \\ \cline{2-3}
-        00 00000 & \mono{B} & \mono{C}            & 00001 01 \\ \cline{2-3}
-        02 00010 & \mono{B} & \mono{C}            & 00011 03 \\ \cline{2-3}
-        04 00100 & \mono{D} & \mono{E}            & 00101 05 \\ \cline{2-3}
-        06 00110 & \mono{D} & \mono{E}            & 00111 07 \\ \cline{2-3}
-        08 01000 & \mono{H} & \mono{L}            & 01001 09 \\ \cline{2-3}
-        10 01010 & \mono{H} & \mono{L}            & 01011 11 \\ \cline{2-3}
-        12 01100 & \mono{A} & \mono{F}            & 01101 13 \\ \cline{2-3}
-        14 01110 & \mono{A} & \mono{F}            & 01111 15 \\ \cline{2-3}
-        16 10000 & \mono{W} & \mono{Z}            & 10001 17 \\ \cline{2-3}
-        18 10010 & \multicolumn{2}{c|}{\mono{SP}} & 10011 19 \\ \cline{2-3}
-        20 10100 & \multicolumn{2}{c|}{\mono{IX}} & 10011 21 \\ \cline{2-3}
-        22 10110 & \multicolumn{2}{c|}{\mono{IY}} & 10111 23 \\ \cline{2-3}
+Dessa adresser har bland annat valts utefter kodningen i Z80:s instruktioner
+för att förenkla instruktionsdekodaren. Instruktioner som refererar till
+\mono{B}, \mono{C}, \mono{D}, \mono{E}, \mono{H}, \mono{L}, \mono{A},
+\mono{BC}, \mono{DE}, \mono{HL} och \mono{AF} använder alltid samma kodning i
+en del av instruktionen. De tre minst signifikanta bitarna för 8-bitars
+register är tagna direkt från instruktionen och på liknande sätt de två sista
+bitarna för 16-bitars register. Ett exempel är instruktionerna \mono{ld c,h}
+och \mono{ld h,e} samt \mono{push bc} och \mono{push af}:
+\begin{align*}
+    &\mono{4C: ld c,h}& \quad &
+    {\underbrace{\mono{0 1}}_\mono{ld}}\mono{ }
+    {\underbrace{\mono{0 0 1}}_\mono{c}}\mono{ }
+    {\underbrace{\mono{1 0 0}}_\mono{h}}
+    \qquad
+    &\mono{C5: push bc}& \quad &
+    \mono{1 1 }
+    {\underbrace{\mono{0 0}}_\mono{bc}}\mono{ }
+    \mono{0 1 0 1}
+    \\
+    &\mono{63: ld h,e} &&
+    {\underbrace{\mono{0 1}}_\mono{ld}}\mono{ }
+    {\underbrace{\mono{1 0 0}}_\mono{h}}\mono{ }
+    {\underbrace{\mono{0 1 1}}_\mono{e}}
+    &\mono{F5: push af} &&
+    \mono{1 1 }
+    {\underbrace{\mono{1 1}}_\mono{af}}\mono{ }
+    \mono{0 1 0 1}
+\end{align*}
+
+Det finns däremot undantag där instruktionens kodning har ändrats. Se
+objektkoderna för instruktionerna \mono{ld b,(hl)}, \mono{ld b,a}, \mono{inc
+(hl)} och \mono{inc a}:
+\begin{align*}
+    &\mono{47: ld b,(hl)}& \quad &
+    {\underbrace{\mono{0 1}}_\mono{ld}}\mono{ }
+    {\underbrace{\mono{0 0 0}}_\mono{b}}\mono{ }
+    {\underbrace{\mono{1 1 0}}_\mono{a?}}
+    \qquad
+    &&\mono{34: inc (hl)} &\quad &
+    \mono{0 0 }
+    {\underbrace{\mono{1 1 0}}_\mono{a?}}\mono{ }
+    \mono{1 0 0}
+    \\
+    &\mono{46: ld b,a} &&
+    {\underbrace{\mono{0 1}}_\mono{ld}}\mono{ }
+    {\underbrace{\mono{0 0 0}}_\mono{b}}\mono{ }
+    {\underbrace{\mono{1 1 1}}_\mono{f?}}
+    &&\mono{3C: inc a} &&
+    \mono{0 0 }
+    {\underbrace{\mono{1 1 1}}_\mono{f?}}\mono{ }
+    \mono{1 0 0}
+\end{align*}
+
+Dessa instruktioner refererar inte till \mono{A} och \mono{F} som koderna
+föreslår. Instruktioner som har adressen för vårt \mono{A} hänvisar egentligen
+till \mono{(hl)}, platsen i minnet som \mono{HL} pekar på. Instruktioner som
+använder adressen för vårt \mono{F} refererar egentligen till \mono{A}.
+Anledningen till detta är att om instruktionernas kodning används kommer
+\mono{AF} lagras som \mono{FA} istället. När \mono{AF} ska hanteras måste då
+registerfilen byta plats på den höga och låga byte:n vid läsning och skrivning.
+Lösningen till detta är att översätta \mono{111} till \mono{110} och \mono{110}
+till \mono{111} direkt i instruktionsdekodaren. På så sätt kan \mono{A} och
+\mono{F} enkelt hanteras som antingen två 8-bitars register eller ett 16-bitars
+register. Notera att vid instruktioner som refererar till \mono{(hl)} eller i
+vårt fall \mono{F} kommer värdet inte att hämtas från registerfilen och därmed
+används inte adressen. Adressen till \mono{F} används endast vid \mono{push}
+och \mono{pop} eftersom där måste en byte i taget överföras till eller från
+stacken i minnet.
+
+Ett alternativ för att implementera registerfilen för detta är att helt enkelt
+skapa ett RAM med den struktur och de externa adresserna som i figur
+\ref{fig:rfext8}. Då skrivs eller hämtas en byte från byte:n som \mono{daddr}
+pekar på. Där \mono{aaddr} pekar på skrivs eller hämtas två bytes istället.
+
+Det uppstår dock ett problem när \mono{ex} instruktionerna ska användas. Det
+finns tre sådana instruktioner; \mono{ex af,af'}, \mono{ex de,hl} och
+\mono{exx}. \mono{exx} växlar värdet på BC med BC', DE med DE' och även HL med
+HL'. Dessa antar att det finns en kopia av vissa register som kan lagra
+originalregistrets värde temporärt. Implementationen ser därför ut som i figur
+\ref{fig:rfint} istället.
+
+\begin{figure}[b]
+    \center
+    \ttfamily\arraybackslash
+    \begin{tabular}{r|c|c|l}
+        \multicolumn{1}{c}{\normalfont adress} &
+        \multicolumn{1}{c}{\normalfont hög} &
+        \multicolumn{1}{c}{\normalfont låg} &
+        \multicolumn{1}{c}{\normalfont adress} \\ \cline{2-3}
+        00 00000 & B   & C   & 00001 01 \\ \cline{2-3}
+        02 00010 & B   & C   & 00011 03 \\ \cline{2-3}
+        04 00100 & D   & E   & 00101 05 \\ \cline{2-3}
+        06 00110 & D   & E   & 00111 07 \\ \cline{2-3}
+        08 01000 & H   & L   & 01001 09 \\ \cline{2-3}
+        10 01010 & H   & L   & 01011 11 \\ \cline{2-3}
+        12 01100 & A   & F   & 01101 13 \\ \cline{2-3}
     \end{tabular}
-\end{center}
- 
-Figuren visar att det även finns en dublett av varje register. Det är för att
-en swap-funktion ska hanteras. Det swap-funktionen gör är att byta innehållet i
-ett register med innehåller på dess ''prim''-variant, som är ett
-likadant,internt register. Om man skapar två identiska register kan båda
-dubletterna agera som både ''prim''-variant och original. Vilket som är vilket
-urskiljs med hjälp av en pekare.
+    \begin{tabular}{r|c|c|l}
+        \multicolumn{1}{c}{\normalfont adress} &
+        \multicolumn{1}{c}{\normalfont hög} &
+        \multicolumn{1}{c}{\normalfont låg} &
+        \multicolumn{1}{c}{\normalfont adress} \\ \cline{2-3}
+        14 01110 & A   & F   & 01111 15 \\ \cline{2-3}
+        16 10000 & W   & Z   & 10001 17 \\ \cline{2-3}
+        18 10010 & SPh & SPl & 10011 19 \\ \cline{2-3}
+        20 10100 & IXh & IXl & 10011 21 \\ \cline{2-3}
+        22 10110 & IYh & IYl & 10111 23 \\ \cline{2-3}
+        24 11000 & I   & R   & 11001 25 \\ \cline{2-3}
+        26 11010 & PCh & PCl & 11011 27 \\ \cline{2-3}
+    \end{tabular}
+    \caption{Registernas interna organisation i registerfilens RAM.}
+    \label{fig:rfint}
+\end{figure}
 
-Varje register - förutom \mono{SP}, \mono{IX} och \mono{IY} som är
-16-bitarsregister - är 8-bitarsregister och har olika användningsområden.
-Register \mono{A} är indirekt kopplat till ALU:n och register \mono{F} håller
-koll på flaggorna. Register \mono{W} och \mono{Z} är endast interna register
-och kan användas för att lagra värden som ska användas senare. I register
-\mono{C} lagrar man värdena för vilken port som ska användas i \mono{IN} och
-\mono{OUT} funktioner. Utöver dessa undantag kan alla register användas
-likgiltigt. 8-bitarsregisterna kan även användas som 16-bitarsregister ifall de
-paras ihop med sin andra halva. Vilka register som hör ihop med varandra kan
-man se i figuren ovan. Det finns några instruktioner som bestämmer vilka
-register som skall användas, men i de flesta instruktioner har användaren
-valfrihet.
+Notera att det inte finns ett primärregister och ett ``prim''-register utan
+istället två identiska kopior av varje register. Detta är för att istället för
+att flytta runt på värdena varje gång ett byte sker ändras endast pekaren
+till det registret till den andra kopian.
 
-Det finns vissa register som inte är med i tabellen ovan men som ändå finns i
-archiketuren. De registerna som inte är tabellen är sådana som inte behöver
-kodning. Ett exempel på ett sådant register är instruktionsregistret \mono{IR}.
-Eftersom instruktionsregistret inte är ett allmänt register behöver det inte en
-explicit kodning för att nås, och undviker därför att kodas. Ett annat register
-som inte har en kodning är det temporära registret som används i ALUn.  Vissa
-ALU instruktioner så som \mono{CP} (compare), \mono{ADD} (addition) och
-\mono{SUB} (subtraction) kräver två operander. Det är då det temporära
-registret \mono{TMP} kommer in i bilden. \mono{TMP} används som den andra
-indatan till ALUn.
+Registerfilen måste därmed lagra pekare som avgör vilket register som ska
+användas. Totalt behövs vippor för att hålla koll på alla växlingar:
+\begin{labeling}{indentzz}
+\item[\mono{reg}]
+    Avgör om \mono{BC}, \mono{DE} och \mono{HL} ska hänvisas till den första
+    eller andra kopian av registret. Detta motsvarar bit 1 i adressen. Den
+    skiftas när \mono{rf\_swp} är
+    \mono{reg}.
+\item[\mono{af}]
+    Avgör om \mono{AF} ska hänvisas till första eller andra kopian på liknande
+    sätt.
+\item[\mono{dehl0}]
+    Avgör om \mono{DE} och \mono{HL} ska hänvisa till sig själva eller varandra
+    när \mono{reg} är noll. Ändras endast då \mono{rf\_swp} är \mono{dehl} och
+    \mono{reg} är noll. Om endast en vippa användes skulle även \mono{DE'} och
+    \mono{HL'} byta plats från programmerarens sida.
+\item[\mono{dehl1}]
+    Som \mono{dehl0} fast då \mono{reg} är ett.
+\item[\mono{afwz}]
+    Avgör om \mono{AF} och \mono{WZ} ska hänvisa till sig själva eller
+    varandra. Denna används endast internt så det är okej att den även ändrar
+    \mono{AF'} eftersom den byter tillbaka innan instruktionen är avklarad.
+\end{labeling}
 
-\subsubsection{Bussar}
-Det finns inte så mycket att skriva om bussarna då det är bland de enklare
-delarna av architekturen. Det finns totalt tre bussar - en kontrollbuss, en
-adressbuss och en databuss. Kontrolbussen hanterar endast kontrollsignaler så
-som exempelvis avbrottssignaler, lässignaler, skrivsignaler etc. Databussen är
-en 8-bitarsbuss som hanterar data som ska skrivas till minnet samt läsas från
-minnet. Adressbussen är en 16-bitarsbuss som adresserna till minnesplatser som
-skall användas skickas på. För att lägga ut information på adress- eller
-databussen används en mux för att bestämma vilken källa informationen kommer
-från. Samma princip gäller för att bestämma vilken destination informationen
-ska till.
+Detta är implementerat med hjälp av ett kombinatoriskt nät som översätter
+adressen till dess nuvarande position i registerfilens RAM utifrån vad
+D-vipporna har för nuvarande värde.
+
+\begin{SCfigure}
+    \centering
+    \includegraphics{rfbaddr.eps}
+    \caption{Två identiska kombinatoriska nät används för att översätta
+    adresserna \mono{baddr} och \mono{daddr} till de interna adresserna.}
+    \label{fig:rfbaddr}
+\end{SCfigure}
+
+\paragraph{Adressinkrementerare} % TODO
+Mellan adressbussen och ingången till registerfilen sitter en inkrementerare
+som kan antingen inkrementera, dekrementera eller behålla adressbussens nuvarande
+värde. Med hjälp av denna kan en adress från registerfilen läggas på
+adressbussen och sedan antingen inkrementeras eller dekrementeras och därefter
+laddas till samma register. På detta vis stegas \mono{PC} och \mono{SP} upp
+eller ner. Det går däremot inte att hänvisa till två olika adresser i
+registret. Det finns även \mono{inc} och \mono{dec}-instruktioner för 16-bitars
+register som denna används till.
+
+\paragraph{Adressadderare} % TODO
+Det finns även en adderare som tar adressen \mono{aaddr} pekar på och adderar
+den med värdet på databussen och därefter skickar resultatet till databussen.
+Detta används för relativa adresseringar som till exempel \mono{jr d} som
+hoppar \mono{d} steg i programmet och \mono{cp (iy+d)} som jämför värdet
+\mono{d} steg efter värdet som \mono{IY} pekar på i minnet med \mono{A}.
+
+% TODO kontrollsektionen nämner regfilens funktioner kort när den beskriver
+% kontrollordet men det kanske behöver mer info i denna sektion
 
 \end{document}

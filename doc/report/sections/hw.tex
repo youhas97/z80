@@ -1,7 +1,20 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\section{Hårdvaran}
+\section{Hårdvara}
+Konstruktionen är uppdelad i tre delar; processorn, TI-ASIC:en och kontroller
+för externa enheter. Dess sammansättning kan ses i blockschema \ref{diag:comp}.
+I blockschemat syns även att det finns olika klockor som genereras. Processorn
+kan köra på olika frekvenser medan ASIC:en alltid kör på 33MHz och VGA-motorn
+på 25MHz. Resterande komponenter använder systemklockan på 100MHz. Klockorna
+kan även stängas av vid bland annat brytpunkter som använts för debugging.
+
+Det finns en gemensam 8-bitars databuss som processorn, ASIC:en och även minnet
+delar på. Kontrollbussen och adressbussen från processorn går direkt till
+ASIC:en som hanterar de först innan något går till de externa kontrollerna.
+Adressen behöver till exempel översättas innan den når det riktiga minnet. I
+ASIC:en sker även hanteringen av alla de olika portarna i miniräknaren. ASIC:en
+talar i sin tur med de externa komponenterna och skickar indata via portarna.
 
 \subfile{sections/hw/z80.tex}
 \subfile{sections/hw/ti.tex}

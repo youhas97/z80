@@ -1,0 +1,40 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\subsubsection{Minneskontroller}
+TI83p använder sig av två separata minnen men vår implementation använder
+endast ett stort kontinuerligt minne. ROM har lagts som de första 512 KiB och
+RAM har lagts som de 32 KiB direkt efter ROM. \mono{RAM 1} ligger dock före
+\mono{RAM 0}. Den fysiska placeringen kan ses i figur \ref{fig:physical}.
+
+\begin{figure}[H]
+    \center
+    \small\ttfamily\arraybackslash
+    \begin{tabular}{c|c|c}
+        \multicolumn{1}{c}{\normalfont startadress} &
+        \multicolumn{1}{c}{\normalfont page} &
+        \multicolumn{1}{c}{\normalfont slutadress} \\ \cline{2-2}
+        00000  & ROM 00  & 03FFF \\ \cline{2-2}
+        04000  & ROM 01  & 07FFF \\
+        \multicolumn{1}{c}{\vdots} &
+        \multicolumn{1}{c}{\vdots} & \vdots \\
+        78000  & ROM 1E  & 7BFFF \\ \cline{2-2}
+        7C000  & ROM 1F  & 7FFFF \\ \cline{2-2}
+        80000  & RAM 1   & 83FFF \\ \cline{2-2}
+        84000  & RAM 0   & 07FFF \\ \cline{2-2}
+        88000  & oanvänd & 8BFFF \\ \cline{2-2}
+        \vdots & \vdots  & \vdots \\
+    \end{tabular}
+    \caption{Placering av pages i det fysiska minnet.}
+    \label{fig:physical}
+\end{figure}
+
+Minneskontrollerns uppgift är att översätta den virtuella adressen från
+processorn till den fysiska adressen utefter läget samt page A, B och därefter
+skicka den till det fysiska minnet. Implementationen fungerar genom att först
+bestämma A och B utefter den nuvarande buffern till port \mono{06} och
+\mono{07} och därefter muxa de till de fyra olika platserna utefter det
+nuvarande läget. Därefter muxas en av dessa fyra pages utefter de högsta
+bitarna i den virtuella adressen. Sedan läggs bitarna i page:n ihop med de låga
+bitarna från den virtuella adressen för att få den exakta fysiska adressen.
+\end{document}

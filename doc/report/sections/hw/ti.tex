@@ -1,9 +1,16 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\subsection{TI ASIC}
+\subsection{TI-ASIC}
+TI-ASIC:en innehåller alla de kontrollkomponenter som är del av TI:s
+miniräknare utanför processorn. In till ASIC:en är databussen direkt kopplad
+från processorn. Med hjälp av in/out instruktioner och adresser kan datan muxas
+till eller från rätt port. De olika portarna leder därefter till en eller flera
+olika komponenter. Blockschema \ref{diag:ti} ger en överblick av denna struktur
+samt vilka komponenter som hanterar vilken in- och utdata.
 
-TI ASIC innehåller alla de kontrollkomponenter som finns i konstruktionen. In till ASIC:en är 8-bitars data direkt kopplad från processorn. Med hjälp in/out instruktioner och adresser kan datan muxas till eller från rätt port. Nedan följer beskrivning av dessa portar i lite mer detalj.
-\subfile{sections/hw/pict_mem}
+\subfile{sections/hw/pio}
+\subfile{sections/hw/memmap}
+\subfile{sections/hw/interrupt}
 \subfile{sections/hw/lcd_ctrl}
 \end{document}

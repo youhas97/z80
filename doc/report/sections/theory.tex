@@ -277,9 +277,9 @@ processorn från halt-läge när miniräknaren är avstängd.
             \\\cline{2-9}
         Grupp 1 & & CLEAR & $\wedge$ & $\div$ & $\times$ & $-$ & $+$ & ENTER
             \\\cline{2-9}
-        Grupp 2 & & VARS & TAN & ( & 9 & 6 & 3 & (-)
+        Grupp 2 & & VARS & TAN & ) & 9 & 6 & 3 & (-)
             \\\cline{2-9}
-        Grupp 3 & STAT & PRGM & COS & ) & 8 & 5 & 2 & .
+        Grupp 3 & STAT & PRGM & COS & ( & 8 & 5 & 2 & .
             \\\cline{2-9}
         Grupp 4 & X,T,$\Theta$,n & APPS & SIN & , & 7 & 4 & 1 & 0    
             \\\cline{2-9}
@@ -357,13 +357,21 @@ TI83p använder två olika lägen vilkas layouts kan ses i figur
 respektive \mono{07}. \cite{wikiti-mmap}
 
 \subsection{Specifikationer}
-\paragraph{PS/2}
-% TODO
+
 \paragraph{VGA}
-% TODO
+För att få ut en bild till VGA-skärmen har data skickats enligt
+VGA-standarden. Information och tidsintervaller finns i manualen för
+FPGA-kortet Nexys3 på sidan 15.\cite{Nexys3}
+
+\paragraph{PS/2}
+För att ta emot knapptryckningar från ett tangentbord har PS/2-standarden
+använts vid kommunikation. Hur standarden fungerar är beskrivet i manualen för
+Nexys3 på sidan 13.\cite{Nexys3}
+
 \paragraph{Externt minne}
-% TODO
-\cite{m45}
+Ett 16MB RAM, modell Micron M45W8MW16 har använts asynkront som primärminne för
+miniräknaren. Dess funktionalitet och protokoll kan hittas i dess
+manual.\cite{m45}
 
 \clearpage
 \end{document}

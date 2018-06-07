@@ -1,12 +1,13 @@
 \documentclass[main.tex]{subfiles}
 
-\newpage
+%\newpage
 \begin{document}
-\begin{SCfigure}
-    \centering
-    \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/monitor_small.jpg}
-    \caption{Konstruktionens display vid körning av spelet zDoom.}
-\end{SCfigure}
+
+%\begin{SCfigure}
+%    \centering
+%    \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/monitor_small.jpg}
+%    \caption{Konstruktionens display vid körning av spelet zDoom.}
+%\end{SCfigure}
 
 \section{Konstruktion}
 Konstruktionen har använt ett Nexys3-kort med en Spartan6 FPGA från Digilent
@@ -37,7 +38,7 @@ processorn sätta igång och börja exekvera på adress \mono{0x8000}.
 Vid laddning till minnet kan en startadress väljas. Om ett program som startar
 i början av filen ska laddas bör det läggas på adressen \mono{0x7c000} eftersom
 \mono{0x8000} leder dit med den minnesmappning som är inställd vid uppstart. Om
-en hel ROM-dump ska laddas såsom TI83p:s operativsystem ska den läggas på
+en hel ROM-dump ska laddas såsom TI-83p:s operativsystem ska den läggas på
 adress \mono{0x00000} eftersom miniräknarens ROM börjar på där. Hur miniräknarens
 minne ligger i det fysiska minnet beskrivs i sektion \ref{sec:mmap} på sidan
 \pageref{sec:mmap}.

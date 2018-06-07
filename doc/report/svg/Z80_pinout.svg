@@ -1,0 +1,992 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 12.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 51448)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_2"
+   width="268.41422"
+   height="586.00201"
+   viewBox="0 0 268.41422 586.00201"
+   overflow="visible"
+   enable-background="new 0 0 852 663"
+   xml:space="preserve"
+   sodipodi:docname="Z80_pinout.svg"
+   style="overflow:visible"
+   inkscape:version="0.92.2 2405546, 2018-03-11"><metadata
+   id="metadata3145"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs3143" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1900"
+   inkscape:window-height="1028"
+   id="namedview3141"
+   showgrid="false"
+   fit-margin-top="0"
+   fit-margin-left="0"
+   fit-margin-right="0"
+   fit-margin-bottom="0"
+   inkscape:zoom="1.1568627"
+   inkscape:cx="393.70711"
+   inkscape:cy="292.50201"
+   inkscape:window-x="8"
+   inkscape:window-y="40"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="Layer_2" />
+<g
+   id="g2568"
+   transform="translate(-32.292893,-38)">
+	<rect
+   x="88"
+   y="38.5"
+   width="157.5"
+   height="585.00201"
+   id="rect2272"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+	<text
+   transform="translate(94.4858,67.3354)"
+   id="text2306"><tspan
+     x="0"
+     y="0"
+     font-size="21"
+     id="tspan2274"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">M1</tspan><tspan
+     x="0"
+     y="45"
+     font-size="21"
+     id="tspan2276"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">MREQ</tspan><tspan
+     x="0"
+     y="67.5"
+     font-size="21"
+     id="tspan2278"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">IORQ</tspan><tspan
+     x="0"
+     y="90"
+     font-size="21"
+     id="tspan2280"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">WR</tspan><tspan
+     x="0"
+     y="112.5"
+     font-size="21"
+     id="tspan2282"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">RD</tspan><tspan
+     x="0"
+     y="157.5"
+     font-size="21"
+     id="tspan2284"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">REFSH</tspan><tspan
+     x="0"
+     y="202.5"
+     font-size="21"
+     id="tspan2286"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">HALT</tspan><tspan
+     x="0"
+     y="247.5"
+     font-size="21"
+     id="tspan2288"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">WAIT</tspan><tspan
+     x="0"
+     y="292.5"
+     font-size="21"
+     id="tspan2290"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">INT</tspan><tspan
+     x="0"
+     y="315"
+     font-size="21"
+     id="tspan2292"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">NMI</tspan><tspan
+     x="0"
+     y="360"
+     font-size="21"
+     id="tspan2294"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">RESET</tspan><tspan
+     x="0"
+     y="405"
+     font-size="21"
+     id="tspan2296"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">BUSRQ</tspan><tspan
+     x="0"
+     y="427.5"
+     font-size="21"
+     id="tspan2298"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">BUSAK</tspan><tspan
+     x="0"
+     y="472.5"
+     font-size="21"
+     id="tspan2300"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace"> CLK</tspan><tspan
+     x="0"
+     y="517.5"
+     font-size="21"
+     id="tspan2302"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">Vcc</tspan><tspan
+     x="0"
+     y="540"
+     font-size="21"
+     id="tspan2304"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">GND</tspan></text>
+
+	<text
+   transform="translate(52.0361,58.3345)"
+   id="text2340"><tspan
+     x="0"
+     y="0"
+     font-size="21"
+     id="tspan2308"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">27</tspan><tspan
+     x="0"
+     y="45"
+     font-size="21"
+     id="tspan2310"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">19</tspan><tspan
+     x="0"
+     y="67.5"
+     font-size="21"
+     id="tspan2312"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">20</tspan><tspan
+     x="0"
+     y="90"
+     font-size="21"
+     id="tspan2314"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">22</tspan><tspan
+     x="0"
+     y="112.5"
+     font-size="21"
+     id="tspan2316"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">21</tspan><tspan
+     x="0"
+     y="157.5"
+     font-size="21"
+     id="tspan2318"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">28</tspan><tspan
+     x="0"
+     y="202.5"
+     font-size="21"
+     id="tspan2320"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">18</tspan><tspan
+     x="0"
+     y="247.5"
+     font-size="21"
+     id="tspan2322"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">24</tspan><tspan
+     x="0"
+     y="292.5"
+     font-size="21"
+     id="tspan2324"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">16</tspan><tspan
+     x="0"
+     y="315"
+     font-size="21"
+     id="tspan2326"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">17</tspan><tspan
+     x="0"
+     y="360"
+     font-size="21"
+     id="tspan2328"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">26</tspan><tspan
+     x="0"
+     y="405"
+     font-size="21"
+     id="tspan2330"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">25</tspan><tspan
+     x="0"
+     y="427.5"
+     font-size="21"
+     id="tspan2332"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">23</tspan><tspan
+     x="12.6"
+     y="472.5"
+     font-size="21"
+     id="tspan2334"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">6</tspan><tspan
+     x="0"
+     y="517.5"
+     font-size="21"
+     id="tspan2336"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">11</tspan><tspan
+     x="0"
+     y="540"
+     font-size="21"
+     id="tspan2338"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">29</tspan></text>
+
+	<text
+   transform="translate(257.236,58.3345)"
+   id="text2390"><tspan
+     x="0"
+     y="0"
+     font-size="21"
+     id="tspan2342"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">30</tspan><tspan
+     x="0"
+     y="22.5"
+     font-size="21"
+     id="tspan2344"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">31</tspan><tspan
+     x="0"
+     y="45"
+     font-size="21"
+     id="tspan2346"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">32</tspan><tspan
+     x="0"
+     y="67.5"
+     font-size="21"
+     id="tspan2348"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">33</tspan><tspan
+     x="0"
+     y="90"
+     font-size="21"
+     id="tspan2350"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">34</tspan><tspan
+     x="0"
+     y="112.5"
+     font-size="21"
+     id="tspan2352"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">35</tspan><tspan
+     x="0"
+     y="135"
+     font-size="21"
+     id="tspan2354"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">36</tspan><tspan
+     x="0"
+     y="157.5"
+     font-size="21"
+     id="tspan2356"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">37</tspan><tspan
+     x="0"
+     y="180"
+     font-size="21"
+     id="tspan2358"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">38</tspan><tspan
+     x="0"
+     y="202.5"
+     font-size="21"
+     id="tspan2360"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">39</tspan><tspan
+     x="0"
+     y="225"
+     font-size="21"
+     id="tspan2362"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">40</tspan><tspan
+     x="0"
+     y="247.5"
+     font-size="21"
+     id="tspan2364"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">1</tspan><tspan
+     x="0"
+     y="270"
+     font-size="21"
+     id="tspan2366"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">2</tspan><tspan
+     x="0"
+     y="292.5"
+     font-size="21"
+     id="tspan2368"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">3</tspan><tspan
+     x="0"
+     y="315"
+     font-size="21"
+     id="tspan2370"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">4</tspan><tspan
+     x="0"
+     y="337.5"
+     font-size="21"
+     id="tspan2372"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">5</tspan><tspan
+     x="0"
+     y="382.5"
+     font-size="21"
+     id="tspan2374"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">14</tspan><tspan
+     x="0"
+     y="405"
+     font-size="21"
+     id="tspan2376"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">15</tspan><tspan
+     x="0"
+     y="427.5"
+     font-size="21"
+     id="tspan2378"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">12</tspan><tspan
+     x="0"
+     y="450"
+     font-size="21"
+     id="tspan2380"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">8</tspan><tspan
+     x="0"
+     y="472.5"
+     font-size="21"
+     id="tspan2382"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">7</tspan><tspan
+     x="0"
+     y="495"
+     font-size="21"
+     id="tspan2384"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">9</tspan><tspan
+     x="0"
+     y="517.5"
+     font-size="21"
+     id="tspan2386"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">10</tspan><tspan
+     x="0"
+     y="540"
+     font-size="21"
+     id="tspan2388"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">13</tspan></text>
+
+	<text
+   transform="translate(214.786,67.3354)"
+   id="text2440"><tspan
+     x="0"
+     y="0"
+     font-size="21"
+     id="tspan2392"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A0</tspan><tspan
+     x="0"
+     y="22.5"
+     font-size="21"
+     id="tspan2394"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A1</tspan><tspan
+     x="0"
+     y="45"
+     font-size="21"
+     id="tspan2396"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A2</tspan><tspan
+     x="0"
+     y="67.5"
+     font-size="21"
+     id="tspan2398"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A3</tspan><tspan
+     x="0"
+     y="90"
+     font-size="21"
+     id="tspan2400"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A4</tspan><tspan
+     x="0"
+     y="112.5"
+     font-size="21"
+     id="tspan2402"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A5</tspan><tspan
+     x="0"
+     y="135"
+     font-size="21"
+     id="tspan2404"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A6</tspan><tspan
+     x="0"
+     y="157.5"
+     font-size="21"
+     id="tspan2406"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A7</tspan><tspan
+     x="0"
+     y="180"
+     font-size="21"
+     id="tspan2408"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A8</tspan><tspan
+     x="0"
+     y="202.5"
+     font-size="21"
+     id="tspan2410"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A9</tspan><tspan
+     x="-12.6"
+     y="225"
+     font-size="21"
+     id="tspan2412"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A10</tspan><tspan
+     x="-12.6"
+     y="247.5"
+     font-size="21"
+     id="tspan2414"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A11</tspan><tspan
+     x="-12.6"
+     y="270"
+     font-size="21"
+     id="tspan2416"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A12</tspan><tspan
+     x="-12.6"
+     y="292.5"
+     font-size="21"
+     id="tspan2418"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A13</tspan><tspan
+     x="-12.6"
+     y="315"
+     font-size="21"
+     id="tspan2420"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A14</tspan><tspan
+     x="-12.6"
+     y="337.5"
+     font-size="21"
+     id="tspan2422"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">A15</tspan><tspan
+     x="0"
+     y="382.5"
+     font-size="21"
+     id="tspan2424"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D0</tspan><tspan
+     x="0"
+     y="405"
+     font-size="21"
+     id="tspan2426"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D1</tspan><tspan
+     x="0"
+     y="427.5"
+     font-size="21"
+     id="tspan2428"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D2</tspan><tspan
+     x="0"
+     y="450"
+     font-size="21"
+     id="tspan2430"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D3</tspan><tspan
+     x="0"
+     y="472.5"
+     font-size="21"
+     id="tspan2432"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D4</tspan><tspan
+     x="0"
+     y="495"
+     font-size="21"
+     id="tspan2434"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D5</tspan><tspan
+     x="0"
+     y="517.5"
+     font-size="21"
+     id="tspan2436"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D6</tspan><tspan
+     x="0"
+     y="540"
+     font-size="21"
+     id="tspan2438"
+     style="font-size:21px;font-family:'Bitstream Vera Sans Mono', 'Luxi Mono', 'Letter Gothic', monospace">D7</tspan></text>
+
+	<line
+   id="M1"
+   x1="43"
+   y1="61"
+   x2="88"
+   y2="61"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="61"
+   r="3.75"
+   id="circle2443"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="M 43,51 33,61 43,71"
+   id="path2445"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="MREQ"
+   x1="43"
+   y1="106"
+   x2="88"
+   y2="106"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="106"
+   r="3.75"
+   id="circle2448"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+	<line
+   id="IOREQ"
+   x1="43"
+   y1="128.5"
+   x2="88"
+   y2="128.5"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="128.5"
+   r="3.75"
+   id="circle2451"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 43,96 -10,10 10,10"
+   id="path2453"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="WR"
+   x1="43"
+   y1="151"
+   x2="88"
+   y2="151"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="151"
+   r="3.75"
+   id="circle2456"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 43,141 -10,10 10,10"
+   id="path2458"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="RD"
+   x1="43"
+   y1="173.5"
+   x2="88"
+   y2="173.5"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="173.5"
+   r="3.75"
+   id="circle2461"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 43,163.5 -10,10 10,10"
+   id="path2463"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="REF"
+   x1="43"
+   y1="218.5"
+   x2="88"
+   y2="218.5"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="218.5"
+   r="3.75"
+   id="circle2466"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 43,208.5 -10,10 10,10"
+   id="path2468"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="HALT"
+   x1="43"
+   y1="263.5"
+   x2="88"
+   y2="263.5"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="263.5"
+   r="3.75"
+   id="circle2471"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 43,253.5 -10,10 10,10"
+   id="path2473"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="WAIT"
+   x1="43"
+   y1="308.5"
+   x2="88"
+   y2="308.5"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="308.5"
+   r="3.75"
+   id="circle2476"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 33,298.5 10,10 -10,10"
+   id="path2478"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="INT"
+   x1="43"
+   y1="353.5"
+   x2="88"
+   y2="353.5"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="353.5"
+   r="3.75"
+   id="circle2481"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 33,343.5 10,10 -10,10"
+   id="path2483"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="NMI"
+   x1="43"
+   y1="376"
+   x2="88"
+   y2="376"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="376"
+   r="3.75"
+   id="circle2486"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 33,366 10,10 -10,10"
+   id="path2488"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="RESET"
+   x1="43"
+   y1="421"
+   x2="88"
+   y2="421"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="421"
+   r="3.75"
+   id="circle2491"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 33,411 10,10 -10,10"
+   id="path2493"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="BUSRQ"
+   x1="43"
+   y1="466"
+   x2="88"
+   y2="466"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="466"
+   r="3.75"
+   id="circle2496"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 33,456 10,10 -10,10"
+   id="path2498"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="BUSAK"
+   x1="43"
+   y1="488.5"
+   x2="88"
+   y2="488.5"
+   style="stroke:#000000;stroke-width:1" />
+	<circle
+   cx="84.736"
+   cy="488.5"
+   r="3.75"
+   id="circle2501"
+   style="fill:#ffffff;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 43,478.5 -10,10 10,10"
+   id="path2503"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="CLK"
+   x1="43"
+   y1="533.5"
+   x2="88"
+   y2="533.5"
+   style="stroke:#000000;stroke-width:1" />
+	<polyline
+   points="88,525.213 98.606,533.5 88,542.455"
+   id="polyline2506"
+   style="fill:none;stroke:#000000;stroke-width:1" />
+      <path
+   d="m 33,523.5 10,10 -10,10"
+   id="path2508"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="VCC"
+   x1="43"
+   y1="578.5"
+   x2="88"
+   y2="578.5"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="GND"
+   x1="43"
+   y1="601"
+   x2="88"
+   y2="601"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A0"
+   x1="245.5"
+   y1="61"
+   x2="290.5"
+   y2="61"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,51 10,10 -10,10"
+   id="path2513"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A1"
+   x1="245.5"
+   y1="83.5"
+   x2="290.5"
+   y2="83.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,73.5 10,10 -10,10"
+   id="path2516"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A2"
+   x1="245.5"
+   y1="106"
+   x2="290.5"
+   y2="106"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,96 10,10 -10,10"
+   id="path2519"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A3"
+   x1="245.5"
+   y1="128.5"
+   x2="290.5"
+   y2="128.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,118.5 10,10 -10,10"
+   id="path2522"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A4"
+   x1="245.5"
+   y1="151"
+   x2="290.5"
+   y2="151"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,141 10,10 -10,10"
+   id="path2525"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A5"
+   x1="245.5"
+   y1="173.5"
+   x2="290.5"
+   y2="173.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,163.5 10,10 -10,10"
+   id="path2528"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A6"
+   x1="245.5"
+   y1="196"
+   x2="290.5"
+   y2="196"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,186 10,10 -10,10"
+   id="path2531"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A7"
+   x1="245.5"
+   y1="218.5"
+   x2="290.5"
+   y2="218.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,208.5 10,10 -10,10"
+   id="path2534"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A8"
+   x1="245.5"
+   y1="241"
+   x2="290.5"
+   y2="241"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,231 10,10 -10,10"
+   id="path2537"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A9"
+   x1="245.5"
+   y1="263.5"
+   x2="290.5"
+   y2="263.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,253.5 10,10 -10,10"
+   id="path2540"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A10"
+   x1="245.5"
+   y1="286"
+   x2="290.5"
+   y2="286"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,276 10,10 -10,10"
+   id="path2543"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A11"
+   x1="245.5"
+   y1="308.5"
+   x2="290.5"
+   y2="308.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,298.5 10,10 -10,10"
+   id="path2546"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A12"
+   x1="245.5"
+   y1="331"
+   x2="290.5"
+   y2="331"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,321 10,10 -10,10"
+   id="path2549"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A13"
+   x1="245.5"
+   y1="353.5"
+   x2="290.5"
+   y2="353.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,343.5 10,10 -10,10"
+   id="path2552"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A14"
+   x1="245.5"
+   y1="376"
+   x2="290.5"
+   y2="376"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,366 10,10 -10,10"
+   id="path2555"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="A15"
+   x1="245.5"
+   y1="398.5"
+   x2="290.5"
+   y2="398.5"
+   style="stroke:#000000;stroke-width:1" />
+      <path
+   d="m 290,388.5 10,10 -10,10"
+   id="path2558"
+   inkscape:connector-curvature="0"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D0"
+   x1="245.5"
+   y1="443.5"
+   x2="290.5"
+   y2="443.5"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D1"
+   x1="245.5"
+   y1="466"
+   x2="290.5"
+   y2="466"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D2"
+   x1="245.5"
+   y1="488.5"
+   x2="290.5"
+   y2="488.5"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D3"
+   x1="245.5"
+   y1="511"
+   x2="290.5"
+   y2="511"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D4"
+   x1="245.5"
+   y1="533.5"
+   x2="290.5"
+   y2="533.5"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D5"
+   x1="245.5"
+   y1="556"
+   x2="290.5"
+   y2="556"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D6"
+   x1="245.5"
+   y1="578.5"
+   x2="290.5"
+   y2="578.5"
+   style="stroke:#000000;stroke-width:1" />
+	<line
+   id="D7"
+   x1="245.5"
+   y1="601.336"
+   x2="290.5"
+   y2="601.336"
+   style="stroke:#000000;stroke-width:1" />
+</g>
+
+<rect
+   width="852"
+   height="663"
+   id="rect3138"
+   x="-32.292892"
+   y="-38"
+   style="fill:none" />
+</svg>

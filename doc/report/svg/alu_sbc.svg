@@ -26,10 +26,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.6680546"
-     inkscape:cx="641.79599"
-     inkscape:cy="359.6948"
+     inkscape:cx="656.42278"
+     inkscape:cy="445.78782"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="g1422"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -39,9 +39,9 @@
      inkscape:measure-start="430.982,597.589"
      inkscape:measure-end="431.696,566.25"
      inkscape:lockguides="true"
-     inkscape:window-width="944"
+     inkscape:window-width="1900"
      inkscape:window-height="1028"
-     inkscape:window-x="964"
+     inkscape:window-x="8"
      inkscape:window-y="40"
      inkscape:window-maximized="0"
      inkscape:guide-bbox="true"
@@ -1861,17 +1861,6 @@
          width="20"
          id="rect779"
          style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:monospace;-inkscape-font-specification:monospace;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="112.10902"
-         y="163.85352"
-         id="text793"><tspan
-           sodipodi:role="line"
-           x="112.10902"
-           y="163.85352"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:monospace;-inkscape-font-specification:monospace;stroke-width:0.26458332px"
-           id="tspan791">daa_logic</tspan></text>
     </g>
     <path
        sodipodi:nodetypes="ccccc"
@@ -3284,7 +3273,7 @@
          y="52.871799"
          x="-6.146739"
          id="tspan16178"
-         sodipodi:role="line">op1</tspan></text>
+         sodipodi:role="line">op2</tspan></text>
     <path
        sodipodi:nodetypes="ccccc"
        inkscape:connector-curvature="0"

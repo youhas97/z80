@@ -75,6 +75,7 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 \end{labeling}
 
 \paragraph{Flaggor}
+\label{sec:theory:flags}
 
 \begin{figure}
     \center
@@ -87,32 +88,45 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
     \label{fig:flags}
 \end{figure}
 
-\begin{itemize}
-    \item \mono{C} carry - Används framförallt för att indikera minnessiffra
-        vid addition och lån vid subtraktion. Vid aritmetisk operation är det
-        en kopia av den bit 8. För vissa rotationsinstruktioner lagras en av
-        operandens kanter i carry-flaggan.
-    \item \mono{N} subtract - Indikerar att instruktionen är en subtraktion.
-        Används endast av \mono{daa} för att korrigera resultatet till BCD.
-    \item \mono{P} parity/overflow - \mono{P} visar om en aritmetisk overflow
-        har inträffat för aritmetiska instruktioner. För bitinstruktioner som
-        bland annat \mono{xor} visar \mono{P} om resultatet har paritet (jämnt
-        antal nollor). \mono{P} används även för att indikera om \mono{BC} är
-        noll vid blockinstruktioner som \mono{ldir}. Flaggan sätts även till
-        värdet av \mono{IFF} vid exekveringen av \mono{ld a, i} och \mono{ld a,
-        r}.
-    \item \mono{X} - Odokumenterad, har ingen funktion, kallas även för
-        \mono{f3}. Generellt så är det en kopia av bit 3 av resultatet.
-    \item \mono{H} half-carry - Indikerar carry för resultatet av de första
-        fyra bitarna. Z80:n har en 4-bitars ALU så den här flaggan kommer
-        därför naturligt.
-    \item \mono{Y} - Odokumenterad, som \mono{X} men kopia av bit 5.
-    \item \mono{S} sign - Indikerar om resultatet är negativt om tolkat som ett
+\begin{labeling}{indentzzzzzzzzzzzz}
+    \item[\mono{C}, carry]
+        Används framförallt för att indikera minnessiffra vid addition och lån
+        vid subtraktion. Vid aritmetisk operation är det en kopia av den bit 8.
+        För vissa rotationsinstruktioner lagras en av operandens kanter i
+        carry-flaggan.
+    \item[\mono{N}, subtract]
+        Indikerar att instruktionen är en subtraktion. Används endast av
+        \mono{daa} för att korrigera resultatet till BCD.
+    \item[\mono{P}, parity/overflow]
+        \mono{P} visar om en aritmetisk overflow har inträffat för aritmetiska
+        instruktioner. För bitinstruktioner som bland annat \mono{xor} visar
+        \mono{P} om resultatet har paritet (jämnt antal nollor). \mono{P}
+        används även för att indikera om \mono{BC} är noll vid
+        blockinstruktioner som \mono{ldir}. Flaggan sätts även till värdet av
+        \mono{IFF} vid exekveringen av \mono{ld a, i} och \mono{ld a, r}.
+    \item[\mono{X}]
+        Odokumenterad och har ingen funktion, kallas även för \mono{f3}.
+        Generellt så är det en kopia av bit 3 av resultatet.
+    \item[\mono{H}, half-carry]
+        Indikerar carry för resultatet av de första fyra bitarna. Z80:n har en
+        4-bitars ALU så den här flaggan kommer därför naturligt.
+    \item[\mono{Y}]
+        Som \mono{X} men kopia av bit 5.
+    \item[\mono{S}, sign]
+        Indikerar om resultatet är negativt om tolkat som ett
         tvåkomplementstal. Det är en kopia av bit 7 i resultatet.
-    \item \mono{Z} zero - Indikerar att resultatet är noll.
-\end{itemize}
+    \item[\mono{Z}, zero]
+        Indikerar att resultatet är noll.
+\end{labeling}
 
 \paragraph{Externa bussar}
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \centering
+    \vspace{-5mm}
+    \includegraphics[width=0.25\textwidth]{z80pins.eps}
+    \caption{Z80-processorns in- och utportar. Bild av Sakurambo, GFDL.}
+    \label{fig:z80pins}
+\end{wrapfigure}
 Z80:n har en 8-bitars databuss och en 16-bitars adressbuss. Processorn både
 skriver och läser till och från databussen men skriver endast till
 adressbussen. Det finns också en så kallad kontrollbuss som består av flera in-
@@ -189,7 +203,7 @@ avbrottsrutinen är färdig och exekverar \mono{retn}-instruktionen.
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \includegraphics[width=0.4\textwidth, bb=0 0 284 578]{img/ti83p.jpg}
-    \caption{En TI83p-miniräknare från Texas Instruments. Bild av
+    \caption{En TI-83p-miniräknare från Texas Instruments. Bild av
     Westernelectric555, public domain.}
     \label{fig:ti83p}
 \end{wrapfigure}
@@ -198,13 +212,13 @@ Miniräknaren TI-83p är en grafritande miniräknare tillverkad av Texas
 Instruments. Miniräknaren använder en Z80 processor klockad till 6MHz, en 96x64
 monokrom LCD-skärm. TI-miniräknarna har en inbyggd {\it application specific
 integrated circuit} (ASIC) som bland annat muxar data mellan processorn och
-portarna. TI83p:an använder sig av en T6A04 LCD kontroller. Detaljerad
+portarna. TI-83p:an använder sig av en T6A04 LCD kontroller. Detaljerad
 information om dess funktionalitet finns i dess datablad\cite{t6a04}. Andra
-delar av TI83p:ans ASIC är odokumenterade men den innehåller bland annat
+delar av TI-83p:ans ASIC är odokumenterade men den innehåller bland annat
 hårdvarutimers, avbrottshanterare, tangentbordskontroller, minnesmappning och
 minnesskydd.
 
-TI83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
+TI-83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 {\it nonmaskable interrupts} eftersom ASIC:en aldrig skickar en
 \mono{NMI}-signal. Detta innebär även att IFF2 aldrig kommer skilja sig från
 IFF1 så endast en D-vippa behövs. {\it Bus request} används aldrig då
@@ -222,7 +236,7 @@ inte ska fortsätta hålla \mono{int}-signalen hög efter att processorn
 
 
 \paragraph{Portar}
-För att ge en överblick över hur TI83p kommunicerar med externa enheter följer
+För att ge en överblick över hur TI-83p kommunicerar med externa enheter följer
 en lista av miniräknarens alla portar.
 
 \begin{labeling}{indentzzzzzzzzzzzzzzzzzzzz}
@@ -321,7 +335,7 @@ att gå igenom alla grupper men då endast en grupp är i taget är aktiverad.
 
 \paragraph{Minne}
 Z80-processorn har en databuss på 16 bitar. Den kan därmed peka ut 65536
-platser eller 64 KiB av minne. TI83p har däremot ett 512 KiB ROM och ett 32 KiB
+platser eller 64 KiB av minne. TI-83p har däremot ett 512 KiB ROM och ett 32 KiB
 RAM. För kunna komma åt allt har de 64KiB av det virtuella minnet delats upp i
 fyra 16 KiB pages. Varje page refererar till en lika stor page i det fysiska
 minnet. Dessa pages kan bytas ut för att komma åt en annan del av det fysiska
@@ -361,7 +375,7 @@ minnet.  ROM är uppdelat i 32 pages (\mono{ROM 00}\dots\mono{ROM 1F}) och RAM
     \label{fig:virtual}
 \end{figure}
 
-TI83p använder två olika lägen vilkas layouts kan ses i figur
+TI-83p använder två olika lägen vilkas layouts kan ses i figur
 \ref{fig:virtual}. Läget och page A, B väljs med port \mono{04}, \mono{06}
 respektive \mono{07}. \cite{wikiti-mmap}
 

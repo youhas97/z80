@@ -11,9 +11,9 @@ endast från databussen när en skrivning till porten sker. Figur \ref{fig:port}
 visar hur varje port är uppbyggd. Läs och skrivsignalerna går endast vidare
 till den port som är vald med de fem lägsta bitarna av adressbussen.
 Lässignalen \mono{rd} aktiveras vid en \mono{in}-instruktion och \mono{wr}
-aktiveras vid en \mono{out}-instruktion. Åtta av tio egentliga portar för TI83p
-har implementerats. De portar som saknas hanterar exekveringsmask och
-skrivskydd för ROM.
+aktiveras vid en \mono{out}-instruktion. Åtta av tio egentliga portar för
+TI-83p har implementerats. De portar som saknas hanterar länkporten,
+exekveringsmask samt skrivskydd för ROM.
 
 \begin{figure}[H]
     \center

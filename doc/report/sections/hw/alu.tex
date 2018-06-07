@@ -3,20 +3,73 @@
 \begin{document}
 \newpage
 \subsubsection{ALU-sektion}
-ALU:n tar in två operander som kallas för op1 samt op2. Op1 lagras i en
-temporär ackumulator ACT och op2 lagras i ett temporärt register TMP.
-Instruktionen som ska utföras på operanderna kommer direkt från IR och heter op
-(operation). I ALU:n finns det 4 räknare som bestämmer vilket resultat som ska
-användas utifrån vilken instruktion (op) som tas in.Flaggorna S,Z,F5,H,F3,P/V,N
-och C bestäms utifrån respektive instruktion. När en instruktion ska användas
-muxas därför flaggorna utifrån om flaggan ska sättas till 1,0 eller om flaggans
-tidigare värde ska behållas. Om flaggans värde ska behållas i en instruktion
-kommer flaggans tidigare värde att kopieras till det nuvarande.
+ALU-sektionen hanterar matematiska beräkningar samt hantering av flaggor.
+Registerna \mono{ACT} och \mono{TMP}, ALU:n själv, en mux till \mono{P}-flaggan
+samt en komparator för addressindatan tillhör ALU-sektionen. Hur de är
+sammankopplade visas i mitten av blockschema \ref{diag:z80}.
+
+\paragraph{\mono{ACT} och \mono{TMP}}
+Det primära syftet av registerna \mono{ACT} och \mono{TMP} att lagra
+operanderna under ALU:ns operation så att resultatet direkt kan läggas på
+databussen. De två operanderna till ALU:n måste alltid laddas till \mono{ACT}
+och \mono{TMP}. \mono{ACT} kallas för den temporära ackumulatorn och kan endast
+ladda värden från \mono{A} i registerfilen. Vissa instruktioner använder endast
+en operand, i så fall laddas den till \mono{TMP} och \mono{ACT}:s värde har
+ingen påverkan på resultatet. \mono{TMP} kan ladda ett godtyckligt värde
+eftersom den är ansluten till databussen. \mono{TMP} kan även skriva till
+databussen och kan användas för temporär lagring, därav namnets ursprung.
+
+\paragraph{Flaggor}
+Flaggorna lagras i registerfilen men dess beräkning sker i ALU-sektionen. Vid
+en ALU-instruktion får ALU:n alltid in de tidigare flaggorna direkt från
+\mono{F} i registerfilen. Utifrån de tidigare flaggorna och resultatet beräknas
+de nya flaggorna inom ALU:n. Under klockintervallet som ALU:n används läggs de
+nya flaggorna på indatan till \mono{F} och lässignalen för \mono{F} går aktiv.
+Alla flaggorna går dock inte direkt från ALU:n. \mono{P}-flaggan använder inte
+alltid den beräknade \mono{P}-flaggan som kommer från ALU:n. Vissa
+instruktioner sätter den till värden som ALU:n inte har någon kännedom om.
+Dessa är det nuvranande värdet av \mono{IFF} och om adressindatan till
+registerfilen är noll. \mono{IFF}-värdet används endast för instruktionerna
+\mono{ld a,i} och \mono{ld a,r}. Komparatorn används endast av
+blockinstruktionerna för att indikera om \mono{BC}-1 är noll. De resterande
+instruktionerna använder \mono{P}-flaggan som ALU:n har räknat ut.
+
+\paragraph{ALU}
+ALU:n tar emot två 8-bitars operander, de nuvarande flaggorna och en
+instruktion --- samt en bit-select som används av endast vissa instruktioner,
+de så kallade bitinstruktionerna. Med dessa indata avgörs därefter ett 8-bitars
+resultat och en ny uppsättning av flaggor under samma klockintervall. ALU:n är
+inte klockad och består endast av ett kombinatoriskt nät. Hela ALU:ns
+uppbyggnad visas i blockschema \ref{diag:alu}. Gråskalan på bussarna indikerar
+vilken bitbredd de har; 7, 8 eller 9 bitar. Inom ALU:n refereras operanderna
+till \mono{op1} och \mono{op2}. \mono{op1} kommer från \mono{ACT} och
+\mono{op2} kommer från \mono{TMP}. De olika flaggornas fulla namn och dess
+användning beskrivs i sektion \ref{sec:theory:flags} på sidan
+\pageref{sec:theory:flags}.
+
+ALU:n räknar ut flera delresultat och resultat men använder sig av
+instruktionen för att muxa vilka av dessa resultat som ska användas. En av
+muxarna använder dessutom sig av den nuvarande \mono{C}-flaggan men de
+resterande muxarna använder endast instruktionen som adress. Figur
+\ref{fig:alu:sbc} visar exempelvis vilka delresultat som väljs ut när
+instruktionen \mono{sbc} körs. \mono{sbc}-instruktionen utför beräkningen
+\mono{op1}-\mono{op2}-\mono{C} och skickar ut det som resultat. I exemplet är
+\mono{C}-flaggan satt sen innan. För aritmetiska instruktioner använder sig
+ALU:n av en enda adderare men med olika möjliga operander. I exemplet kommer
+\mono{op1} väljas och subtraheras med ett eftersom \mono{C} är satt. Den första
+operanden till adderaren blir då \mono{op1}-1. För den andra operanden väljs
+\mono{op2} och dess negation eftersom \mono{sbc} utför en subtraktion. Den
+andra operanden är då \mono{-op2} och adderaren kommer ge
+\mono{op1}-1-\mono{op2} vilket är det slutgiltiga resultatet som därefter muxas
+till utdatan för resultatet.
 
 \begin{SCfigure}
     \centering
-    \includegraphics[width=0.8\linewidth]{alusbc.eps}
+    \includegraphics[width=0.7\linewidth]{alusbc.eps}
     \caption{Resultat och delresultat som muxas då \mono{sbc}-instruktionen
-    utförs och C-flaggan är satt.}
+    utförs och \mono{C}-flaggan är satt.}
+    \label{fig:alu:sbc}
 \end{SCfigure}
+
+\clearpage
 \end{document}

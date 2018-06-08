@@ -155,10 +155,10 @@ en \mono{BUSREQ}-signal.
 \subsubsection{IO}
 Z80-processorn har ett system av portar för att hantera in- och utdata till
 andra enheter utöver minne. När ett program vill skicka data till en enhet
-används en av \mono{OUT}-instruktionerna. Då placeras portnumret på
+används en av \mono{out}-instruktionerna. Då placeras portnumret på
 adressbussens lägre åtta bitar och utdatan läggs på databussen av processorn så
 att IO-enheten som korresponderar till den porten tar emot den. Under en
-\mono{IN}-instruktion placerar processorn porten på adressbussen men
+\mono{in}-instruktion placerar processorn porten på adressbussen men
 korresponderande IO-enhet placerar sin data på databussen. För att det här
 systemet ska fungera måste en dedikerad enhet utanför processorn hantera
 muxning av data till och från rätt enhet utifrån porten på adressbussen.
@@ -180,13 +180,13 @@ databussen och exekverar den. Instruktionen kan till exempel vara en \mono{rst
 \mono{PC} på stacken så att processorn kan återvända till programmet när
 avbrottsrutinen är färdig och kör \mono{reti}. Under avbrottet återställs även
 \mono{IFF1} och \mono{IFF2} så att ett nytt avbrott inte kan ske under
-avbrottsrutinen.  Avbrottsrutinen måste själv sätta igång avbrott igen med
+avbrottsrutinen. Avbrottsrutinen måste själv sätta igång avbrott igen med
 \mono{ei}. För att ett avbrott inte ska kunna ske mellan \mono{ei} och
-\mono{reti}-instruktionerna så kommer processorn inte acceptera avbrott förrän
-en instruktion efter att \mono{ei} har använts.
+\mono{reti} så kommer processorn inte acceptera avbrott förrän en instruktion
+efter att \mono{ei} har använts.
 
-Vid läge 1 hoppar processorn alltid till adress 0x38. Detta motsvarar en
-\mono{rst 38h}-instruktion.
+Vid läge 1 hoppar processorn alltid till adress \mono{0x0038}. Detta motsvarar
+en \mono{rst 38h}-instruktion.
 
 Vid läge 2 kommer processorn att hämta de lägre åtta bitarna av en adress från
 databussen. I \mono{I}-registret ligger de åtta högre bitarna av adressen till

@@ -28,23 +28,23 @@ till dess VGA-port.
 \end{SCfigure}
 
 \subsection{Ladda program}
-För att ladda program till har programmet ``Digilent Adept'' använts. För att
-ladda en fil till minnet väljs RAM under fliken {\it Memory}. Därefter väljs
-filen under {\it Write File To Memory} och skrivs till minnet när {\it Write}
-trycks. Därefter kan bitfilen laddas under fliken {\it Config}. Bitfilen väljs
-och programmeras därefter genom att trycka på {\it Program}. Då kommer
-processorn sätta igång och börja exekvera på adress \mono{0x8000}.
+För att ladda program till kortets RAM har programmet ``Digilent Adept''
+använts. För att ladda en fil till minnet väljs RAM under fliken {\it Memory}.
+Därefter väljs filen under {\it Write File To Memory} och skrivs till minnet
+när {\it Write} trycks. Därefter kan bitfilen laddas under fliken {\it Config}.
+Bitfilen väljs och programmeras därefter genom att trycka på {\it Program}. Då
+kommer processorn sätta igång och börja exekvera på adress \mono{0x8000}.
 
 Vid laddning till minnet kan en startadress väljas. Om ett program som startar
 i början av filen ska laddas bör det läggas på adressen \mono{0x7c000} eftersom
 \mono{0x8000} leder dit med den minnesmappning som är inställd vid uppstart. Om
 en hel ROM-dump ska laddas såsom TI-83p:s operativsystem ska den läggas på
-adress \mono{0x00000} eftersom miniräknarens ROM börjar på där. Hur miniräknarens
-minne ligger i det fysiska minnet beskrivs i sektion \ref{sec:mmap} på sidan
-\pageref{sec:mmap}.
+adress \mono{0x00000} eftersom miniräknarens ROM börjar på där. Hur
+miniräknarens minne ligger i det fysiska minnet beskrivs i sektion
+\ref{sec:mmap} på sidan \pageref{sec:mmap}.
 
 Om ett ROM laddas kommer den hamna i halt-läge och vänta på att användaren
-trycker på ON-knappen. ON-knappen är vänster CTRL på PS/2-tangentbordet.
+trycker på ON-knappen. ON-knappen är vänster Ctrl på PS/2-tangentbordet.
 
 \subsection{Gränssnitt}
 Alla miniräknarens tangenter är kartlagda 1:1 till olika tangenter på
@@ -52,14 +52,14 @@ tangentbordet. Se tabell \ref{app:kbd} för vilka knappar som är bundna till
 vilka.
 
 CPU:n kan även kontrolleras direkt med hjälp av instrumenten som befinner sig
-på kortet. Figur \ref{fig:interface} visar vad de olika knapparna på kortet
+på kortet. Figur \ref{fig:interface} visar vad de olika instrumenten på kortet
 används till. De olika brytarna justerar bland annat lägen och frekvenser. När
 alla brytare är nere kör processorn som vanligt på \SI{6}{\mega\hertz}.
 
 \begin{figure}[b]
     \centering
     \includegraphics[width=0.7\textwidth]{board.eps}
-    \caption{Användning av de olika knapparna på Nexys3.}
+    \caption{Användning av de olika instrumenten på Nexys3.}
     \label{fig:interface}
 \end{figure}
 
@@ -117,7 +117,8 @@ alla brytare är nere kör processorn som vanligt på \SI{6}{\mega\hertz}.
     \lstinputlisting{lst/trc_output.sh}
     Exemplet är från när operativsystemet precis har startat och hamnat i
     halt-läge på adress \mono{0x0aad}. När användaren då trycker på ON-knappen
-    sker ett avbrott och processorn hoppar till adress \mono{0x0038}.
+    sker ett avbrott och processorn hoppar till adress \mono{0x0038} och
+    påbörjar avbrottsrutinen.
 \item[\mono{trace\_disable}]
     Stänger av spårning så att processorn inte stoppas vid hopp. Återställer
     även pekaren som bestämmer var nästa adress ska skrivas till

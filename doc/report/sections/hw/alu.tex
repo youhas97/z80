@@ -50,18 +50,7 @@ användning beskrivs i sektion \ref{sec:theory:flags} på sidan
 ALU:n räknar ut flera delresultat och resultat men använder sig av
 instruktionen för att muxa vilka av dessa resultat som ska användas. En av
 muxarna använder dessutom sig av den nuvarande \mono{C}-flaggan men de
-resterande muxarna använder endast instruktionen som adress. Figur
-\ref{fig:alu:sbc} visar exempelvis vilka delresultat som väljs ut när
-instruktionen \mono{sbc} körs. \mono{sbc}-instruktionen utför beräkningen
-\mono{op1}-\mono{op2}-\mono{C} och skickar ut det som resultat. I exemplet är
-\mono{C}-flaggan satt sen innan. För aritmetiska instruktioner använder sig
-ALU:n av en enda adderare men med olika möjliga operander. I exemplet kommer
-\mono{op1} väljas och subtraheras med ett eftersom \mono{C} är satt. Den första
-operanden till adderaren blir då \mono{op1}-1. För den andra operanden väljs
-\mono{op2} och dess negation eftersom \mono{sbc} utför en subtraktion. Den
-andra operanden är då \mono{-op2} och adderaren kommer ge
-\mono{op1}-1-\mono{op2} vilket är det slutgiltiga resultatet som därefter muxas
-till utdatan för resultatet.
+resterande muxarna använder endast instruktionen som adress.
 
 \begin{SCfigure}
     \centering
@@ -70,6 +59,68 @@ till utdatan för resultatet.
     utförs och \mono{C}-flaggan är satt.}
     \label{fig:alu:sbc}
 \end{SCfigure}
+
+Den översta delen i blockschemat visar beräkningen för aritmetiska
+instruktioner. Aritmetiska instruktioner inkluderar bland annat \mono{add},
+\mono{sub}, \mono{inc}, \mono{sbc} (subtract with carry), \mono{cp} (compare)
+och \mono{daa} (decimal adjust after addition), Figur \ref{fig:alu:sbc} visar
+exempelvis vilka delresultat som väljs ut när instruktionen \mono{sbc} körs.
+\mono{sbc}-instruktionen utför beräkningen \mono{op1}-\mono{op2}-\mono{C} och
+skickar ut det som resultat. I exemplet är \mono{C}-flaggan satt till 1 sen
+innan. För aritmetiska instruktioner använder sig ALU:n av en enda adderare men
+med olika möjliga operander. I exemplet kommer \mono{op1} väljas och
+subtraheras med ett eftersom \mono{C} är satt. Den första operanden till
+adderaren blir då \mono{op1}-1. För den andra operanden väljs \mono{op2} och
+dess negation eftersom \mono{sbc} utför en subtraktion.  Den andra operanden är
+då \mono{-op2} och adderaren kommer ge \mono{op1}-1-\mono{op2} vilket är det
+slutgiltiga resultatet som därefter muxas till utdatan för resultatet.
+
+En annan grupp av instruktioner är bitinstruktionerna. De hanteras under
+aritmetiken och skapar \mono{bit\_res} signalen. Denna grupp inkluderar
+\mono{res}, \mono{set} och \mono{bit}-instruktioner. Dessa instruktioner
+nollställer en bit, sätter en bit, respektive testar en bit. Dessa
+instruktioner använder sig av \mono{bit\_select} som kommer direkt från
+instruktionen i \mono{IR}. Ett exempel på en instruktion är \mono{set 6,e} som
+sätter bit 6 i \mono{E} till ett.
+\begin{align*}
+    &\mono{F3: set 6,e}& \quad &
+    {\underbrace{\mono{1 1}}_\mono{set}}\mono{ }
+    {\underbrace{\mono{1 1 0}}_\mono{6}}\mono{ }
+    {\underbrace{\mono{0 1 1}}_\mono{e}}
+\end{align*}
+För bitinstruktionerna skapas först en mask med hjälp av \mono{bit\_select}. I
+fallet då \mono{bit\_select} är 6 skapas masken \mono{0100 0000}. Bit 6 är ett
+och de resterande bitarna är noll. För att sätta bit 6 i ett godtyckligt tal
+\mono{OR}:as tal med masken. För att nollställa bit 6 \mono{AND:as} talet med
+inversen av masken. För att testa bit 6 \mono{AND}:as talet med masken och
+resultatet jämförs med noll.
+
+Nästa grupp av instruktioner är rotations- och skiftinstruktionerna. Dessa är
+bland annat \mono{rr} (rotate right), \mono{sla} (shift left arithmetic) och
+\mono{rlc} (rotate left with carry). Dessa skiftar talet antingen ett steg åt
+höger eller vänster. Den nya biten som tillkommer, \mono{edge}, skiljer får
+olika värden beroende på instruktionen. Vid rotation kan biten som kom ut från
+andra sidan användas, vid skiftning kan till exempel noll tillkomma. De olika
+instruktioner skiljer också med vilket värde som hamnar i den nya
+carry-flaggan. Alla dessa instruktioners funktion beskrivs i
+användarmanualen\cite{z80um} i kapitlet som börjar på sidan 204.
+
+Den sista delen av ALU:n används för endast två instruktioner; \mono{rld} och
+\mono{rrd}. Dessa utför en rotation inom ett 16-bitars tal. Talet består av
+\mono{A} som de högre bitarna och värdet som \mono{HL} pekar på i minnet som de
+lägre bitarna. Instruktionerna roterar fyra bitar i tagen höger för \mono{rrd}
+och vänster för \mono{rld}. Eftersom resultatet är ett 16-bitars tal kan ALU:n
+inte räkna ut det under ett klockintervall. Istället räknas talet ut i två
+steg; först de lägre åtta bitarna och därefter de högre åtta bitarna.
+
+Det finns en annan grupp av instruktioner som också använder ALU:n i två steg.
+Dessa är \mono{add}, \mono{adc} och \mono{sbc} för 16-bitars register, till
+exempel \mono{add ix, bc}. Dessa tar två 16-bitars tal och ger ett nytt
+16-bitars tal. I fallet för \mono{add} sker här först en vanlig
+\mono{add}-instruktion för de lägre åtta bitarna av varje register. Under det
+andra steget körs istället en \mono{adc}-instruktion för de högre åtta bitarna.
+\mono{adc} använder carry:n från det första steget, på så sätt försvinner inget
+värde om det första steget ger ett tal större än 256.
 
 \clearpage
 \end{document}

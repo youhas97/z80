@@ -237,7 +237,6 @@ måste därefter processorn stänga av avbrottet via port \mono{04} för att det
 inte ska fortsätta hålla \mono{int}-signalen hög efter att processorn
 återaktiverar avbrott.
 
-
 \subsubsection{Portar}
 För att ge en överblick över hur TI-83p kommunicerar med externa enheter följer
 en lista av miniräknarens alla portar.
@@ -382,18 +381,63 @@ TI-83p använder två olika lägen vilkas layouts kan ses i figur
 \ref{fig:virtual}. Läget och page A, B väljs med port \mono{04}, \mono{06}
 respektive \mono{07}. \cite{wikiti-mmap}
 
-\subsection{Specifikationer}
+\subsubsection{LCD-kontroller}
+TI-83p-miniräkaren använder en TOSHIBA T6A04 som LCD-kontroller. Kontrollern
+har ett inbyggt RAM på 960 bytes som lagrar 64 rader med 120 pixlar vardera.
+Eftersom skärmen är monokrom används endast en bit per pixel. LCD-skärmen visar
+endast de första 96 minnets kolumner, hela utrymmet kan dock användas för
+lagring.
 
+Minnet är uppdelat i pages, storleken på varje page kan vara sex eller åtta
+bitar. De två olika lägena visas i figur \ref{fig:lcdpages}. En skrivning eller
+läsning sker alltid med en page i taget. Om läget är inställt på sex bitar
+används endast de sex lägre bitarna av den data som skickas till porten.
+
+\begin{figure}[b]
+    \centering
+    \input{fig/lcd.tex}
+    \caption{Uppdelning av pages för de två lägena.}
+    \label{fig:lcdpages}
+\end{figure}
+
+Kontrollern har en inbyggd pekare som lagrar \mono{X} och \mono{Y}-värdet av
+page. \mono{X} är vilken rad page:n ligger på och \mono{Y} pekar ut kolumnen.
+Vid läsning kommer page:n som pekaren refererar till skickas och vid skrivning
+kommer denna page skrivas över. De olika lägena gör att pekaren kommer referera
+till olika platser i minnet för lika värden på \mono{Y}. Om \mono{Y} exempelvis
+är 14 i 8-bitarsläge kommer page:n längst till höger vara vald. Men om \mono{Y}
+är 14 i 6-bitarsläge kommer den valda page:n ligga några pages in från höger
+kant.
+
+Pekarens värde kan väljas manuellt av programmeraren med port \mono{11}. Men
+vid varje läsning eller skrivning till dataporten \mono{11} kommer pekaren
+antingen öka eller minska \mono{X} eller \mono{Y} ett steg. Detta ställs också
+in med port \mono{10}.
+
+LCD-kontrollern håller även koll på ett tredje värde; \mono{Z}. Detta värdet
+avgör vilken rad \mono{X} ska börja räkna ifrån vid läsning och skrivning.  Om
+\mono{X} och \mono{Y} exempelvis är noll och \mono{Z} är \mono{31} kommer den
+första page:n på den mittersta raden (31) väljas. Eftersom \mono{X} börjar på
+\mono{Z} kan värdet överstiga antalet av skärmens rader. Då börjar den om på
+noll. Raden väljs därmed egentligen genom att beräkna $\mono{X}+\mono{Z} \mod
+64$.
+
+\mono{Z} räknar inte upp eller ner vid läsning/skrivning utan sätts manuellt av
+programmeraren via port \mono{10}. Syftet med \mono{Z} är att möjliggöra
+vertikal scrollning utan att behöva flytta varje rad i minnet. Detta används
+bland annat av operativsystemet för hemskärmen. Då ökar \mono{Z} med antalet
+pixlar för höjden av en rad och den översta raden skrivs över med den nya raden
+som då hamnar längst ner på skärmen eftersom den går runt.
+
+\subsection{Specifikationer}
 \subsubsection*{VGA}
 För att få ut en bild till VGA-skärmen har data skickats enligt
 VGA-standarden. Information och tidsintervaller finns i manualen för
 FPGA-kortet Nexys3 på sidan 15.\cite{Nexys3}
-
 \subsubsection*{PS/2}
 För att ta emot knapptryckningar från ett tangentbord har PS/2-standarden
 använts vid kommunikation. Hur standarden fungerar är beskrivet i manualen för
 Nexys3 på sidan 13.\cite{Nexys3}
-
 \subsubsection*{Externt minne}
 Ett 16MB RAM, modell Micron M45W8MW16 har använts asynkront som primärminne för
 miniräknaren. Dess funktionalitet och protokoll kan hittas i dess

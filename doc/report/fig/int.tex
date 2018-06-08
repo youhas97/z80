@@ -1,0 +1,29 @@
+\tikzset{
+    state/.style={
+        circle,
+        thick,
+        draw=black,
+        fill=gray!20,
+        minimum size=20mm,
+    },
+}
+
+\begin{tikzpicture}[node distance=1cm and 3cm, font=\normalsize]
+    \node[state] (off) {\mono{inactive}};
+    \node[state] (on) [right=of off] {\mono{fire}};
+    \node (off-left) [left=of off] {};
+
+    \path[->, ultra thick] (off-left) edge (off);
+
+    \path[->, ultra thick] (off) edge[loop below] node{} ();
+    \path[->, ultra thick] (off) edge[bend left]
+        node[above=12mm]{\mono{enable} = '1'} (on);
+    \path[->, ultra thick] (off) edge[bend left]
+        node[above=7mm]{and} (on);
+    \path[->, ultra thick] (off) edge[bend left]
+        node[above=2mm]{\mono{activate} = '1'} (on);
+
+    \path[->, ultra thick] (on) edge[loop below] node{} ();
+    \path[->, ultra thick] (on) edge[bend left]
+        node[below]{\mono{enable} = '0'} (off);
+\end{tikzpicture}

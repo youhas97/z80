@@ -2,5 +2,40 @@
 
 \begin{document}
 \subsubsection{Avbrott}
+Konstruktionen använder sig av avbrott från tre källor; hårdvarutimer 1,
+hårdvarutimer 2 och ON-knappen. TI-83p har även ett avbrott från länkporten men
+denna är ej implementerad. TI-ASIC:en har en avbrottshanterare som tar emot
+signaler från ON-knappen och ASIC:ens hårdvarutimers och därefter avgör om
+\mono{int}-signalen ska gå aktiv utefter avbrottsmasken.
+
+Signalen från ON-knappen kommer direkt från tangentbordskodaren. Om knappen är
+nedtryckt är signalen låg, annars är den hög. Signalerna för timers:en
+genereras i en egen komponent. Komponenten består av två räknare som alltid
+räknar ner. När en räknare kommer till noll skickas en puls till
+avbrottshanteraren och räknaren laddas om med sitt startvärde. Startvärdet
+beror på vilken frekvens som är inställd och frekvensen på räknaren som är
+\SI{33}{\mega\hertz}. Vid start ska timer 1 ha frekvensen \SI{118}{\hertz}, då
+måste startvärdet vara $\frac{\SI{33}{\mega\hertz}}{\SI{118}{\hertz}} =
+282486$. Då kommer räknaren skicka en puls 118 gånger per sekund. Frekvensen på
+timers:en går att välja med genom port \mono{04}.
+
+\begin{SCfigure}
+    \centering
+    \input{fig/int.tex}
+    \caption{Tillståndsdiagram för avbrottshantering av en enskild källa.}
+    \label{fig:prefix}
+\end{SCfigure}
+
+Varje avbrottskälla hanteras individuellt i avbrottshanteraren. Det finns två
+signaler som avgör om ett avbrott ska avfyras; \mono{enable} och
+\mono{activate}. \mono{enable} är biten för avbrottskällan i avbrottsmasken i
+port \mono{03}. \mono{activate} är en signal från själva avbrottskällan, till
+exempel pulsen från en timer. Om \mono{activate} går hög måste \mono{enable}
+vara hög för att avbrottet ska avfyras. När avbrottet väl ha avfyrats kommer
+det vara aktivt till att biten i masken nollställs. Port \mono{04} visar vilka
+avbrott som är aktiva. Det räcker med att ett avbrott är aktivt för att
+\mono{int} ska gå hög. De tre källorna \mono{OR:as}. Programmeraren kan först
+kolla vilket avbrott som är källan och därefter inaktivera just det avbrottet
+innan avbrott för processorn sätts på igen med \mono{ei}-instruktionen.
 
 \end{document}

@@ -1,35 +1,55 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-% TODO merga till nedan, bildminne ingår i lcd t6a04
 \subsubsection{LCD-kontroller}
-Bildminnet är den komponent som innehåller all data för den bild som ska ritas
-ut. Det är 120x64 stort trots att monitorn endast är 96x64 stor. De extra
-pixlarna används bara i vissa applikationer som utnyttjar ytan som en buffer
-eller som extra minne. Det finns en funktion inbyggt i OS:et att flytta buffern
-fram och tillbaka men det används inte aktivt av OS:et självt. Bildminnet
-lagrar endast en bit per pixel eftersom bilden som ritas bara antingen har
-påslagna eller avstängde pixlar.  När VGA-motorn skickar en rad(0-64) på 6
-bitar och en kolumn(0-120) på 5 bitar in till bildminnet räknar bildminnet fram
-till det värdet och skickar rätt data tillbaka till VGA-motorn. Bildminnet är
-väldigt nära kopplat med LCD-kontrollern. I avsnittet om LCD-kontrollern står
-det också mer exakt om hur de båda är sammankopplade.
+Implementationen av LCD-kontrollern består av räknare och register för
+\mono{X}, \mono{Y} och \mono{Z} samt ett block-RAM på 7680 bitar. Tre D-vippor
+används även för att hålla koll på läget (\mono{wl}) och pekarens
+rörelseinställningar; upp/ner (\mono{up}) för \mono{X}/\mono{Y}
+(\mono{counter}. Det finns även ett register som lagrar bildminnets utdata för
+läsning från processorn.
 
-LCD-kontrollern är den komponent som kopplar samman Bildminnet och processorn.
+\mono{X} består av en upp/ner räknare på sex bitar. Den går upp till 63 och sen
+går runt till noll igen vid uppräkning. Likaså går den från noll till 63 vid
+nedräkning. Dess \mono{CE}-ingång är kopplad till läs/skriv-signalen från port
+\mono{11} AND:ad med D-vippan som väljer mellan \mono{X} och \mono{Y}. På så
+sätt räknar \mono{X} endast om \mono{X} är vald samt att porten skrivs eller
+läses ifrån. \mono{U/D}-ingången som väljer riktning är direkt kopplad till
+D-vippan som väljer riktning. Räknaren har även en indata port som kommer från
+utdatan till port \mono{10}. Om port \mono{10} skrivs till med de två högsta
+bitarna som "10" kommer räknaren laddas med de 6 lägre bitarna.
 
-LCD-kontrollern har två olika modes. 6- och 8-bitars mode. Det väljer om porten
-ska överföra 6 eller 8 bitar åt gången. När kontrollern befinner sig i 6-bit
-mode kommer bildminnet vara uppdelat i 20 stycken pages innehållande 64 ord
-vardera. När den är i 8-bit mode kommer de vara 15 pages också då med 64 ord.
-LCD-kontrollern ser, med hjälp av det bit-modet, till att rätt data skrivs till
-bildminnet.
+\mono{Y} består av en räknare på fem bitar och fungerar på liknande sätt som
+räknaren för \mono{X}. \mono{Y} ska dock räkna olika högt beroende på vilket
+läge som är valt. Vid 6-bitarsläge ska \mono{Y} loopa mellan 0-19 och vid
+8-bitarsläge mellan 0-14. Här måste dataingången och \mono{CLR}-ingången
+tillsammans med komparatorer användas för att åstadkomma loopning vid randerna.
 
-I LCD-kontrollern finns ett antal räknare.  X som räknar upp/ned till 64 vilket
-är radnummret i bildminnet. Skrivning till eller läsning från bildminnet gör
-att X räknaren automatiskt räknar upp/ned.  Y som räknar upp/ned pages i
-bildminnet. Den räknar antingen upp/ned till 15 eller 20 beroende på vilket
-mode som LCD-kontrollern befinner sig i. Skrivning till eller läsning från
-bildminnet gör att Y räknaren automatiskt räknar upp/ned.  Z som räknar upp/ned
-till 64 och räknar fram startadressen på bildminnet. Det värde Z har kommer
-vara start för bilden som ritas.
+Bildminnet är ett block-RAM med två 1-bitars dataportar, en för
+läsning/skrivning av processorn och en för läsning av VGA-motorn. Bildminnet
+går på systemklockan som ligger på \SI{100}{\mega\hertz}. VGA-motorn läser en
+pixel i taget, den skickar rad och kolumn för en pixel och förväntar sig dess
+färg samma klockintervall. Det är möjligt endast på grund av att VGA-motorn går
+på \SI{25}{\mega\hertz}. Vid läsning ger bildminnet pixeln ett klockintervall
+senare men eftersom bildminnet går på systemklockan hinner rätt värde nå
+VGA-motorn i god tid.
+
+Från processorns sida är tidsrestriktionen ännu mer avslappnad. Processorn går
+som högst på \SI{14}{\mega\hertz} och intervallet mellan två läsningar eller
+skrivningar kan som minst vara 10 T-states. Dock måste flera läsningar göras
+eftersom antingen ska sex eller åtta bitar läsas. För läsning av processorn
+läser LCD-kontrollern alltid från bildminnet, en bit i taget. När den kommer
+till den sista biten börjar den om på den första. Bitarna lagras i en 8-bitars
+buffer på rätt plats. Beroende på läget läses sex eller åtta bitar. Den här
+buffern är dock inte registret som processorn läser ifrån. När processorn läser
+förväntar den sig värdet där pekaren pekade på sist en läsning gjordes.
+Processorn läser värdet från registret och i och med läsningen antar registret
+det nuvarande värdet från den buffern.
+
+Skrivning fungerar på liknande sätt. Då stannas läsningen och dataporten
+används för skrivning istället. Kontrollern får in en page via port \mono{11}
+och sätter igång en räknare. Bit för bit skrivs page:n till bildminnet.  När
+räknaren har nått bit 5 eller bit 7 är den färdig och dataporten överlåts åter
+för läsning.
+:
 \end{document}

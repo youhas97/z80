@@ -2,6 +2,23 @@
 
 \begin{document}
 \subsubsection{VGA-motor}
+\begin{SCfigure}
+    \includegraphics[width=0.85\textwidth]{vga.eps}
+    \label{fig:vga}
+    \caption{Räknarna inom VGA-motorn.}
+\end{SCfigure}
+VGA-motorns primära uppgift är att visa upp miniräknarens bildminne på
+VGA-skärmen. VGA motorn räknar igenom varje pixel på skärmen rad för rad och
+skickar dess pixelfärg. Två räknare används, en för raden (\mono{y\_vga}) och
+en för kolumnen (\mono{x\_vga}). Utifrån räknarnas nuvarande värde bestäms även
+hsync och vsync-signaler. Mer information om hur VGA-standarden fungerar samt
+exakta timings kan hittas i Nexys3-manualen.\cite{nexys3}
+
+Eftersom VGA-skärmen är $640\times480$ och miniräknarens LCD-skärm är
+$96\times64$ kan varje pixel som mest var $6\times6$ pixlar för att hela
+skärmen ska rymma. Om pixelbredden var en potens av två skulle det gå avgöra
+vilken pixel från bildminnet som skulle ritas utifrån de högre bitarna i
+\mono{x\_vga} och \mono{y\_vga}.
 
 För att visa upp en bild på skärmen måste data skickas till varje pixel om
 vilken färg den ska ha. VGA-motorns ansvar är att räkna igenom alla pixlar på
@@ -26,9 +43,4 @@ sedan tolkar biten för att se om den ska ritas med på/av färgen. Eftersom all
 pixlar är sex gånger så stora som vanligt använder VGA-motorn en räknare för
 varje pixel inom moniterområdet. Räknaren repeterar den nuvarande pixlens värde
 sex gånger för alla bildminnets pixlar och skärmen blir på så vis förstorad.
- 
-% TODO flytta nedan till teori 
-VGA-motorn använder sig i övrigt av VGA:s standard för Hsync och Vsync med
-640x480 upplösning. \cite{vgastd} 
-
 \end{document}

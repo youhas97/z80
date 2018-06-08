@@ -5,9 +5,10 @@
 Konstruktionen är uppdelad i tre delar; processorn, TI-ASIC:en och kontroller
 för externa enheter. Dess sammansättning kan ses i blockschema \ref{diag:comp}.
 I blockschemat syns även att det finns olika klockor som genereras. Processorn
-kan köra på olika frekvenser medan ASIC:en alltid kör på 33MHz och VGA-motorn
-på 25MHz. Resterande komponenter använder systemklockan på 100MHz. Klockorna
-kan även stängas av vid bland annat brytpunkter som använts för debugging.
+kan köra på olika frekvenser medan ASIC:en alltid kör på \SI{33}{\mega\hertz}
+och VGA-motorn på \SI{25}{\mega\hertz}. Resterande komponenter använder
+systemklockan på \SI{100}{\mega\hertz}. Klockorna kan även stängas av vid bland
+annat brytpunkter som använts för debugging.
 
 Det finns en gemensam 8-bitars databuss som processorn, ASIC:en och även minnet
 delar på. Kontrollbussen och adressbussen från processorn går direkt till

@@ -3,62 +3,63 @@
 \begin{document}
 
 \section{Introduktion}
-Följande är en introduktin till rapporten om konstruktionen av en
-TI-83p-miniräknare med en Z80-processor som programmerats på en FPGA.
-Rapporten kommer huvudsakligen bestå av fyra delar; en beskrivning av
-apparaten, en kort teorilektion, en djupare beskrivning av hårdvaran samt
-allmäna slutsatser angående projektet.
+En replikation av miniräknaren TI-83 Plus har implementerats i det
+hårdvarubeskrivande språket VHDL. Designen har sedan programmerats till Spartan
+6 FPGA på ett Nexys3-kort kopplat till ett tangentbord och VGA-skärm som
+emulerar miniräknarens gränssnitt. Minnet från en miniräknare har laddats till
+minnet på Nexys3-kortet och på så sätt har operativsystemet och diverse spel
+lyckats köras utan några upptäckta problem.
 
 \subsection{Bakgrund}
-Eftersom gruppen bestod av fyra personer som ville göra projektet tillsammans
-så fanns det fler möjligheter när det gällde storleken på apparaten som skulle
-byggas. Till slut bestämdes det att skapandet av en allmän Zilog Z80 processor
-skulle ske. Tanken var att den skulle användas för att bygga en TI84p så att
-dess operativsystem samt andra program anpassade för miniräknaren skulle kunna
-köras. Under projektet visade det sig att TI-83p var väldigt lik men var
-enklare att implementera, så den byggdes och dess operativsystem laddades
-istället.
+Projektet har utförts som en del av kursen TSEA83 på Linköpings universitet i
+en grupp av fyra studenter under större delen av vårterminen 2018. Gruppen
+eftersökte att bygga en existerande allmän processor som kunde köra program
+skrivna av andra personer tidigare. Gruppen var sen tidigare väl bekanta med
+miniräknaren TI-84 Plus som använder sig av en välkänd processor från 70-talet;
+Zilog Z80. Processorn valdes som projektets minimala mål och TI-84-miniräknaren
+valdes som projektets önskvärda mål. Under projektets gång upptäcktes det att
+en annan miniräknare, TI-83p hade färre hårdvarukomponenter men med nästan
+identisk funktion vilket ledde till att den implementerades istället.
 
 \subsection{Syfte}
-Syftet med konstruktionen var, först och främst, inlärning av kunskap om hur en
-processor egentligen fungerar och få en inblick i hur uppbyggnaden av en
-processor ser ut. Målet var att göra en allmän processor som kunde användas som
-Z80 originalprocessorn användes, d.v.s. som processor för bl.a. TI-miniräknare
-och diverse arkadspel.
+Syftet med konstruktionen var inlärning av kunskap om hur processorer fungerar
+och att få en inblick i hur uppbyggnaden av en processor kan se ut. Målet var
+att skapa en Z80-processor som därefter kunde användas för bygga en
+TI-miniräknare.
 
-\subsection{Referenser och resurser} För att förstå hur Z80:n är uppbyggd och
-hur den fungerar har boken {\it Programming the Z80}\cite{zaks-z80prog} av
-Rodnay Zaks varit till väldigt stor nytta. Särskilt kapitel två om processorns
-organisation. Flera artiklar av Ken Shirriff såsom {\it How the Z80's registers
-are implemented}\cite{shirriff-reg} har också varit till stor hjälp. Zilogs
-användarmanual\cite{z80um} har använts väl som referens för hur instruktioner,
-avbrott och flaggor ska fungera.  Tidsdiagrammen har även använts som bas för
-vår implementation. En tabell från ClrHome\cite{clrhome} har använts mycket som
-snabb referens för alla instruktioners objektkoder.
+\subsection{Referenser och resurser}
+För att förstå hur Z80:n är uppbyggd och hur den fungerar har boken {\it
+Programming the Z80}\cite{zaks-z80prog} av Rodnay Zaks varit till väldigt stor
+nytta. Särskilt kapitel två om processorns organisation. Flera artiklar av Ken
+Shirriff såsom {\it How the Z80's registers are implemented}\cite{shirriff-reg}
+har också varit till stor hjälp. Zilogs användarmanual\cite{z80um} har använts
+väl som referens för hur instruktioner, avbrott och flaggor ska fungera.
+Tidsdiagrammen har även använts som bas för implementationen. En tabell från
+ClrHome\cite{clrhome} har använts mycket som snabb referens för alla
+instruktioners objektkoder.
 
 För att förstå hur TI-miniräknarna fungerar har sidor som {\it Z80
 Heaven}\cite{z80heaven} och {\it WikiTI}\cite{brandonw} använts. Sidorna om
 miniräknarens portar på WikiTI har varit väldigt användbara för att få reda på
-hur TI-ASIC:en ska fungera. Källkoden för emulatorer har också varit väldigt
-användbara för detta syfte. Specifikt har koden till {\it z80e}\cite{z80e} och
-{\it Tilem2}\cite{tilem2} granskats väl.
+hur miniräknarens komponenter ska fungera. Källkoden för emulatorer har också
+varit väldigt användbara för detta syfte. Specifikt har koden till {\it
+z80e}\cite{z80e} och {\it Tilem2}\cite{tilem2} granskats väl.
 
-Emulatorerna har även använts för att jämföra resultatet med vår
-implementation. Tilem2 har en väldigt användbar debugger som gjorde att en
-fungerande version kunde köras parallellt med vår version instruktion för
-instruktion. Detta var oerhört hjälpsamt i slutet av projektet för att hitta de
-sista felen och slutligen få operativsystemet att fungera.
+Emulatorerna har även använts för att jämföra resultatet med implementationen.
+Tilem2 har en väldigt användbar debugger som gjorde att en fungerande version
+kunde köras parallellt med projektet instruktion för instruktion. Detta var
+oerhört hjälpsamt i slutet av projektet för att hitta de sista felen och
+slutligen få operativsystemet att fungera felfritt.
 
 För att skriva kod till processorn har textfiler med instruktioner skrivits med
-textredigerare som därefter assemblats till objektkod med {\it
+textredigerare och därefter assemblats till objektkod med {\it
 z80asm}\cite{z80asm}. {\it GHDL}\cite{ghdl} tillsammans med {\it
-GTKWave}\cite{gtkwave} har använts för att simulera VHDL-kod och visa
+GTKWave}\cite{gtkwave} har använts för att simulera VHDL-kod och visa dess
 vågdiagram.
 
 {\it Digilent Adept} har använts för att skicka TI-83p-ROM:en och andra program
-direkt till minnet på FPGA:n. TI-83p-ROM:en har laddats från en
-TI-83p-miniräknare. Program och spel för miniräknaren har tankats ner från {\it
+direkt till minnet på FPGA-kortet. TI-83p-ROM:en har laddats från en
+TI-83p-miniräknare. Program och spel för miniräknaren har hämtats från {\it
 ticalc.org}:s filarkiv\cite{ticalc}.
 
-%\clearpage
 \end{document}

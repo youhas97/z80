@@ -17,10 +17,10 @@ som kan användas var som helst i projektet, såsom register och räknare.
 för processorn.
 
 \subsection{Instruktionsdekodare}
-Hur instruktionsdekodaren har implementerats har inte diskuterats så mycket i
-hårdvaru\-sektionen. Det är för att implementationen av instruktionsdekodaren
-är endast en stor uppslagstabell av kontrollord. Kontrollordet är dock rätt
-stort och det finns många tillstånd för processorn vilket ger en väldigt stor
+Hur instruktionsdekodaren är implementerad har inte diskuterats så mycket i
+hårdvaru\-sektionen. Det är för att instruktionsdekodaren syntetiseras endast
+till en stor uppslagstabell av kontrollord. Kontrollordet är dock rätt stort
+och det finns många tillstånd för processorn vilket ger en väldigt stor
 uppslagstabell. Det skulle gå att manuellt skriva in värdet för varje signal i
 kontrollordet för varenda möjliga tillstånd hos processorn. Det är dock inte
 praktiskt och inte heller enkelt att felsöka eller att anpassa om förändringar
@@ -32,13 +32,16 @@ deras neutrala värden. Därefter skrivs de över sekvensiellt inom processen. D
 behövs endast de signaler som instruktionen använder ändras. Instruktioner är
 implementerade som funktioner som tar emot en ram av alla kontrollsignaler och
 returnerar en ny ram med modifierade kontrollsignaler. Den nya ramen skriver
-därefter över den tidigare ramen. Ett exempel på en hur en funktion skrivs
-visas i figur \ref{fig:ld}. Alla instruktioner som laddar ett 8-bitars register
-till ett annat 8-bitars register använder den här funktionen. Utifrån
-funktionen är det lätt att följa instruktionens förlopp. Under M1T4 laddas
-källregistrets värde till \mono{TMP}. Under M1T5 laddas \mono{TMP} till
-destinationsregistret. Därefter är instruktionen färdig.
+därefter över den tidigare ramen. På detta vis kan varje instruktion beskrivas
+och därefter kan syntesverktyget bygga ett kombinatoriskt nät utefter ramens
+värde i slutet av processen.
 
+Ett exempel på en hur en funktion skrivs visas i figur \ref{fig:ld}. Alla
+instruktioner som laddar ett 8-bitars register till ett annat 8-bitars register
+använder den här funktionen. Utifrån funktionen är det lätt att följa
+instruktionens förlopp. Under M1T4 laddas källregistrets värde till \mono{TMP}.
+Under M1T5 laddas \mono{TMP} till destinationsregistret. Därefter är
+instruktionen färdig.
 \begin{figure}
     \inputminted{vhdl}{lst/vhdl_instr.vhd}
     \caption{Funktionen för alla \mono{ld r,r}-instruktioner.}

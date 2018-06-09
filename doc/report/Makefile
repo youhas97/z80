@@ -27,6 +27,12 @@ svg: svg/rf_baddr.svg
 	inkscape -z --file=svg/alu_sbc.svg --export-eps=alusbc.eps
 	inkscape -z --file=svg/port.svg --export-eps=port.eps
 	\
+	inkscape -z --file=svg/cpu_instr_m1t1.svg --export-eps=m1t1.eps
+	inkscape -z --file=svg/cpu_instr_m1t2.svg --export-eps=m1t2.eps
+	inkscape -z --file=svg/cpu_instr_m1t3.svg --export-eps=m1t3.eps
+	inkscape -z --file=svg/cpu_instr_m1t4.svg --export-eps=m1t4.eps
+	inkscape -z --file=svg/cpu_instr_m2t2.svg --export-eps=m2t2.eps
+	\
 	inkscape -z --file=svg/vga.svg --export-eps=vga.eps
 	inkscape -z --file=svg/monitor.svg --export-eps=monitor.eps
 	\

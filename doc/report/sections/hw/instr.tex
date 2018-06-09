@@ -1,0 +1,75 @@
+\documentclass[main.tex]{subfiles}
+
+\newcommand{\diagw}{0.7\textwidth}
+
+\begin{document}
+\subsubsection{Instruktionsförlopp}
+För att sammanfatta processorns implementation följer ett exempel av hela
+händelseförloppet för en instruktion. Instruktionen är \mono{add a,d} och den adderar
+\mono{A} med \mono{D} och lagrar resultatet i \mono{A}.
+
+\paragraph{\mono{add a,d}: \mono{M1T1}}
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\diagw]{m1t1.eps}
+\end{figure}
+Processorn börjar på maskincykel 1 och T-state 1. Det första som måste ske är
+att instruktionen hämtas från minnet. Adressen till \mono{PC} väljs i
+registerfilen. Registerfilens utdata muxas till adressbussen.  När \mono{PC}
+väl ligger på databussen kan det läsas till adressbuffern.
+
+\paragraph{\mono{add a,d}: \mono{M1T2}}
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\diagw]{m1t2.eps}
+\end{figure}
+Inför T2 har adressbuffern laddat adressen och kan nu skicka den till minnet. I
+och med detta skickas en lässignal så att instruktionen i minnet ligger på den
+externa databussen i slutet av klockintervallet. Därifrån läses den till
+processorns indatabuffer \mono{dbufi}. Under samma klockintervall behålls
+\mono{PC} på adressbussen för att inkrementeras så att PC nu pekar på nästa
+instruktion.
+
+\paragraph{\mono{add a,d}: \mono{M1T3}}
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\diagw]{m1t3.eps}
+\end{figure}
+Nu återstår bara att läsa instruktionen från databuffern till \mono{IR} där
+instruktionsdekodaren kan avläsa den.
+
+\paragraph{\mono{add a,d}: \mono{M1T4}}
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\diagw]{m1t4.eps}
+\end{figure}
+Först nu ligger objektkoden för \mono{add a,d} i \mono{IR} och processorn kan
+börja exekvera instruktionen. Det första som sker är att \mono{TMP} laddas med
+\mono{D} och \mono{ACT} med \mono{A}. \mono{A} har en egen buss och kan därmed
+läsas parallelt med ett annat värde som går via databussen.
+Instruktionsdekodaren signalerar nu att masknincykeln är färdig och att
+hämtningen av nästa instruktion kan påbörja. \mono{add a,d}-instruktion är dock
+inte färdig riktigt ännu.
+
+\paragraph{\mono{add a,d}: \mono{M2T1}}
+Precis som under \mono{M1T1} läggs \mono{PC} på adressbussen och laddas till
+adressbuffern. \mono{PC} pekar dock nu på instruktionen som ligger på platsen
+efter \mono{add a,d}.
+
+\paragraph{\mono{add a,d}: \mono{M2T2}}
+\begin{figure}[H]
+    \center
+    \includegraphics[width=\diagw]{m2t2.eps}
+\end{figure}
+Under tiden som instruktionshämtningen sker nere på adressbussen kan \mono{add
+a,d}-instruktionen avslutas. Nu beräknar ALU:n \mono{A}+\mono{B} och lägger det
+på databussen. Därifrån läses det av registerfilen till \mono{A}.
+Registerfilen läser även in de nya flaggorna från en dedikerad buss. Under
+tiden som ALU:n beräknar laddas den nya instruktionen till \mono{dbufi}. 
+
+\paragraph{\mono{add a,d}: \mono{M2T3}}
+Precis som under \mono{M1T3} läses den nya instruktionen från databuffern in
+till \mono{IR}. \mono{add a,d} är härmed avslutad och under nästa
+klockintervall kommer nästa instruktion att börja exekvera.
+
+\end{document}

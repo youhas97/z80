@@ -32,9 +32,9 @@ deras neutrala värden. Därefter skrivs de över sekvensiellt inom processen. D
 behövs endast de signaler som instruktionen använder ändras. Instruktioner är
 implementerade som funktioner som tar emot en ram av alla kontrollsignaler och
 returnerar en ny ram med modifierade kontrollsignaler. Den nya ramen skriver
-därefter över den tidigare ramen. På detta vis kan varje instruktion beskrivas
-och därefter kan syntesverktyget bygga ett kombinatoriskt nät utefter ramens
-värde i slutet av processen.
+därefter över den tidigare ramen. På det här viset kan varje instruktion
+beskrivas och därefter kan syntesverktyget bygga ett kombinatoriskt nät utefter
+ramens värde i slutet av processen.
 
 Ett exempel på en hur en funktion skrivs visas i figur \ref{fig:ld}. Alla
 instruktioner som laddar ett 8-bitars register till ett annat 8-bitars register
@@ -49,7 +49,7 @@ instruktionen färdig.
 \end{figure}
 
 En annan viktig uppgift av instruktionsdekodaren är att ta reda på vilken
-instruktion som ska utföras. Detta åstadkoms genom att titta på en uppdelning
+instruktion som ska utföras. Det här åstadkoms genom att titta på en uppdelning
 av den nuvarande instruktionen i \mono{IR}. Se en av instruktionenerna som
 använder ovan funktion; \mono{ld c,h}:
 
@@ -82,8 +82,8 @@ register:
     {\underbrace{\mono{0}}_\mono{q=sbc}}\mono{ }
     {\underbrace{\mono{0 1 0}}_\mono{z}}
 \end{align*}
-Här har \mono{y}-variabeln delats upp i två variabler \mono{p} och \mono{q}.
-I detta fallet pekar \mono{p} ut ett register och \mono{q} avgör om det är en
+Här har \mono{y}-variabeln delats upp i två variabler \mono{p} och \mono{q}.  I
+det här fallet pekar \mono{p} ut ett register och \mono{q} avgör om det är en
 \mono{adc}- eller \mono{sbc}-instruktion. Dessa fem variabler tillsammans med
 prefixet används för att avgöra exakt vilken instruktion som ska exekveras.
 

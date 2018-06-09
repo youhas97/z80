@@ -9,11 +9,11 @@ rörelseinställningar; upp/ner (\mono{up}) för \mono{X}/\mono{Y}
 (\mono{counter}. Det finns även ett register som lagrar bildminnets utdata för
 läsning från processorn.
 
-\mono{X} består av en upp/ner räknare på sex bitar. Den går upp till 63 och sen
-går runt till noll igen vid uppräkning. Likaså går den från noll till 63 vid
-nedräkning. Dess \mono{CE}-ingång är kopplad till läs/skriv-signalen från port
-\mono{11} AND:ad med D-vippan som väljer mellan \mono{X} och \mono{Y}. På så
-sätt räknar \mono{X} endast om \mono{X} är vald samt att porten skrivs eller
+\mono{X} består av en upp/ner räknare på sex bitar. Den går upp till 63 och
+sedan går runt till noll igen vid uppräkning. Likaså går den från noll till 63
+vid nedräkning. Dess \mono{CE}-ingång är kopplad till läs/skriv-signalen från
+port \mono{11} AND:ad med D-vippan som väljer mellan \mono{X} och \mono{Y}. På
+så sätt räknar \mono{X} endast om \mono{X} är vald samt att porten skrivs eller
 läses ifrån. \mono{U/D}-ingången som väljer riktning är direkt kopplad till
 D-vippan som väljer riktning. Räknaren har även en indata port som kommer från
 utdatan till port \mono{10}. Om port \mono{10} skrivs till med de två högsta

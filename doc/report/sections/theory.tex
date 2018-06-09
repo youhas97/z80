@@ -16,9 +16,9 @@ processorn kan hittas i Zilog:s användarmanual.\cite{z80um}
 \end{figure}
 
 \subsubsection{Register}
-    Processorn har åtta 8-bitars register och och tre 16-bitars register.
-    Register med en bokstav är 8 bitar och register med två bokstäver är 16
-    bitar. Programmerare kan direkt komma åt och använda de flesta av dessa för
+    Processorn har åtta 8-bitars register och tre 16-bitars register.  Register
+    med en bokstav är 8 bitar och register med två bokstäver är 16 bitar.
+    Programmerare kan direkt komma åt och använda de flesta av dessa för
     allmänna behov. Vissa register har dock speciella instruktioner och
     specifika användningsområden. Par av 8-bitars register kan även användas
     som 16-bitars register av vissa instruktioner som bland annat \mono{push
@@ -185,8 +185,8 @@ avbrottsrutinen. Avbrottsrutinen måste själv sätta igång avbrott igen med
 \mono{reti} så kommer processorn inte acceptera avbrott förrän en instruktion
 efter att \mono{ei} har använts.
 
-Vid läge 1 hoppar processorn alltid till adress \mono{0x0038}. Detta motsvarar
-en \mono{rst 38h}-instruktion.
+Vid läge 1 hoppar processorn alltid till adress \mono{0x0038}. Det här
+motsvarar en \mono{rst 38h}-instruktion.
 
 Vid läge 2 kommer processorn att hämta de lägre åtta bitarna av en adress från
 databussen. I \mono{I}-registret ligger de åtta högre bitarna av adressen till
@@ -223,7 +223,7 @@ tangentbordskontroller, minnesmappning och minnesskydd.
 
 TI-83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 {\it nonmaskable interrupts} eftersom ASIC:en aldrig skickar en
-\mono{NMI}-signal. Detta innebär även att IFF2 aldrig kommer skilja sig från
+\mono{NMI}-signal. Det här innebär även att IFF2 aldrig kommer skilja sig från
 IFF1 så endast en D-vippa behövs. {\it Bus request} används aldrig då
 \mono{BUSRQ} aldrig går aktiv.
 
@@ -412,11 +412,11 @@ kant.
 
 Pekarens värde kan väljas manuellt av programmeraren med port \mono{11}. Men
 vid varje läsning eller skrivning till dataporten \mono{11} kommer pekaren
-antingen öka eller minska \mono{X} eller \mono{Y} ett steg. Detta ställs också
-in med port \mono{10}.
+antingen öka eller minska \mono{X} eller \mono{Y} ett steg. Pekarens riktning
+ställs också in med port \mono{10}.
 
-LCD-kontrollern håller även koll på ett tredje värde; \mono{Z}. Detta värdet
-avgör vilken rad \mono{X} ska börja räkna ifrån vid läsning och skrivning.  Om
+LCD-kontrollern håller även koll på ett tredje värde; \mono{Z}. Det här värdet
+avgör vilken rad \mono{X} ska börja räkna ifrån vid läsning och skrivning. Om
 \mono{X} och \mono{Y} exempelvis är noll och \mono{Z} är \mono{31} kommer den
 första page:n på den mittersta raden (31) väljas. Eftersom \mono{X} börjar på
 \mono{Z} kan värdet överstiga antalet av skärmens rader. Då börjar den om på
@@ -425,7 +425,7 @@ noll. Raden väljs därmed egentligen genom att beräkna $\mono{X}+\mono{Z} \mod
 
 \mono{Z} räknar inte upp eller ner vid läsning/skrivning utan sätts manuellt av
 programmeraren via port \mono{10}. Syftet med \mono{Z} är att möjliggöra
-vertikal scrollning utan att behöva flytta varje rad i minnet. Detta används
+vertikal scrollning utan att behöva flytta varje rad i minnet. Det här används
 bland annat av operativsystemet för hemskärmen. Då ökar \mono{Z} med antalet
 pixlar för höjden av en rad och den översta raden skrivs över med den nya raden
 som då hamnar längst ner på skärmen eftersom den går runt.

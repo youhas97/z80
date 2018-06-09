@@ -36,7 +36,7 @@ När ALU:n och registerfilen fungerade påbörjades instruktionsdekodaren och de
 andra delarna av processorn. Ett simulerat minne byggdes också för att lagra
 program. Då kunde processorn börja köra enkla program som lästes från minnet.
 Därefter utökades processorn med fler instruktioner och testning med FPGA:n
-påbörjades. I detta stadiet var enhetstester också oerhört användbara. Nu
+påbörjades. I det här stadiet var enhetstester också oerhört användbara. Nu
 skrevs tester med Z80-assembly kördes på processorn. Vid en implementation av
 en instruktion skrevs ett program i en textfil som använde instruktionen och
 testade resultatet. Därefter användes ett skript för att assembla programmet,
@@ -48,9 +48,9 @@ halt:ade processorn. Om alla test gick igenom lagrades en annan kod och
 processorn halt:ade. På så sätt kunde ett stort test köras för att testa flera
 instruktioner i taget för att snabbt hitta misstag vid ändringar.
 
-Detta var smidigt för att testa fel på individuella instruktioner, men det var
-svårt att använda för att felsöka problem som uppstod när operativsystemet och
-andra program så småningom testades. Dessa kör miljontals instruktioner och
+Det här var smidigt för att testa fel på individuella instruktioner, men det
+var svårt att använda för att felsöka problem som uppstod när operativsystemet
+och andra program så småningom testades. Dessa kör miljontals instruktioner och
 använder mycket loopar vilket inte går att simulera inom en rimlig tid. Dessa
 var tvungna att köras på FGPA:n. För att kunna felsöka program på FPGA:n
 skapades en display på skärmen som visade värdet av alla register. Dessa gör
@@ -58,9 +58,10 @@ inte så stor nytta när processorn kör i \SI{6}{\mega\hertz} så brytpunkter o
 instruktionsstegning implementerades också. På så sätt gick det relativt fort
 att stega igenom programmet tills något gick fel. Fel hittades genom att
 jämföra resultatet med en emulator. När man gick för långt kunde man spara
-adressen, sätta en brytpunkt och starta om. Detta ledde till att rätt många fel
-med processorn upptäcktes och fixades. Vissa problem uppstod dock rätt långt in
-i programmet och var inte alls lätta att hitta snabbt på det här sättet.
+adressen, sätta en brytpunkt och starta om. Det här ledde till att rätt många
+fel med processorn upptäcktes och fixades. Vissa problem uppstod dock rätt
+långt in i programmet och var inte alls lätta att hitta snabbt på det här
+sättet.
 
 Vid ett tillfälle var det tydligt att något gick fel eftersom processorn
 hamnade på en adress som emulatorn aldrig kom till. Då implementerades ett sätt
@@ -87,9 +88,9 @@ En annan möjlig utökning är att emulera miniräknarens LCD-skärm bättre. V�
 VGA-skärm har nu endast två olika färger men LCD-skärmens pixlar har olika
 intensitet. När en pixel aktiveras går den kontinuerligt från släckt till tänd
 och inte instant som i vår implementation. Det här används av många spel för
-att skapa gråskala genom att snabbt sätta på och stänga av pixlar. Detta skulle
-kunna implementeras genom att skapa ett andra bildminne som lagrar varje pixels
-intensitet. Med en viss frekvens kan pixlars intensitet inkrementeras eller
-dekrementeras beroende på om pixeln håller på att släckas eller tändas.
+att skapa gråskala genom att snabbt sätta på och stänga av pixlar. Det här
+skulle kunna implementeras genom att skapa ett andra bildminne som lagrar varje
+pixels intensitet. Med en viss frekvens kan pixlars intensitet inkrementeras
+eller dekrementeras beroende på om pixeln håller på att släckas eller tändas.
 
 \end{document}

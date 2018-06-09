@@ -66,14 +66,15 @@ instruktioner. Aritmetiska instruktioner inkluderar bland annat \mono{add},
 och \mono{daa} (decimal adjust after addition), Figur \ref{fig:alu:sbc} visar
 exempelvis vilka delresultat som väljs ut när instruktionen \mono{sbc} körs.
 \mono{sbc}-instruktionen utför beräkningen \mono{op1}-\mono{op2}-\mono{C} och
-skickar ut det som resultat. I exemplet är \mono{C}-flaggan satt till 1 sen
-innan. För aritmetiska instruktioner använder sig ALU:n av en enda adderare men
-med olika möjliga operander. I exemplet kommer \mono{op1} väljas och
-subtraheras med ett eftersom \mono{C} är satt. Den första operanden till
-adderaren blir då \mono{op1}-1. För den andra operanden väljs \mono{op2} och
-dess negation eftersom \mono{sbc} utför en subtraktion.  Den andra operanden är
-då \mono{-op2} och adderaren kommer ge \mono{op1}-1-\mono{op2} vilket är det
-slutgiltiga resultatet som därefter muxas till utdatan för resultatet.
+skickar ut det som resultat. I exemplet är \mono{C}-flaggan satt till 1 vid
+instruktionen start. För aritmetiska instruktioner använder sig ALU:n av en
+enda adderare men med olika möjliga operander. I exemplet kommer \mono{op1}
+väljas och subtraheras med ett eftersom \mono{C} är satt. Den första operanden
+till adderaren blir då \mono{op1}-1. För den andra operanden väljs \mono{op2}
+och dess negation eftersom \mono{sbc} utför en subtraktion.  Den andra
+operanden är då \mono{-op2} och adderaren kommer ge \mono{op1}-1-\mono{op2}
+vilket är det slutgiltiga resultatet som därefter muxas till utdatan för
+resultatet.
 
 En annan grupp av instruktioner är bitinstruktionerna. De hanteras under
 aritmetiken och skapar \mono{bit\_res} signalen. Denna grupp inkluderar

@@ -37,7 +37,7 @@ maskincykel, då sätts \mono{T} till 1 igen.
 
 \mono{M} är ett heltal mellan 1 och 5 men som avgör vilken del av en
 instruktion processorn består i. Vid instruktioner som består av flera ord
-kommer maskincykeln gå tillbaka till 1 vid varje hämtning. Detta är för att
+kommer maskincykeln gå tillbaka till 1 vid varje hämtning. Det här är för att
 göra instruktionsdekodaren enklare. Instruktionshämtning sker därmed endast på
 maskincykel 1. Det innebär dessutom att liknande instruktioner med olika prefix
 kan återanvändas eftersom allas exekveringsfas börjar på maskincykel 1. Till
@@ -80,13 +80,13 @@ direkt. I ovan exempel är prefix-byten \mono{DD} och instruktions-byten
 \mono{39}.
 
 Det finns dessutom ett prefix som inte går att komma åt med ett prefix i
-instruktionen. Det är \mono{int}-prefixet. Detta sätts alltid efter en
-instruktion har avslutats om ett avbrott har skett. Om prefixet är \mono{int}
-kommer instruktionsdekodaren inte exekvera någon instruktion utefter vad
-\mono{IR} innehåller. Istället kommer den då alltid att köra en avbrottssekvens
-utefter vad \mono{im}-tillståndet är. \mono{im}-tillståndet avgör det
-nuvarande avbrottsläget och kan väljas av programmeraren med \mono{im 0},
-\mono{im 1} och \mono{im 2}-instruktionerna.
+instruktionen. Det är \mono{int}-prefixet. \mono{int}-prefixet sätts alltid
+efter att en instruktion har avslutats om ett avbrott har skett. Om prefixet är
+\mono{int} kommer instruktionsdekodaren inte exekvera någon instruktion utefter
+vad \mono{IR} innehåller. Istället kommer den då alltid att köra en
+avbrottssekvens utefter vad \mono{im}-tillståndet är. \mono{im}-tillståndet
+avgör det nuvarande avbrottsläget och kan väljas av programmeraren med \mono{im
+0}, \mono{im 1} och \mono{im 2}-instruktionerna.
 
 \begin{figure}
     \center
@@ -162,7 +162,6 @@ exekveras. \mono{mode\_next} och \mono{im\_next} vanligtvis antar det nuvarande
 värdet av \mono{mode} respektive \mono{im} och antar endast ett annat värde då
 \mono{instr\_end} går aktiv om ett byte ska ske.
 
-% kontrollsignaler TODO
 Processorn har även en grupp kontrollsignaler för alla andra komponententer
 inuti processorn som alla tillhör ett långt kontrollord. För att ge en
 överblick inför de resterande två sektionerna följer en kort beskrivning av

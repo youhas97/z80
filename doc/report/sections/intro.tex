@@ -6,17 +6,17 @@
 En replikation av miniräknaren TI-83 Plus har implementerats i det
 hårdvarubeskrivande språket VHDL. Designen har sedan programmerats till Spartan
 6 FPGA på ett Nexys3-kort kopplat till ett tangentbord och VGA-skärm som
-emulerar miniräknarens gränssnitt. Minnet från en miniräknare har laddats till
-minnet på Nexys3-kortet och på så sätt har operativsystemet och diverse spel
-lyckats köras utan några upptäckta problem.
+emulerar miniräknarens gränssnitt. Minnet från en miniräknare har överförts
+till minnet på Nexys3-kortet och på så sätt har operativsystemet och diverse
+spel kunnat köras utan några upptäckta problem.
 
 \subsection{Bakgrund}
 Projektet har utförts av en grupp på fyra studenter som ett delmoment av kursen
 TSEA83 på Linköpings universitet under större delen av vårterminen 2018. Alla
-gruppmedlemmar har sen tidigare läst två förebyggande kurser; digitalteknik,
+gruppmedlemmar har sedan tidigare läst två förebyggande kurser; digitalteknik,
 TSEA22 och datateknik, TSEA82. Som projekt i TSEA83 eftersökte gruppen att
 bygga en existerande allmän processor som kunde köra tidigare skrivna program.
-Gruppen var sen tidigare väl bekanta med miniräknaren TI-84 Plus som använder
+Gruppen var sedan tidigare väl bekanta med miniräknaren TI-84 Plus som använder
 sig av en välkänd processor från 70-talet; Zilog Z80. En replikation av
 processorn valdes som projektets minimala mål och TI-84-miniräknaren valdes som
 projektets önskvärda mål. Under projektets gång upptäcktes det att en annan
@@ -34,7 +34,7 @@ För att förstå hur Z80:n är uppbyggd och hur den fungerar har boken {\it
 Programming the Z80}\cite{zaks-z80prog} av Rodnay Zaks varit till väldigt stor
 nytta. Särskilt kapitel två om processorns organisation. Flera artiklar av Ken
 Shirriff såsom {\it How the Z80's registers are implemented}\cite{shirriff-reg}
-har också varit till stor hjälp. Zilogs användarmanual\cite{z80um} har använts
+har också varit till stor hjälp. Zilog:s användarmanual\cite{z80um} har använts
 väl som referens för hur instruktioner, avbrott och flaggor ska fungera.
 Tidsdiagrammen har även använts som bas för implementationen. En tabell från
 ClrHome\cite{clrhome} har använts mycket som snabb referens för alla
@@ -49,7 +49,7 @@ z80e}\cite{z80e} och {\it Tilem2}\cite{tilem2} granskats väl.
 
 Emulatorerna har även använts för att jämföra resultatet med implementationen.
 Tilem2 har en väldigt användbar debugger som gjorde att en fungerande version
-kunde köras parallellt med projektet instruktion för instruktion. Detta var
+kunde köras parallellt med projektet instruktion för instruktion. Det här var
 oerhört hjälpsamt i slutet av projektet för att hitta de sista felen och
 slutligen få operativsystemet att fungera felfritt.
 

@@ -24,7 +24,7 @@ väl ligger på databussen kan det läsas till adressbuffern.
     \includegraphics[width=\diagw]{m1t2.eps}
 \end{figure}
 Inför T2 har adressbuffern laddat adressen och kan nu skicka den till minnet. I
-och med detta skickas en lässignal så att instruktionen i minnet ligger på den
+och med det skickas en lässignal så att instruktionen i minnet ligger på den
 externa databussen i slutet av klockintervallet. Därifrån läses den till
 processorns indatabuffer \mono{dbufi}. Under samma klockintervall behålls
 \mono{PC} på adressbussen för att inkrementeras så att PC nu pekar på nästa
@@ -46,7 +46,7 @@ instruktionsdekodaren kan avläsa den.
 Först nu ligger objektkoden för \mono{add a,d} i \mono{IR} och processorn kan
 börja exekvera instruktionen. Det första som sker är att \mono{TMP} laddas med
 \mono{D} och \mono{ACT} med \mono{A}. \mono{A} har en egen buss och kan därmed
-läsas parallelt med ett annat värde som går via databussen.
+läsas parallellt med ett annat värde som går via databussen.
 Instruktionsdekodaren signalerar nu att masknincykeln är färdig och att
 hämtningen av nästa instruktion kan påbörja. \mono{add a,d}-instruktion är dock
 inte färdig riktigt ännu.

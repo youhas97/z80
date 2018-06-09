@@ -44,7 +44,7 @@ bitar och minnesadressen pekar ut 16-bitars platser. Z80-processorn lagrar
 förstås endast åtta bitar i taget eftersom dess databuss är åtta bitar. Ett
 alternativ är att endast använda en av bytes:en i varje plats eftersom det
 finns tillräckligt med utrymme. Ett problem med detta är att mjukvaran Adept
-skriver och läser till båda bytes och detta leder till att varannan byte missas
+skriver och läser till båda bytes och det leder till att varannan byte missas
 när processorn läser. Istället ser gränssnittet till att adressen halveras och
 datan skrivs eller läses ifrån antingen övre eller undre delen av platsen i
 minnet. Vid skrivning används \mono{upper\_byte}- och

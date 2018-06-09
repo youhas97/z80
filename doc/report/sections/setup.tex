@@ -1,13 +1,6 @@
 \documentclass[main.tex]{subfiles}
 
-%\newpage
 \begin{document}
-
-%\begin{SCfigure}
-%    \centering
-%    \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/monitor_small.jpg}
-%    \caption{Konstruktionens display vid körning av spelet zDoom.}
-%\end{SCfigure}
 
 \section{Konstruktion}
 Konstruktionen har använt ett Nexys3-kort med en Spartan6 FPGA från Digilent
@@ -21,7 +14,7 @@ till dess VGA-port.
 
 \begin{SCfigure}
     \centering
-    \includegraphics[width=0.8\textwidth,bb=0 0 1152 648]{img/setup_small.jpg}
+    \includegraphics[width=0.7\textwidth,bb=0 0 1152 648]{img/setup_small.jpg}
     \caption{VGA-skärm och tangentbord kopplat till FPGA-kort tillsammans med
     laptop som används för att programmera FPGA:n samt ladda program till
     minnet.}
@@ -47,6 +40,17 @@ Om ett ROM laddas kommer den hamna i halt-läge och vänta på att användaren
 trycker på ON-knappen. ON-knappen är vänster Ctrl på PS/2-tangentbordet.
 
 \subsection{Gränssnitt}
+\begin{SCfigure}
+    \centering
+    \includegraphics[width=0.7\textwidth,bb=0 0 1152 648]{img/monitor_small.jpg}
+    \caption{Konstruktionens display vid körning av spelet zDoom.}
+\end{SCfigure}
+
+VGA-skärmen används för att visa miniräknarens LCD-skärm samt interna signalers
+värden för debuggingsyfte. De olika värdena inkluderar bland annat processorns
+interna register, bussar och tillstånd, samt många portar på miniräknaren och
+den nuvarande minneskartläggningen.
+
 Alla miniräknarens tangenter är kartlagda 1:1 till olika tangenter på
 tangentbordet. Se tabell \ref{app:kbd} för vilka knappar som är bundna till
 vilka.
@@ -106,17 +110,19 @@ alla brytare är nere kör processorn som vanligt på \SI{6}{\mega\hertz}.
     uppstart. Processorn börjar då exekvera från adress \mono{0x8000} igen.
     Bildminnet i LCD-kontrollern påverkas dock inte.
 \item[\mono{trace\_enable}]
-    Aktiverar spårning av alla hopp som processorn utför. Varje gång ett hopp
-    utförs stoppas processorn tillfälligt och dess nuvarande adress och dess
+    Aktiverar spårning av alla hopp som processorn utför. Debug-displayen visar
+    ett \mono{E} om spårningen är på. Varje gång ett hopp utförs stoppas
+    processorn tillfälligt och dess nuvarande adress och dess
     destinationsadress skrivs till det fysiska minnet på adress \mono{0x88000}.
     Efter att ett program har kommit fel kan processorn stoppas och minnet
-    läsas med hjälp av programmet Adept. Därefter kan datan enkelt tolkas med
+    läsas med hjälp av programmet Adept. Debug-displayen visar hur många bytes
+    som ska hämtas efter \mono{0x88000}. Därefter kan datan enkelt tolkas med
     hjälp av \mono{hexdump} med kommandot
     \lstinputlisting{lst/trc_command.sh}
     som exempelvis ger utdatan
     \lstinputlisting{lst/trc_output.sh}
     Exemplet är från när operativsystemet precis har startat och hamnat i
-    halt-läge på adress \mono{0x0aad}. När användaren då trycker på ON-knappen
+    halt-läge på adress \mono{0x0AAD}. När användaren då trycker på ON-knappen
     sker ett avbrott och processorn hoppar till adress \mono{0x0038} och
     påbörjar avbrottsrutinen.
 \item[\mono{trace\_disable}]

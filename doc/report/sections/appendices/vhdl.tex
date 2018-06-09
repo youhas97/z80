@@ -1,0 +1,87 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Bilaga. VHDL-kod}
+
+\subsection{Filstruktur}
+Källkodens filer är ungefär strukturerade utefter komponenternas hierarki i
+konstruktionen. Högst upp är filen \mono{comp.vhd} som innehåller
+huvudkomponenten, den som laddas på FPGA:n. Den här filen hämtar komponenter
+från de sex delmapparna; \mono{dbg}, \mono{ext}, \mono{pkg}, \mono{prm},
+\mono{ti} och \mono{z80}. \mono{dbg} innehåller alla komponenter som används
+för debugging. \mono{ext} innehåller alla externa kontroller. \mono{pkg}
+innehåller VHDL-paket för att deklarera typer och konstanter som används av
+flera olika komponenter. \mono{prm} innehåller allmänna primitiva komponenter
+som kan användas var som helst i projektet, såsom register och räknare.
+\mono{ti} innehåller TI-ASIC:en och alla dess komponenter, \mono{z80} likaså
+för processorn.
+
+\subsection{Instruktionsdekodare}
+Hur instruktionsdekodaren har implementerats har inte diskuterats så mycket i
+hårdvaru\-sektionen. Det är för att implementationen av instruktionsdekodaren
+är endast en stor uppslagstabell av kontrollord. Kontrollordet är dock rätt
+stort och det finns många tillstånd för processorn vilket ger en väldigt stor
+uppslagstabell. Det skulle gå att manuellt skriva in värdet för varje signal i
+kontrollordet för varenda möjliga tillstånd hos processorn. Det är dock inte
+praktiskt och inte heller enkelt att felsöka eller att anpassa om förändringar
+på processorn görs.
+
+VHDL:s \mono{process}-sats har istället använts för att skapa det här stora
+kombinatoriska nätet. I början av processen sätts alla kontrollsignaler till
+deras neutrala värden. Därefter skrivs de över sekvensiellt inom processen. Då
+behövs endast de signaler som instruktionen använder ändras. Instruktioner är
+implementerade som funktioner som tar emot en ram av alla kontrollsignaler och
+returnerar en ny ram med modifierade kontrollsignaler. Den nya ramen skriver
+därefter över den tidigare ramen. Ett exempel på en hur en funktion skrivs
+visas i figur \ref{fig:ld}. Alla instruktioner som laddar ett 8-bitars register
+till ett annat 8-bitars register använder den här funktionen. Utifrån
+funktionen är det lätt att följa instruktionens förlopp. Under M1T4 laddas
+källregistrets värde till \mono{TMP}. Under M1T5 laddas \mono{TMP} till
+destinationsregistret. Därefter är instruktionen färdig.
+
+\begin{figure}
+    \inputminted{vhdl}{lst/vhdl_instr.vhd}
+    \caption{Funktionen för alla \mono{ld r,r}-instruktioner.}
+    \label{fig:ld}
+\end{figure}
+
+En annan viktig uppgift av instruktionsdekodaren är att ta reda på vilken
+instruktion som ska utföras. Detta åstadkoms genom att titta på en uppdelning
+av den nuvarande instruktionen i \mono{IR}. Se en av instruktionenerna som
+använder ovan funktion; \mono{ld c,h}:
+
+\begin{align*}
+    &\mono{4C: ld c,h}& \quad &
+    {\underbrace{\mono{0 1}}_\mono{x=ld}}\mono{ }
+    {\underbrace{\mono{0 0 1}}_\mono{y=c}}\mono{ }
+    {\underbrace{\mono{1 0 0}}_\mono{z=h}}
+\end{align*}
+Här har instruktionen delats upp i tre delar; \mono{x}, \mono{y} och \mono{z}.
+\mono{x} berättar att det är en \mono{ld r,r}-instruktion, \mono{y} berättar
+att registret \mono{c} är destinationen och \mono{z} berättar att \mono{h} är
+källan. Vi vet då att vi ska utföra funktionsutropet
+\begin{center}
+    \inputminted{vhdl}{lst/vhdl_ld.vhd}
+\end{center}
+där \mono{r} är en tabell av adresser till 8-bitars register. En annan
+användbar uppdelning syns i bland annat \mono{adc} och \mono{sbc} för 16-bitars
+register:
+\begin{align*}
+    &\mono{5A: adc hl,de}& \quad &
+    {\underbrace{\mono{0 1}}_\mono{x}}\mono{ }
+    {\underbrace{\mono{0 1}}_\mono{p}}\mono{ }
+    {\underbrace{\mono{1}}_\mono{q=adc}}\mono{ }
+    {\underbrace{\mono{0 1 0}}_\mono{z}}
+    \qquad
+    &\mono{52: sbc hl,de}& \quad &
+    {\underbrace{\mono{0 1}}_\mono{x}}\mono{ }
+    {\underbrace{\mono{0 1}}_\mono{p}}\mono{ }
+    {\underbrace{\mono{0}}_\mono{q=sbc}}\mono{ }
+    {\underbrace{\mono{0 1 0}}_\mono{z}}
+\end{align*}
+Här har \mono{y}-variabeln delats upp i två variabler \mono{p} och \mono{q}.
+I detta fallet pekar \mono{p} ut ett register och \mono{q} avgör om det är en
+\mono{adc}- eller \mono{sbc}-instruktion. Dessa fem variabler tillsammans med
+prefixet används för att avgöra exakt vilken instruktion som ska exekveras.
+
+\end{document}

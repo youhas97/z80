@@ -28,6 +28,7 @@ svg: svg/rf_baddr.svg
 	inkscape -z --file=svg/port.svg --export-eps=port.eps
 	\
 	inkscape -z --file=svg/vga.svg --export-eps=vga.eps
+	inkscape -z --file=svg/monitor.svg --export-eps=monitor.eps
 	\
 	inkscape -z --file=svg/comp.svg --export-eps=comp.eps
 	inkscape -z --file=svg/cpu.svg --export-eps=cpu.eps

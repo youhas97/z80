@@ -4,9 +4,9 @@
 
 \section{Introduktion}
 En replikation av miniräknaren TI-83 Plus har implementerats i det
-hårdvarubeskrivande språket VHDL. Designen har sedan programmerats till Spartan
-6 FPGA på ett Nexys3-kort kopplat till ett tangentbord och VGA-skärm som
-emulerar miniräknarens gränssnitt. Minnet från en miniräknare har överförts
+hårdvarubeskrivande språket VHDL. Designen har sedan programmerats till en
+Spartan-6-FPGA på ett Nexys3-kort kopplat till ett tangentbord och en VGA-skärm
+som emulerar miniräknarens gränssnitt. Minnet från en miniräknare har överförts
 till minnet på Nexys3-kortet och på så sätt har operativsystemet och diverse
 spel kunnat köras utan några upptäckta problem.
 
@@ -14,7 +14,7 @@ spel kunnat köras utan några upptäckta problem.
 Projektet har utförts av en grupp på fyra studenter som ett delmoment av kursen
 TSEA83 på Linköpings universitet under större delen av vårterminen 2018. Alla
 gruppmedlemmar har sedan tidigare läst två förebyggande kurser; digitalteknik,
-TSEA22 och datateknik, TSEA82. Som projekt i TSEA83 eftersökte gruppen att
+TSEA22 och datorteknik, TSEA82. Som projekt i TSEA83 eftersökte gruppen att
 bygga en existerande allmän processor som kunde köra tidigare skrivna program.
 Gruppen var sedan tidigare väl bekanta med miniräknaren TI-84 Plus som använder
 sig av en välkänd processor från 70-talet; Zilog Z80. En replikation av
@@ -25,9 +25,8 @@ vilket ledde till att den implementerades istället.
 
 \subsection{Syfte}
 Syftet med konstruktionen var inlärning av kunskap om hur processorer fungerar
-och att få en inblick i hur uppbyggnaden av en processor kan se ut. Målet var
-att skapa en Z80-processor som därefter kunde användas för bygga en
-TI-miniräknare.
+och att få en inblick i hur uppbyggnaden av en dator kan se ut. Målet var att
+skapa en Z80-processor som därefter kunde användas för bygga en TI-miniräknare.
 
 \subsection{Referenser och resurser}
 För att förstå hur Z80:n är uppbyggd och hur den fungerar har boken {\it
@@ -42,7 +41,7 @@ instruktioners objektkoder.
 
 För att förstå hur TI-miniräknarna fungerar har sidor som {\it Z80
 Heaven}\cite{z80heaven} och {\it WikiTI}\cite{wikiti} använts. Sidorna om
-miniräknarens portar på WikiTI har varit väldigt användbara för att få reda på
+miniräknarens portar på WikiTI har varit väldigt användbara för att lista ut
 hur miniräknarens komponenter ska fungera. Källkoden för emulatorer har också
 varit väldigt användbara för detta syfte. Specifikt har koden till {\it
 z80e}\cite{z80e} och {\it Tilem2}\cite{tilem2} granskats väl.
@@ -53,15 +52,17 @@ kunde köras parallellt med projektet instruktion för instruktion. Det här var
 oerhört hjälpsamt i slutet av projektet för att hitta de sista felen och
 slutligen få operativsystemet att fungera felfritt.
 
-För att skriva kod till processorn har textfiler med instruktioner skrivits med
+För att skriva kod till processorn har program skrivits med hjälp av
 textredigerare och därefter assemblats till objektkod med {\it
 z80asm}\cite{z80asm}. {\it GHDL}\cite{ghdl} tillsammans med {\it
-GTKWave}\cite{gtkwave} har använts för att simulera VHDL-kod och visa dess
+GTKWave}\cite{gtkwave} har använts för att simulera VHDL-kod och visa
 vågdiagram.
 
-{\it Digilent Adept} har använts för att skicka TI-83p-ROM:en och andra program
-direkt till minnet på FPGA-kortet. TI-83p-ROM:en har laddats från en
-TI-83p-miniräknare. Program och spel för miniräknaren har hämtats från {\it
-ticalc.org}:s filarkiv\cite{ticalc}.
+Verktyg från {\it Xilinx ISE Design Suite} har använts för att syntetisera och
+implementera VHDL-koden till en bitfil som kan programmeras till FPGA:n med
+{\it Digilent Adept}. Adept har även använts för att skicka TI-83p-ROM:en och
+andra program direkt till minnet på FPGA-kortet.  TI-83p-ROM:en har laddats
+från en TI-83p-miniräknare. Program och spel för miniräknaren har hämtats från
+{\it ticalc.org}:s filarkiv\cite{ticalc}.
 
 \end{document}

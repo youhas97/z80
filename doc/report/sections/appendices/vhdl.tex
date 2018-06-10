@@ -1,5 +1,12 @@
 \documentclass[main.tex]{subfiles}
 
+\makeatletter
+\def\smallunderbrace#1{\mathop{\vtop{\m@th\ialign{##\crcr
+   $\hfil\displaystyle{#1}\hfil$\crcr
+   \noalign{\kern3\p@\nointerlineskip}%
+   \tiny\upbracefill\crcr\noalign{\kern3\p@}}}}\limits}
+\makeatother
+
 \begin{document}
 \section{Bilaga. VHDL-kod}
 
@@ -19,46 +26,53 @@ för processorn.
 \subsection{Instruktionsdekodare}
 Hur instruktionsdekodaren är implementerad har inte diskuterats så mycket i
 hårdvaru\-sektionen. Det är för att instruktionsdekodaren syntetiseras endast
-till en stor uppslagstabell av kontrollord. Kontrollordet är dock rätt stort
-och det finns många tillstånd för processorn vilket ger en väldigt stor
-uppslagstabell. Det skulle gå att manuellt skriva in värdet för varje signal i
-kontrollordet för varenda möjliga tillstånd hos processorn. Det är dock inte
+till en stor uppslagstabell av kontrollsignaler. Kontrollsignalerna är dock
+rätt många och det finns många tillstånd för processorn vilket ger en väldigt
+stor uppslagstabell. Det skulle gå att manuellt skriva in värdet för varje alla
+kontrollsignaler för varenda möjliga tillstånd hos processorn. Det är dock inte
 praktiskt och inte heller enkelt att felsöka eller att anpassa om förändringar
 på processorn görs.
 
 VHDL:s \mono{process}-sats har istället använts för att skapa det här stora
 kombinatoriska nätet. I början av processen sätts alla kontrollsignaler till
 deras neutrala värden. Därefter skrivs de över sekvensiellt inom processen. Då
-behövs endast de signaler som instruktionen använder ändras. Instruktioner är
-implementerade som funktioner som tar emot en ram av alla kontrollsignaler och
-returnerar en ny ram med modifierade kontrollsignaler. Den nya ramen skriver
-därefter över den tidigare ramen. På det här viset kan varje instruktion
-beskrivas och därefter kan syntesverktyget bygga ett kombinatoriskt nät utefter
-ramens värde i slutet av processen.
+behövs endast de signaler som instruktionen använder modifieras.
 
-Ett exempel på en hur en funktion skrivs visas i figur \ref{fig:ld}. Alla
+Instruktioner är implementerade som funktioner som tar emot en ram \mono{f} för
+alla kontrollsignaler och returnerar en ny ram med de modifierade
+kontrollsignalerna. Ramen inkluderar kontrollordet \mono{cw},
+tillståndskontroll \mono{ct} och kontrollbussen \mono{cb}. Den nya ramen
+skriver därefter över den tidigare ramen. På det här viset kan varje
+instruktion beskrivas enkelt och syntesverktyget kan bygga ett kombinatoriskt
+nät utefter ramens värde i slutet av processen.
+
+Ett exempel på en hur en funktion kan skrivas visas i figur \ref{fig:ld}. Alla
 instruktioner som laddar ett 8-bitars register till ett annat 8-bitars register
-använder den här funktionen. Utifrån funktionen är det lätt att följa
-instruktionens förlopp. Under M1T4 laddas källregistrets värde till \mono{TMP}.
-Under M1T5 laddas \mono{TMP} till destinationsregistret. Därefter är
-instruktionen färdig.
+använder den här funktionen. Den här funktionen fyller uppslagstabellen för
+alla möjliga tillstånd (alla maskincyklar, alla T-cyklar, alla avbrottslägen
+osv.) då en \mono{ld r,r}-instruktion ligger i \mono{IR} och prefixet är
+\mono{main}.  Utifrån funktionen är det lätt att följa instruktionens förlopp.
+Under det första klockintervallet, \mono{M1T4}, laddas källregistrets värde
+till \mono{TMP}. Under \mono{M1T5} laddas \mono{TMP} till
+destinationsregistret. Därefter är instruktionen färdig.
 \begin{figure}
     \inputminted{vhdl}{lst/vhdl_instr.vhd}
     \caption{Funktionen för alla \mono{ld r,r}-instruktioner.}
     \label{fig:ld}
 \end{figure}
 
+\clearpage
 En annan viktig uppgift av instruktionsdekodaren är att ta reda på vilken
-instruktion som ska utföras. Det här åstadkoms genom att titta på en uppdelning
-av den nuvarande instruktionen i \mono{IR}. Se en av instruktionenerna som
-använder ovan funktion; \mono{ld c,h}:
+instruktion som ska utföras. Det här åstadkoms genom att titta på prefixet och
+en uppdelning av den nuvarande instruktionen i \mono{IR}. Se en av
+instruktionenerna som använder ovan funktion; \mono{ld c,h}:
 
-\begin{align*}
-    &\mono{4C: ld c,h}& \quad &
+\begin{equation*}
+    \mono{4C: ld c,h} \qquad
     {\underbrace{\mono{0 1}}_\mono{x=ld}}\mono{ }
     {\underbrace{\mono{0 0 1}}_\mono{y=c}}\mono{ }
     {\underbrace{\mono{1 0 0}}_\mono{z=h}}
-\end{align*}
+\end{equation*}
 Här har instruktionen delats upp i tre delar; \mono{x}, \mono{y} och \mono{z}.
 \mono{x} berättar att det är en \mono{ld r,r}-instruktion, \mono{y} berättar
 att registret \mono{c} är destinationen och \mono{z} berättar att \mono{h} är
@@ -69,22 +83,23 @@ källan. Vi vet då att vi ska utföra funktionsutropet
 där \mono{r} är en tabell av adresser till 8-bitars register. En annan
 användbar uppdelning syns i bland annat \mono{adc} och \mono{sbc} för 16-bitars
 register:
-\begin{align*}
-    &\mono{5A: adc hl,de}& \quad &
+\begin{equation*}
+    \mono{5A: adc hl,de} \quad
     {\underbrace{\mono{0 1}}_\mono{x}}\mono{ }
-    {\underbrace{\mono{0 1}}_\mono{p}}\mono{ }
-    {\underbrace{\mono{1}}_\mono{q=adc}}\mono{ }
+    {\underbrace{\mono{0 1}}_\mono{p}}
+    {\smallunderbrace{\mono{1}}_\mono{q=adc}}
     {\underbrace{\mono{0 1 0}}_\mono{z}}
     \qquad
-    &\mono{52: sbc hl,de}& \quad &
+    \mono{52: sbc hl,de} \quad
     {\underbrace{\mono{0 1}}_\mono{x}}\mono{ }
-    {\underbrace{\mono{0 1}}_\mono{p}}\mono{ }
-    {\underbrace{\mono{0}}_\mono{q=sbc}}\mono{ }
+    {\underbrace{\mono{0 1}}_\mono{p}}
+    {\smallunderbrace{\mono{0}}_\mono{q=sbc}}
     {\underbrace{\mono{0 1 0}}_\mono{z}}
-\end{align*}
-Här har \mono{y}-variabeln delats upp i två variabler \mono{p} och \mono{q}.  I
-det här fallet pekar \mono{p} ut ett register och \mono{q} avgör om det är en
-\mono{adc}- eller \mono{sbc}-instruktion. Dessa fem variabler tillsammans med
-prefixet används för att avgöra exakt vilken instruktion som ska exekveras.
+\end{equation*}
+Här har \mono{y}-variabeln delats upp i två ytterligare variabler \mono{p} och
+\mono{q}.  I det här fallet pekar \mono{p} ut ett register och \mono{q} avgör
+om det är en \mono{adc}- eller \mono{sbc}-instruktion. Med en \mono{case-is}-sats
+används dessa fem variabler tillsammans för att avgöra exakt vilken instruktion
+som ska exekveras.
 
 \end{document}

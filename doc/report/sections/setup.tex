@@ -4,9 +4,9 @@
 
 \clearpage
 \section{Konstruktion}
-Konstruktionen har använt ett Nexys3-kort med en Spartan6-FPGA från Digilent
-som designen programmerats till. Utöver FPGA:n används även RAM-minnet på
-kortet samt knappar, strömbrytare och dess 7-segments-display.
+Konstruktionen använder ett Nexys3-kort med en Spartan6-FPGA från Digilent som
+designen programmeras till. Utöver FPGA:n används även RAM-minnet på kortet
+samt knappar, strömbrytare och dess 7-segments-display.
 
 Kortet är kopplat till en dator som tillför ström och programmerar bitfilen
 till FPGA:n på kortet. Datorn används även för att skriva program till RAM.
@@ -22,8 +22,8 @@ till dess VGA-port.
 \end{SCfigure}
 
 \subsection{Ladda program}
-För att ladda program till kortets RAM har programmet ``Digilent Adept''
-använts. För att ladda en fil till minnet väljs RAM under fliken {\it Memory}.
+För att ladda program till kortets RAM kan programmet ``Digilent Adept''
+användas. För att ladda en fil till minnet väljs RAM under fliken {\it Memory}.
 Därefter väljs filen under {\it Write File To Memory} och skrivs till minnet
 när {\it Write} trycks. Därefter kan bitfilen laddas under fliken {\it Config}.
 Bitfilen kan väljas och därefter programmeras genom att trycka på {\it
@@ -34,12 +34,13 @@ Vid laddning till minnet kan en startadress väljas. Om ett program som startar
 i början av filen ska laddas bör det läggas på adressen \mono{0x7c000} eftersom
 \mono{0x8000} leder dit med den minnesmappning som är inställd vid uppstart. Om
 en hel ROM-dump ska laddas såsom TI-83p:s operativsystem ska den läggas på
-adress \mono{0x00000} eftersom miniräknarens ROM börjar på där. Hur
-miniräknarens minne ligger i det fysiska minnet beskrivs i sektion
-\ref{sec:mmap} på sidan \pageref{sec:mmap}.
+adress \mono{0x00000} eftersom miniräknarens ROM börjar där. Hur miniräknarens
+minne ligger i det fysiska minnet beskrivs i sektion \ref{sec:mmap} på sidan
+\pageref{sec:mmap}.
 
-Om ett ROM laddas kommer den hamna i halt-läge och vänta på att användaren
-trycker på ON-knappen. ON-knappen är vänster Ctrl på PS/2-tangentbordet.
+Om operativsystemet har laddats kommer det hamna i halt-läge och vänta på att
+användaren trycker på ON-knappen. ON-knappen är vänster Ctrl på
+PS/2-tangentbordet.
 
 \subsection{Gränssnitt}
 \begin{SCfigure}
@@ -50,8 +51,8 @@ trycker på ON-knappen. ON-knappen är vänster Ctrl på PS/2-tangentbordet.
 
 VGA-skärmen används för att visa miniräknarens LCD-skärm samt interna signalers
 värden för debuggingsyfte. De olika värdena inkluderar bland annat processorns
-interna register, bussar och tillstånd, samt många portar på miniräknaren och
-den nuvarande minneskartläggningen.
+interna register, bussar och tillstånd, samt portar på miniräknaren och den
+nuvarande minneskartläggningen.
 
 Alla miniräknarens tangenter är kartlagda 1:1 till olika tangenter på
 tangentbordet. Se tabell \ref{app:kbd} för vilka knappar som är bundna till
@@ -71,7 +72,7 @@ alla brytare är nere kör processorn som vanligt på \SI{6}{\mega\hertz}.
 
 \begin{labeling}{indentzzzzzzzzz}
 \item[\mono{stop}]
-    Aktivera för att stanna CPU:n och TI-ASIC:en.
+    Stannar CPU:n och TI-ASIC:en.
 \item[\mono{cpu\_freq}]
     Välj processorns frekvens enligt
     \begin{tabular}{rrrr}
@@ -92,7 +93,7 @@ alla brytare är nere kör processorn som vanligt på \SI{6}{\mega\hertz}.
     Fortsätter processorn efter brytning. Används för att stega igenom
     instruktioner eller för att fortsätta efter en brytpunkt.
 \item[\mono{disable\_int}]
-    Förhindra avbrott, \mono{int}-signalen går aldrig aktiv om denna är på.
+    Förhindrar avbrott, \mono{int}-signalen går aldrig aktiv om denna är på.
 \item[\mono{break\_sel}]
     Välj brytpunkt enligt
     \begin{tabular}{rl}

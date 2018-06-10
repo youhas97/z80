@@ -74,10 +74,19 @@ löstes under ett par dagar.
 
 \subsection{Utökningar}
 Många av TI-miniräknarna använder sig av Z80-processorn men med små skillnader
-på räknarna som också skulle kunna implementeras. De komponenter som är
-gemensamma kan separareras från de komponenter som skiljer. För varje
-miniräknare kan dessa komponenter implementeras. En av dessa miniräknare som
-kan implementeras är förstås TI-84p.
+på räknarna som också skulle kunna implementeras. De delar som är gemensamma
+kan separareras från de komponenter som skiljer. För varje miniräknare kan
+dessa komponenter implementeras. En av dessa miniräknare som kan implementeras
+är förstås TI-84p.
+
+De resterande delarna av TI-83p:an skulle också kunna implementeras.
+Exekveringsmasken och ROM-skrivskyddet skulle tillåta exekvering av illvilliga
+eller felaktiga program utan att behöva återställa ROM. Länkporten skulle
+dessutom kunna implementeras, till exempel med UART-porten. Vissa utvecklare
+har använt länkporten för att implementera flerspelarlägen för sina spel. Om
+två FPGA:s kopplades samman skulle två personer kunna spela tillsammans med var
+sin dedikerad skärm och tangentbord. Länkporten skulle dessutom kunna användas
+för att ladda program och annan data till och från en dator.
 
 Z80-processorn skulle dessutom kunna användas för att bygga andra datorer som
 inte är TI-miniräknare. Processorn är fullt kompatibel med Intel 8080. Datorer

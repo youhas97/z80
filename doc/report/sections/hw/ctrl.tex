@@ -11,16 +11,22 @@ kontrollsignaler.
 
 \paragraph{Instruktionsregistret \mono{IR}}
 \mono{IR} är det register som instruktioner direkt laddas till när de läses
-från minnet. Här lagras de fram till att nästa instruktion laddas in. Om en
-instruktion har ett prefix lagras först prefixet i \mono{IR} och skrivs kort
-därefter över med ett nytt prefix eller en instruktion.
+från minnet. Registret är åtta bitar stort men en instruktion kan vara en, två
+eller tre bytes lång. Instruktioner som är större än en byte består av
+prefix-bytes följt av en instruktions-byte. Prefixen avgör vilken grupp
+instruktionen tillhör. I de fall \mono{IR} tar emot ett prefix kommer en ny
+byte laddas direkt. Först när \mono{IR} har laddat instruktions-byte kan
+instruktionskodaren avgöra vilken instruktion som ska exekvera. Instruktionen
+lagras då i \mono{IR} fram till att nästa instruktion laddas in.
 
 \paragraph{Tillstånd}
 Tillståndsmaskinen har fem olika tillståndsvariabler; läget \mono{mode},
 avbrottsläget \mono{im}, instruktionsprefixet \mono{prefix}, maskincykeln
 \mono{M} och T-tillståndet \mono{T}. Tillståndsmaskinen lagrar dessa och sänder
 dem till instruktionskodaren. I blockschema \ref{diag:z80} är alla dessa
-signaler inkluderade i signalen \mono{cpu\_state}.
+signaler inkluderade i signalen \mono{cpu\_state}. Figur \ref{fig:tim-states}
+visar vilka värden dessa tillstånd antar under exekveringen av ett kort
+exempelprogram.
 
 \begin{SCfigure}
     \centering
@@ -30,18 +36,18 @@ signaler inkluderade i signalen \mono{cpu\_state}.
     \label{fig:tim-states}
 \end{SCfigure}
 
-\mono{T} är ett heltal mellan 1 och 6 som avgör vilken klockpuls av en
-maskincykel processorn är i. En maskincykel kan bestå av 3 till 6 klockpulser.
-Med andra ord ökas \mono{T} med 1 varje klockpuls förutom när processorn byter
-maskincykel, då sätts \mono{T} till 1 igen.
+\mono{T} är ett heltal mellan 1 och 6 som avgör vilket klockintervall av en
+maskincykel processorn är i. En maskincykel kan bestå av 3 till 6
+klockintervaller. Med andra ord ökas \mono{T} med 1 varje klockintervall
+förutom när processorn byter maskincykel, då sätts \mono{T} till 1 igen.
 
-\mono{M} är ett heltal mellan 1 och 5 men som avgör vilken del av en
-instruktion processorn består i. Vid instruktioner som består av flera ord
-kommer maskincykeln gå tillbaka till 1 vid varje hämtning. Det här är för att
-göra instruktionsdekodaren enklare. Instruktionshämtning sker därmed endast på
+\mono{M} är ett heltal mellan 1 och 5 som avgör vilken cykel av en instruktion
+processorn befinner sig i. Vid instruktioner som består av flera ord kommer
+maskincykeln gå tillbaka till 1 vid varje hämtning. Det här är för att göra
+instruktionsdekodaren enklare. Instruktionshämtning sker därmed endast på
 maskincykel 1. Det innebär dessutom att liknande instruktioner med olika prefix
 kan återanvändas eftersom allas exekveringsfas börjar på maskincykel 1. Till
-exempel instruktionerna \mono{add hl,sp} (39) och \mono{add ix,sp} (DD39) är
+exempel, instruktionerna \mono{add hl,sp} (39) och \mono{add ix,sp} (DD39) är
 identiska förutom att de har förskjutna maskincyklar och destinationsregistret
 har olika addresser. Deras maskincyklar visas i figur \ref{fig:mcorr}.
 
@@ -52,10 +58,10 @@ har olika addresser. Deras maskincyklar visas i figur \ref{fig:mcorr}.
         maskincykel & 1 & 2 & 3 & 4 \\ \hline
         \multicolumn{5}{l}{\mono{add hl,sp}} \\ \hline
         prefix      & \multicolumn{4}{l|}{\mono{main}} \\ \hline
-        fas         & hämta 39 & addera låga & addera höga & färdig \\ \hline
+        operation   & hämta 39 & addera låga & addera höga & färdig \\ \hline
         \multicolumn{5}{l}{\mono{add ix,sp}} \\ \hline
         prefix      & \mono{main} & \multicolumn{3}{l|}{\mono{dd}} \\ \hline
-        fas         & hämta DD & hämta 39 & addera låga & addera höga \\ \hline
+        operation   & hämta DD & hämta 39 & addera låga & addera höga \\ \hline
     \end{tabular}
     \caption{tidsdiagram för instruktionerna \mono{add hl,sp} och
             \mono{add ix,sp}} utan korrigering av maskincyklar.
@@ -64,7 +70,7 @@ har olika addresser. Deras maskincyklar visas i figur \ref{fig:mcorr}.
 
 Genom att sätta maskincykeln till 1 vid andra hämtningen hamnar maskincyklarna
 i fas och instruktionsdekodaren kan ge identiska kontrollsignaler för båda
-instruktioner utöver addressen till destinationsregistret.
+instruktioner, utöver addressen till destinationsregistret.
 
 Prefix-tillståndet tillsammans med \mono{IR} används för att avgöra vilken
 instruktion som ska exekveras. Det finns åtta olika prefix; \mono{main} för
@@ -102,20 +108,20 @@ det föregående värdet i \mono{IR} som kan ses i figur \ref{fig:tim-states} vi
 Det sista tillståndet i processorns tillståndsmaskin är \mono{mode} som kan
 anta de tre olika tillstånden \mono{exec}, \mono{halt} och \mono{interrupt}.
 Normalt sätt är processorn i \mono{exec}. Då kommer instruktionsdekodaren
-exekvera instruktioner utefter \mono{IR} prefixet och även \mono{IM}. I
-\mono{halt} däremot kommer processorn fortsätta exekvera instruktioner men den
-hämtar inte nya instruktioner under maskincykel 1. Normalt sätt hamnar
-processorn i \mono{halt} från \mono{HALT}-instruktionen. När \mono{HALT}
-instruktionen avslutas övergår processorn till \mono{halt}-läge och
-maskincykel 1 men eftersom den inte hämtar en ny instruktion kommer den
-exekvera \mono{HALT} om och om igen tills processorn får ett avbrott eller
-återställs. Det sista läget är \mono{interrupt} som väljs när ett avbrott
-sker. Anledningen till att det finns både ett \mono{interrupt}-läge och ett
-\mono{int}-prefix är för att även om ett avbrott har skett kan en överlappande
-instruktion behöva exekvera färdigt innan avbrottsekvensen körs.
-\mono{interrupt}-läget förhindrar behöver förhindra att en ny instruktion som
-inte ännu ska exekveras hämtas och att programräknaren inte ökas innan den ska
-sparas till stacken.
+exekvera instruktioner som vanligt. I läget \mono{halt} däremot kommer
+processorn fortsätta exekvera instruktioner men utan att hämta nya
+instruktioner under maskincykel 1. Processorn kan hamna i \mono{halt}-läge från
+\mono{halt}-instruktionen. När \mono{halt}-instruktionen avslutas övergår
+processorn till \mono{halt}-läge och maskincykel 1 men eftersom den inte hämtar
+en ny instruktion kommer den exekvera \mono{halt} igen. Det här repeteras fram
+till att processorn får ett avbrott eller återställs. Det sista läget är
+\mono{interrupt} som väljs när ett avbrott sker. Anledningen till att det finns
+både ett \mono{interrupt}-läge och ett \mono{int}-prefix är för att även om ett
+avbrott har skett kan en överlappande instruktion behöva exekvera färdigt innan
+avbrottsekvensen körs. Dess prefix är då nödvändigt att behålla.
+\mono{interrupt}-läget förhindrar att en ny instruktion som inte ännu ska
+exekveras hämtas och att programräknaren inte ökas innan den ska sparas till
+stacken.
 
 \paragraph{Kontrollsignaler}
 Kontrollsignalerna är uppdelade i tre grupper; extern kontrollbus,
@@ -126,7 +132,7 @@ tillståndskontroll samt interna kontrollsignaler.
 Den externa kontrollbussen har sex utsignaler som instruktionsdekodaren
 aktiverar; \mono{M1}, \mono{MREQ}, \mono{IORQ}, \mono{RD} och \mono{WR}.
 \mono{RD} och \mono{WR} används för att signalera läsning eller skrivning till
-och från antingen minnet eller IO-portar. Processorn signalerar vilket med
+och från antingen minnet eller en IO-port. Processorn signalerar vilket med
 hjälp av \mono{MREQ} och \mono{IORQ}. \mono{M1} används för att signalera om
 CPU:n är i maskincykel 1.
 
@@ -134,7 +140,8 @@ CPU:n är i maskincykel 1.
 Kontrollsignalerna för tillståndsmaskinen avgör processorns nästa tillstånd.
 Signalerna är \mono{set\_m1}, \mono{cycle\_end}, \mono{instr\_end},
 \mono{mode\_next} och \mono{im\_next}. I blockschema \ref{diag:z80} är dessa
-samlade under signalen \mono{ctrl}.
+samlade under signalen \mono{ctrl}. Figur \ref{fig:tim-statectrl} visar hur
+dessa signaler påverkade tillståndet under föregående exempel.
 
 \begin{SCfigure}
     \centering
@@ -147,7 +154,7 @@ samlade under signalen \mono{ctrl}.
 \mono{set\_m1} används för syftet beskrivet ovan; att synkronisera liknande
 instruktioner för att kunna återanvända hårdvara i instruktionsdekodaren till
 flera instruktioner. Den används endast efter hämtning av prefix så att varje
-instruktion alltid börjar exekvera under \mono{M1T4}
+instruktion alltid börjar exekvera under \mono{M1T4}.
 
 \mono{cycle\_end} används för att signalera att den nuvarande cykeln är
 avslutad. I slutet av varje maskincykel går \mono{cycle\_end} aktiv så att
@@ -155,25 +162,29 @@ tillståndsmaskinen återställer \mono{T}-tillståndet till \mono{T1} och ökar
 \mono{M} med ett. På liknande sätt går \mono{instr\_end} alltid aktiv i slutet
 av en instruktion. När den går aktiv återställs maskincykeln till \mono{M1},
 \mono{mode} antar värdet av \mono{mode\_next} och \mono{im} antar värdet av
-\mono{im\_next}. Notera dock att instruktionen fortsätter att exekvera under
-nästa maskincykel efter att \mono{instr\_end} har gått aktiv. Först när
-\mono{IR} har laddats med nästa instruktion (T4) är det nästa instruktion som
-exekveras. \mono{mode\_next} och \mono{im\_next} vanligtvis antar det nuvarande
-värdet av \mono{mode} respektive \mono{im} och antar endast ett annat värde då
-\mono{instr\_end} går aktiv om ett byte ska ske.
+\mono{im\_next}. \mono{instr\_end} gör även att \mono{int}-signalen
+kontrolleras. På så sätt kan avbrott endast ske mellan två instruktioner.
+Notera att instruktionen fortsätter att exekvera under nästa maskincykel efter
+att \mono{instr\_end} har gått aktiv. Först när \mono{IR} har laddats med nästa
+instruktion --- vid \mono{T4} nästa maskincykel --- är det nästa instruktion
+som exekveras. Vid avbrott innebär detta också att processorn kan först börja
+exekvera ett \mono{im}-läge vid \mono{T4} eftersom en instruktion kan
+fortfarande exekvera från \mono{T1} till \mono{T3}. \mono{mode\_next} och
+\mono{im\_next} antar vanligtvis det nuvarande värdet av \mono{mode} respektive
+\mono{im} och antar endast ett annat värde då \mono{instr\_end} går aktiv om
+ett byte ska ske.
 
 Processorn har även en grupp kontrollsignaler för alla andra komponententer
-inuti processorn som alla tillhör ett långt kontrollord. För att ge en
+inuti processorn. Dessa signaler tillhör ett långt kontrollord. För att ge en
 överblick inför de resterande två sektionerna följer en kort beskrivning av
 varje signal i kontrollordet.
 
 \begin{labeling}{indentzzZzZz}
 \item[\mono{dbus\_src}]
     Komponentens utdata som ska muxas till databussen. Kan komma från
-    \mono{dbufi}, registerfilen, \mono{TMP} eller ALU:n samt en sträng av
-    nollor.
+    \mono{dbufi}, registerfilen, \mono{TMP} eller ALU:n.
 \item[\mono{abus\_src}]
-    Källan till adressbussen; registerfilen, adressadderaren eller
+    Källan till adressbussen; antingen registerfilen, adressadderaren eller
     \mono{rst}-adressen.
 \item[\mono{rf\_daddr}]
     Adressen till ett 8-bitars register i registerfilen vars värde läggs som
@@ -190,26 +201,33 @@ varje signal i kontrollordet.
 \item[\mono{rf\_swp}]
     Utför ett byte i registerfilen. Signalen kan anta något av \mono{none},
     \mono{af}, \mono{reg}, \mono{dehl} och \mono{afwz}. \mono{af} växlar
-    värdena på \mono{AF} och \mono{AF'}.  \mono{reg} växlar värdena på
+    värdena på \mono{AF} och \mono{AF'}. \mono{reg} växlar värdena på
     \mono{BC} med \mono{BC'}, \mono{DE} med \mono{DE'} och \mono{HL} med
     \mono{HL'}. \mono{dehl} växlar värdena av \mono{DE} och \mono{HL}.
     \mono{afwz} växlar värdena mellan \mono{AF} och \mono{WZ}.
 \item[\mono{rf\_ldpc}]
     Ladda värdet av registret som \mono{rf\_aaddr} pekar på till \mono{PC} i
-    registerfilen.
+    registerfilen. Detta används bland annat vid hoppinstruktioner. Det här
+    krävs eftersom det vanligtvis inte går att läsa från en adress och skriva
+    till en annan adress i registerfilen samtidigt. \mono{PC} behöver dock
+    kunna anta värdet av andra register snabbt för instruktioner som bland
+    annat \mono{jp (hl)}.
 \item[\mono{f\_rd}]
-    Läs flaggor till \mono{F} som ligger i registerfilen.
+    Läs flaggor till \mono{F} som ligger i registerfilen via en dedikerad buss
+    från ALU:n.
 \item[\mono{pv\_src}]
-    Var värdet av \mono{P}-flaggan ska komma ifrån.
+    Avgör var värdet av \mono{P}-flaggan ska komma ifrån; \mono{IFF}, ALU:n
+    eller en komparator för adressbussen.
 \item[\mono{ir\_rd}]
     Läs från databussen till instruktionsregistret.
 \item[\mono{addr\_op}]
-    Operation som ska utföras på adressbussens värde innan det går till
-    registerfilen. Kan vara \mono{none}, \mono{inc} eller \mono{dec}.
+    Avgör vilken operation som ska utföras av adressinkrementeraren på
+    adressbussens värde innan det går till registerfilen. Kan vara \mono{none},
+    \mono{inc} eller \mono{dec}.
 \item[\mono{rst\_addr}]
     Bitar 3-5 av adressen vid en \mono{rst}-instruktion.
 \item[\mono{iff\_next}]
-    Nästa värde av \mono{iff}, vippan för avbrott.
+    Nästa värde av \mono{IFF}, vippan för avbrott.
 \item[\mono{alu\_op}]
     Instruktionen som ska utföras av ALU:n.
 \item[\mono{act\_rd}]

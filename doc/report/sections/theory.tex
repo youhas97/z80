@@ -51,8 +51,8 @@ Dessa kan lagra undan registrernas värden temporärt vid till exempel avbrott.
 \item[\mono{B}, \mono{C}]
     \mono{B} används av vissa instruktioner som räknare, till exemplet
     \mono{cpir}. \mono{C} bland annat för att lagra portnumret vid en
-    \mono{in}- eller \mono{ut}-instruktion. Parvis används de två registerna
-    som biträknare av vissa instruktioner.
+    \mono{in}- eller \mono{ut}-instruktion. Parvis används de två registren som
+    biträknare av vissa instruktioner.
 \item[\mono{D}, \mono{E}]
     Används bland annat parvis för att lagra minnesadresser. Till exempel som
     destinationsadress för \mono{ldir} som flyttar ett block i minnet.
@@ -227,8 +227,9 @@ tangentbordskontroller, minnesmappning och minnesskydd.
 
 TI-83p använder sig inte av alla Z80:ns funktioner. Bland annat används inte
 {\it nonmaskable interrupts} eftersom ASIC:en aldrig skickar en
-\mono{NMI}-signal. Det här innebär att IFF2 aldrig kommer skilja sig från IFF1.
-{\it Bus request} används aldrig då \mono{BUSRQ} aldrig går aktiv.
+\mono{NMI}-signal. Det här innebär att \mono{IFF2} aldrig kommer skilja sig
+från \mono{IFF1}.  {\it Bus request} används aldrig då \mono{BUSRQ} aldrig går
+aktiv.
 
 Vid avbrott lägger ASIC:en ingen data på databussen vilket innebär att
 avbrottssläge 0 inte går att använda, då instruktionen är obestämd.

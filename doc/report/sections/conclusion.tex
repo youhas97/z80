@@ -3,70 +3,75 @@
 \begin{document}
 \newpage
 \section{Slutsats}
-Projektets mål uppnåddes; en replikation av en Z80-processor har byggdes och
+Projektets mål har uppnåtts; en replikation av en Z80-processor byggdes och
 användes för att bygga en TI-miniräknare. 
 
 \subsection{Slutmål}
-Slutmålet var att bygga en TI-84 Plus men en TI-83p visade sig vara väldigt lik
-utifrån men ha färre saker som behövde implementeras inuti. TI-84p har till
-exempel en dedikerad komponent för att räkna ut MD5-hashes som TI-83p hanterar
-med mjukvara. TI-84p har även en andra uppsättning av timers som går efter en
-kristall och kan justeras mer utförligt av programmeraren. Jämfört med TI-83p
-har TI-84p dessutom ett väldigt stort antal portar som gruppen var osäkra på
-vilka som var nödvändiga och om några kunde anta konstanta värden. I efterhand
-verkar beslutet att istället göra en TI-83p bra eftersom det sparade mycket
-tid. Med den tid som projektet gick var det dessutom svårt att hinna med och få
-TI-83p att fungera helt.
+Slutmålet var egentligen att bygga en TI-84 Plus men en TI-83p visade sig vara
+väldigt lik utifrån men ha färre saker som behövde implementeras inuti. TI-84p
+har till exempel en dedikerad komponent för att räkna ut MD5-hashes som däremot
+TI-83p istället hanterar med mjukvara. TI-84p har även en andra uppsättning av
+timers som går efter en kristall och kan justeras mer utförligt av
+programmeraren. Jämfört med TI-83p har TI-84p dessutom ett väldigt stort antal
+portar som gruppen var osäkra på vilka som var nödvändiga och om några kunde
+anta konstanta värden eller inte. I efterhand verkar beslutet att istället göra
+en TI-83p mycket klokt eftersom det verkar ha sparat mycket tid. Det var svårt
+att hinna med att slutföra projektet i tid trots att TI-83p var enklare.
 
 \subsection{Tillvägagång}
-I början av projektet skedde allt arbete med simulering. Det första som antogs
-var processorns ALU och registerfil för att därefter kunna testa utföra enkla
-instruktioner. Mycket tid gick åt till att göra ALU:n i början, med tiden blev
-den enklare och enklare. Något som har varit till oerhört stor nytta vid
-designen av ALU:n är enhetstester. För varje instruktion som implementerades
-skrevs ett antal enhetstester i en testbänk efter manualen och emulatorernas
-beteende. På så sätt kunde ALU:n justeras till att testerna gick igenom och
-instruktionen var rätt implementerad. Senare vid varje ändring kördes alla
-tester och om något gick fel visade testet vilken instruktion, med vilka
-operander och vad som gick fel, resultatet eller någon flagga. Utan dessa test
-hade det varit väldigt lätt att misstag vid ändringar gick oupptäckta tills
-långt senare.
+I början av projektet skedde allt arbete med simulering. Det första som
+börjades implementeras var processorns ALU och registerfil för att därefter
+kunna testa att utföra enkla instruktioner. Mycket tid gick åt till att göra
+ALU:n. Den blev komplex från början men med tiden blev den enklare och enklare.
+Något som har varit till oerhört stor nytta vid itereringen av alla
+ALU-designer är enhetstester. För varje instruktion som implementerades skrevs
+ett antal enhetstester i en testbänk utefter manualen och emulatorernas
+beteende. På så sätt kunde ALU:n justeras fram till att testerna gick igenom
+och instruktionen var rätt implementerad. Senare, vid varje modifiering på
+ALU:n, kördes alla tester och om något gick fel visade testet vilken
+instruktion som var felaktig, med vilka operander och en jämförelse mellan det
+felaktiga resultatet och det förväntade värdet. Utan de här testen hade det
+varit väldigt lätt att misstag vid ändringar gick oupptäckta tills långt
+senare.
 
 När ALU:n och registerfilen fungerade påbörjades instruktionsdekodaren och de
 andra delarna av processorn. Ett simulerat minne byggdes också för att lagra
 program. Då kunde processorn börja köra enkla program som lästes från minnet.
 Därefter utökades processorn med fler instruktioner och testning med FPGA:n
 påbörjades. I det här stadiet var enhetstester också oerhört användbara. Nu
-skrevs tester med Z80-assembly kördes på processorn. Vid en implementation av
-en instruktion skrevs ett program i en textfil som använde instruktionen och
-testade resultatet. Därefter användes ett skript för att assembla programmet,
-simulera projektet med GHDL och ladda programmet från filen till det simulerade
-minnet. Då kunde vågorna från simulationen ses med hjälp av GTKWave.
-Programmen som skrevs utförde flera tester i rad, om något test misslyckades
-hoppade programmet till en rutin som lagrade en felkod i ackumulatorn och
-halt:ade processorn. Om alla test gick igenom lagrades en annan kod och
-processorn halt:ade. På så sätt kunde ett stort test köras för att testa flera
-instruktioner i taget för att snabbt hitta misstag vid ändringar.
+skrevs tester med Z80-assembly som därefter exekverades av processorn. Vid
+implementationen av instruktioner skrevs ett program i en textfil som använde
+instruktionen och testade dess resultat. Därefter användes ett skript för att
+assembla programmet, simulera projektet med GHDL och ladda programmet från
+objektfilen till det simulerade minnet. Därefter kunde vågorna för processorns
+exekvering av programmet ses med hjälp av GTKWave. Programmen som skrevs
+utförde dessutom flera tester i rad, om något test misslyckades hoppade
+programmet till en rutin som lagrade en felkod i ackumulatorn och halt:ade
+processorn. Då kunde testet som misslyckades snabbt identifieras och lösas. Om
+alla test däremot gick igenom lagrades en annan kod och processorn halt:ade. På
+så sätt kunde ett stort antal test köras på en och samma gång för att testa
+flera instruktioner och därmed direkt hitta fel vid modifikationer på
+processorn.
 
 Det här var smidigt för att testa fel på individuella instruktioner, men det
 var svårt att använda för att felsöka problem som uppstod när operativsystemet
 och andra program så småningom testades. Dessa kör miljontals instruktioner och
 använder mycket loopar vilket inte går att simulera inom en rimlig tid. Dessa
-var tvungna att köras på FGPA:n. För att kunna felsöka program på FPGA:n
-skapades en display på skärmen som visade värdet av alla register. Dessa gör
-inte så stor nytta när processorn kör i \SI{6}{\mega\hertz} så brytpunkter och
-instruktionsstegning implementerades också. På så sätt gick det relativt fort
-att stega igenom programmet tills något gick fel. Fel hittades genom att
-jämföra resultatet med en emulator. När man gick för långt kunde man spara
-adressen, sätta en brytpunkt och starta om. Det här ledde till att rätt många
-fel med processorn upptäcktes och fixades. Vissa problem uppstod dock rätt
-långt in i programmet och var inte alls lätta att hitta snabbt på det här
-sättet.
+var därmed tvungna att köras på FGPA:n där vi inte kunde se något vågdiagram.
+För att kunna felsöka dessa program på FPGA:n skapades en display på skärmen
+som visade värdena på alla register. Dessa gör inte så stor nytta när
+processorn kör i \SI{6}{\mega\hertz} så brytpunkter och instruktionsstegning
+implementerades också. På så sätt gick det relativt fort att stega igenom
+programmet tills något gick fel. Fel hittades genom att jämföra resultatet med
+en emulator. När man gick för långt kunde man spara adressen, sätta en
+brytpunkt och starta om. Det här ledde till att rätt många fel med processorn
+upptäcktes och fixades. Vissa problem uppstod dock rätt långt in i programmet
+och var tog väldigt långt tid att nå på det här sättet.
 
 Vid ett tillfälle var det tydligt att något gick fel eftersom processorn
 hamnade på en adress som emulatorn aldrig kom till. Då implementerades ett sätt
 att spåra alla hopp som utförs av processorn. Spåraren aktiverades och det
-felaktiga programmet kördes. Processorn kom till fel ställe och nådde en
+felaktiga programmet kördes. Processorn gick fel och hamnade så småningom på en
 \mono{halt}. Då sparades alla hopp till en fil och med binärsökning kunde det
 exakta stället där processorn kommit fel hittas snabbt. Denna metod gjorde att
 felsökningen gick oerhört fort i slutet av projektet och alla kvarstående fel
@@ -82,24 +87,25 @@ dessa komponenter implementeras. En av dessa miniräknare som kan implementeras
 De resterande delarna av TI-83p:an skulle också kunna implementeras.
 Exekveringsmasken och ROM-skrivskyddet skulle tillåta exekvering av illvilliga
 eller felaktiga program utan att behöva återställa ROM. Länkporten skulle
-dessutom kunna implementeras, till exempel med UART-porten. Vissa utvecklare
+dessutom kunna implementeras, med till exempel UART-porten. Vissa utvecklare
 har använt länkporten för att implementera flerspelarlägen för sina spel. Om
 två FPGA:s kopplades samman skulle två personer kunna spela tillsammans med var
 sin dedikerad skärm och tangentbord. Länkporten skulle dessutom kunna användas
-för att ladda program och annan data till och från en dator.
+för att mycket enklare ladda program och annan data till och från en dator.
 
 Z80-processorn skulle dessutom kunna användas för att bygga andra datorer som
-inte är TI-miniräknare. Processorn är fullt kompatibel med Intel 8080. Datorer
-som använder den skulle också kunna byggas. Exempelvis skulle en dator som kan
-köra CP/M-operativsystemet kunna byggas.
+inte är TI-miniräknare. Processorn är fullt kompatibel med Intel 8080, datorer
+som använder den skulle därmed också kunna byggas. Exempelvis skulle en dator
+som kan köra CP/M-operativsystemet möjligtvis kunna byggas.
 
-En annan möjlig utökning är att emulera miniräknarens LCD-skärm bättre. Vår
-VGA-skärm har nu endast två olika färger men LCD-skärmens pixlar har olika
-intensitet. När en pixel aktiveras går den kontinuerligt från släckt till tänd
-och inte instant som i vår implementation. Det här används av många spel för
-att skapa gråskala genom att snabbt sätta på och stänga av pixlar. Det här
-skulle kunna implementeras genom att skapa ett andra bildminne som lagrar varje
-pixels intensitet. Med en viss frekvens kan pixlars intensitet inkrementeras
-eller dekrementeras beroende på om pixeln håller på att släckas eller tändas.
+En annan möjlig utökning är att emulera miniräknarens LCD-skärm bättre.
+Implementation har nu endast två olika färger men egentligen har LCD-skärmens
+pixlar varierande intensitet. När en pixel aktiveras går den kontinuerligt från
+släckt till tänd och inte instant som i den här implementationen. Det här
+används av många spel för att skapa gråskala genom att snabbt sätta på och
+stänga av pixlar. Det här skulle kunna implementeras genom att skapa ett andra
+bildminne som lagrar varje pixels intensitet. Med en viss frekvens kan pixlars
+intensitet inkrementeras eller dekrementeras beroende på om pixeln håller på
+att släckas eller tändas.
 
 \end{document}

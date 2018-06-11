@@ -1,9 +1,13 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\clearpage
 \subsection{Externa kontroller}
+Tre kontroller har byggts för att skapa gränssnitt mellan de externa
+komponenterna och TI-ASIC:en. De inkluderar; ett minnesgränssnitt för det
+externa minnet, en VGA-motor för VGA-skärmenen och en tangentbordskodare för
+PS/2-tangentbordet.
+
 \subfile{sections/hw/mif}
-\subfile{sections/hw/kbd}
 \subfile{sections/hw/vga}
+\subfile{sections/hw/kbd}
 \end{document}

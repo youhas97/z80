@@ -3,10 +3,10 @@
 \begin{document}
 \subsubsection{Minneskontroller}
 \label{sec:mmap}
-TI-83p använder sig av två separata minnen men den här implementation använder
-endast ett stort kontinuerligt minne. ROM har lagts som de första 512 KiB och
-RAM har lagts som de 32 KiB direkt efter ROM. \mono{RAM 1} ligger dock före
-\mono{RAM 0}. Den fysiska placeringen kan ses i figur \ref{fig:physical}.
+TI-83p använder sig av två separata minnen men i implementation används endast
+ett stort kontinuerligt minne. ROM har lagts som de första 512 KiB och RAM har
+lagts som de 32 KiB direkt efter ROM. \mono{RAM 1} ligger dock före \mono{RAM
+0}. Den fysiska placeringen kan ses i figur \ref{fig:physical}.
 \begin{figure}[H]
     \center
     \small\ttfamily\arraybackslash
@@ -32,7 +32,7 @@ Minneskontrollerns uppgift är att översätta den virtuella adressen från
 processorn till den fysiska adressen utefter läget samt page A, B och därefter
 skicka den till det fysiska minnet. Implementationen fungerar genom att först
 bestämma A och B utefter den nuvarande buffern till port \mono{06} och
-\mono{07} och därefter muxa de till de fyra olika platserna utefter det
+\mono{07} och därefter muxa dem till de fyra olika platserna utefter det
 nuvarande läget. Därefter muxas en av dessa fyra pages utefter de högsta
 bitarna i den virtuella adressen. Sedan läggs bitarna i page:n ihop med de låga
 bitarna från den virtuella adressen för att få den exakta fysiska adressen.

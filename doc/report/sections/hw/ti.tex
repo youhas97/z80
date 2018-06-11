@@ -2,12 +2,14 @@
 
 \begin{document}
 \subsection{TI-ASIC}
-TI-ASIC:en innehåller alla de kontrollkomponenter som är del av TI:s
-miniräknare utanför processorn. In till ASIC:en är databussen direkt kopplad
-från processorn. Med hjälp av in/out instruktioner och adresser kan datan muxas
-till eller från rätt port. De olika portarna leder därefter till en eller flera
-olika komponenter. Blockschema \ref{diag:ti} ger en överblick av denna struktur
-samt vilka komponenter som hanterar vilken in- och utdata.
+TI-ASIC:en innehåller alla de komponenter som är del av TI:s miniräknare
+förutom processorn. Kommunikation mellan processorn och TI-ASIC:ens komponenter
+sker via portsystemet. Vid \mono{in} och \mono{out}-instruktioner muxas data
+till eller från rätt port utifrån adressbussen. De olika portarna leder
+därefter till en eller flera komponenter. Blockschema \ref{diag:ti} ger en
+överblick av denna struktur samt vilka komponenter som hanterar in- och utdata
+för varje port. Nästan alla portar för TI-83p har implementerats. De portar som
+saknas hanterar länkporten, exekveringsmask samt skrivskydd för ROM.
 
 \subfile{sections/hw/pio}
 \subfile{sections/hw/memmap}

@@ -9,6 +9,12 @@
 
 \begin{document}
 \section{Bilaga. VHDL-kod}
+Hårdvarusektionen beskrev implementationen av alla komponenter utifrån ett
+allmänt hårdvaruperspektiv. Dessa implementationer har dock specifierats med
+hjälp av språket VHDL som i sin tur har egna aspekt som kan behöva ytterligare
+förklaring. Den här bilagan går inte igenom VHDL i allmänhet utan aspekt som är
+specifika till den här implementationen i VHDL, såsom kodens struktur och
+användning av olika satser.
 
 \subsection{Filstruktur}
 Källkodens filer är ungefär strukturerade utefter komponenternas hierarki i
@@ -18,50 +24,50 @@ från de sex delmapparna; \mono{dbg}, \mono{ext}, \mono{pkg}, \mono{prm},
 \mono{ti} och \mono{z80}. \mono{dbg} innehåller alla komponenter som används
 för debugging. \mono{ext} innehåller alla externa kontroller. \mono{pkg}
 innehåller VHDL-paket för att deklarera typer och konstanter som används av
-flera olika komponenter. \mono{prm} innehåller allmänna primitiva komponenter
-som kan användas var som helst i projektet, såsom register och räknare.
-\mono{ti} innehåller TI-ASIC:en och alla dess komponenter, \mono{z80} likaså
-för processorn.
+flera komponenter. \mono{prm} innehåller allmänna primitiva komponenter som kan
+användas var som helst i projektet, såsom register och räknare.  \mono{ti}
+innehåller TI-ASIC:en och alla dess komponenter, \mono{z80} likaså för
+processorn.
 
 \subsection{Instruktionsdekodare}
 Hur instruktionsdekodaren är implementerad har inte diskuterats så mycket i
-hårdvaru\-sektionen. Det är för att instruktionsdekodaren syntetiseras endast
-till en stor uppslagstabell av kontrollsignaler. Kontrollsignalerna är dock
-rätt många och det finns många tillstånd för processorn vilket ger en väldigt
-stor uppslagstabell. Det skulle gå att manuellt skriva in värdet för varje alla
-kontrollsignaler för varenda möjliga tillstånd hos processorn. Det är dock inte
-praktiskt och inte heller enkelt att felsöka eller att anpassa om förändringar
-på processorn görs.
+hårdvaru\-sektionen. Det är för att instruktionsdekodaren är hårdvarumässigt en
+stor uppslagstabell av kontrollsignaler. Kontrollsignalerna är dock rätt många
+och det finns många tillstånd för processorn vilket ger en väldigt stor
+uppslagstabell. Att fylla i den här tabellen för hand vore inte praktiskt och
+inte heller enkelt att felsöka eller att anpassa om förändringar på processorn
+görs.
 
-VHDL:s \mono{process}-sats har istället använts för att skapa det här stora
-kombinatoriska nätet. I början av processen sätts alla kontrollsignaler till
-deras neutrala värden. Därefter skrivs de över sekvensiellt inom processen. Då
-behövs endast de signaler som instruktionen använder modifieras.
+Tabellen har istället uttryckts med hjälp av VHDL:s \mono{process}-sats. I
+början av processen sätts alla kontrollsignaler till deras neutrala värden.
+Till exempel lässignaler sätts till av. Därefter skrivs de över sekvensiellt
+inom processen. Då behövs endast de signaler som instruktionen använder
+modifieras.
 
 Instruktioner är implementerade som funktioner som tar emot en ram \mono{f} för
 alla kontrollsignaler och returnerar en ny ram med de modifierade
 kontrollsignalerna. Ramen inkluderar kontrollordet \mono{cw},
-tillståndskontroll \mono{ct} och kontrollbussen \mono{cb}. Den nya ramen
-skriver därefter över den tidigare ramen. På det här viset kan varje
+tillståndskontrollssignalerna \mono{ct} och kontrollbussen \mono{cb}. Den nya
+ramen skriver därefter över den tidigare ramen. På det här viset kan varje
 instruktion beskrivas enkelt och syntesverktyget kan bygga ett kombinatoriskt
 nät utefter ramens värde i slutet av processen.
 
-Ett exempel på en hur en funktion kan skrivas visas i figur \ref{fig:ld}. Alla
+Ett exempel på hur en funktion kan skrivas visas i figur \ref{fig:ld}. Alla
 instruktioner som laddar ett 8-bitars register till ett annat 8-bitars register
 använder den här funktionen. Den här funktionen fyller uppslagstabellen för
 alla möjliga tillstånd (alla maskincyklar, alla T-cyklar, alla avbrottslägen
 osv.) då en \mono{ld r,r}-instruktion ligger i \mono{IR} och prefixet är
-\mono{main}.  Utifrån funktionen är det lätt att följa instruktionens förlopp.
+\mono{main}. Utifrån funktionen är det lätt att följa instruktionens förlopp.
 Under det första klockintervallet, \mono{M1T4}, laddas källregistrets värde
 till \mono{TMP}. Under \mono{M1T5} laddas \mono{TMP} till
-destinationsregistret. Därefter är instruktionen färdig.
+destinationsregistret. Därefter är instruktionen färdig. För alla andra
+tillstånd behålls de neutrala kontrollsignalerna.
 \begin{figure}
     \inputminted{vhdl}{lst/vhdl_instr.vhd}
     \caption{Funktionen för alla \mono{ld r,r}-instruktioner.}
     \label{fig:ld}
 \end{figure}
 
-\clearpage
 En annan viktig uppgift av instruktionsdekodaren är att ta reda på vilken
 instruktion som ska utföras. Det här åstadkoms genom att titta på prefixet och
 en uppdelning av den nuvarande instruktionen i \mono{IR}. Se en av
@@ -98,8 +104,8 @@ register:
 \end{equation*}
 Här har \mono{y}-variabeln delats upp i två ytterligare variabler \mono{p} och
 \mono{q}.  I det här fallet pekar \mono{p} ut ett register och \mono{q} avgör
-om det är en \mono{adc}- eller \mono{sbc}-instruktion. Med en \mono{case-is}-sats
-används dessa fem variabler tillsammans för att avgöra exakt vilken instruktion
-som ska exekveras.
+om det är en \mono{adc}- eller \mono{sbc}-instruktion. Med en
+\mono{case-is}-sats används dessa fem variabler tillsammans med det nuvarande
+prefixet för att avgöra exakt vilken instruktion som ska exekveras.
 
 \end{document}

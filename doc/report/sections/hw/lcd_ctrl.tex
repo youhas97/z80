@@ -3,27 +3,27 @@
 \begin{document}
 \subsubsection{LCD-kontroller}
 Implementationen av LCD-kontrollern består av räknare och register för
-\mono{X}, \mono{Y} och \mono{Z} samt ett block-RAM på 7680 bitar. Tre D-vippor
-används även för att hålla koll på läget (\mono{wl}) och pekarens
-rörelseinställningar; upp/ner (\mono{up}) för \mono{X}/\mono{Y}
-(\mono{counter}. Det finns även ett register som lagrar bildminnets utdata för
-läsning från processorn.
+\mono{X}, \mono{Y} och \mono{Z} samt ett block-RAM på 7680 bitar. Tre vippor
+används även för att hålla koll på läget och pekarens riktning; upp/ner för
+\mono{X}/\mono{Y}. Det finns även ett register som lagrar bildminnets utdata
+för läsning från processorn.
 
 \mono{X} består av en upp/ner räknare på sex bitar. Den går upp till 63 och
 sedan går runt till noll igen vid uppräkning. Likaså går den från noll till 63
 vid nedräkning. Dess \mono{CE}-ingång är kopplad till läs/skriv-signalen från
-port \mono{11} AND:ad med D-vippan som väljer mellan \mono{X} och \mono{Y}. På
-så sätt räknar \mono{X} endast om \mono{X} är vald samt att porten skrivs eller
+port \mono{11} AND:ad med vippan som väljer mellan \mono{X} och \mono{Y}. På så
+sätt räknar \mono{X} endast om \mono{X} är vald samt att porten skrivs eller
 läses ifrån. \mono{U/D}-ingången som väljer riktning är direkt kopplad till
-D-vippan som väljer riktning. Räknaren har även en indata port som kommer från
-utdatan till port \mono{10}. Om port \mono{10} skrivs till med de två högsta
+vippan som väljer riktning. Räknaren har även en indataport som är kopplad till
+utdatan för port \mono{10}. Om port \mono{10} skrivs till med de två högsta
 bitarna som "10" kommer räknaren laddas med de 6 lägre bitarna.
 
 \mono{Y} består av en räknare på fem bitar och fungerar på liknande sätt som
 räknaren för \mono{X}. \mono{Y} ska dock räkna olika högt beroende på vilket
-läge som är valt. Vid 6-bitarsläge ska \mono{Y} loopa mellan 0-19 och vid
+läge som är valt. Vid 6-bitarsläge ska \mono{Y} cirkulera mellan 0-19 och vid
 8-bitarsläge mellan 0-14. Här måste dataingången och \mono{CLR}-ingången
-tillsammans med komparatorer användas för att åstadkomma loopning vid randerna.
+tillsammans med komparatorer användas för att åstadkomma cirkulation vid
+randerna.
 
 Bildminnet är ett block-RAM med två 1-bitars dataportar, en för
 läsning/skrivning av processorn och en för läsning av VGA-motorn. Bildminnet
@@ -44,7 +44,7 @@ buffer på rätt plats. Beroende på läget läses sex eller åtta bitar. Den h�
 buffern är dock inte registret som processorn läser ifrån. När processorn läser
 förväntar den sig värdet där pekaren pekade på sist en läsning gjordes.
 Processorn läser värdet från registret och i och med läsningen antar registret
-det nuvarande värdet från den buffern.
+det nuvarande värdet från buffern.
 
 Skrivning fungerar på liknande sätt. Då stannas läsningen och dataporten
 används för skrivning istället. Kontrollern får in en page via port \mono{11}

@@ -5,11 +5,11 @@
 Minnesgränssnittet ansvarar för att översätta TI-ASIC:ens läs- och
 skrivsignaler till det externa minnets kontrollsignaler. Minneskontrollern i
 TI-ASIC:en skickar endast en läs- eller skrivsignal till gränssnittet. Det
-externa minnet har däremot fler kontrollsignaler som bland annat
+externa minnet har däremot dessutom andra kontrollsignaler som bland annat
 \mono{chip\_enable}, \mono{output\_enable} och \mono{write\_enable}. Alla
 kontrollsignaler för minnet kan ses i dess manual.\cite{m45}
 
-\begin{figure}
+\begin{figure}[b]
     \begin{subfigure}{0.5\textwidth}
         \centering
         \ttfamily
@@ -41,12 +41,12 @@ kontrollsignaler för minnet kan ses i dess manual.\cite{m45}
 
 Gränssnittet utför även en annan viktig uppgift. Databussen till minnet är 16
 bitar och minnesadressen pekar ut 16-bitars platser. Z80-processorn lagrar
-förstås endast åtta bitar i taget eftersom dess databuss är åtta bitar. Ett
-alternativ är att endast använda en av bytes:en i varje plats eftersom det
-finns tillräckligt med utrymme. Ett problem med detta är att mjukvaran Adept
-skriver och läser till båda bytes och det leder till att varannan byte missas
-när processorn läser. Istället ser gränssnittet till att adressen halveras och
-datan skrivs eller läses ifrån antingen övre eller undre delen av platsen i
+endast åtta bitar i taget eftersom dess databuss är åtta bitar bred. En lösning
+är att endast använda en av bytes:en i varje plats eftersom det finns
+tillräckligt med utrymme. Ett problem med detta är att mjukvaran Adept skriver
+och läser till båda bytes och det leder till att varannan byte missas när
+processorn läser. Istället ser gränssnittet till att adressen halveras och
+datan skrivs eller läses ifrån antingen den övre eller undre delen av platsen i
 minnet. Vid skrivning används \mono{upper\_byte}- och
 \mono{lower\_byte}-signalerna för att förhindra att den andra byte:n i platsen
 skrivs över. Figur \ref{fig:mif} visar de två olika uppläggen av minnet som

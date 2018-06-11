@@ -9,12 +9,9 @@ men läggs endast på databussen när den specifika porten ska läsas ifrån. Å
 andra sidan skrivs alltid datan från en buffer till porten men buffern läser
 endast från databussen när en skrivning till porten sker. Figur \ref{fig:port}
 visar hur varje port är uppbyggd. Läs och skrivsignalerna går endast vidare
-till den port som är vald med de fem lägsta bitarna av adressbussen.
+till den port som är vald med hjälp av de fem lägsta bitarna av adressbussen.
 Lässignalen \mono{rd} aktiveras vid en \mono{in}-instruktion och \mono{wr}
-aktiveras vid en \mono{out}-instruktion. Åtta av tio egentliga portar för
-TI-83p har implementerats. De portar som saknas hanterar länkporten,
-exekveringsmask samt skrivskydd för ROM.
-
+aktiveras vid en \mono{out}-instruktion. 
 \begin{figure}[b]
     \centering
     \includegraphics{port.eps}
